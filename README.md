@@ -10,7 +10,6 @@ The Bachelor Thesis of Philipp Zimmermann
 ---
 
 ## Basic Understanding of GNNs
-Covers basic understanding of graph neural networks [1]
 
 ### Graphs
 - data structures
@@ -79,8 +78,44 @@ Covers basic understanding of graph neural networks [1]
 - [Zachary's Karate Club problem](https://docs.dgl.ai/tutorials/basics/1_first.html#sphx-glr-download-tutorials-basics-1-first-py)
 
 ### Models
+#### Recurrent Graph Neural Networks - RGNNs
+- aim to learn node representations using RNNS
+- they assume that nodes in the graph exchange messages constantly
+- this exchange continues until a stable equilibrium is achieved
+
+#### Convolutional Graph Neural Networks - CGNNs
+- generalization of of convolutional operations from grid to graph format
+- many layers of convolution
+
+#### Graph Auto-Encoders - GAEs
+- deep neural networks, that generate new graphs
+- use bottleneck principle (GANs)
+- link prediction in [citation networks](https://arxiv.org/pdf/1611.07308.pdf)
+
+#### Spatial-Temporal Graph Neural Networks - STGNNs
+- consider spatial and temporal dependencies
 
 ### Applications
+#### Computer Vision
+- scene graph generation
+  - separate image data
+  - achieve semantic graph and the relationship between the objects
+- Action Recognition
+  - learn patterns in human actions
+  - detect locations of human joints
+  - linked by skeletons
+
+#### Recommendation Systems
+- users and items as nodes
+- model ...
+  - users to user's relationship
+  - items to items relationship
+  - users to items relationship
+- tell importance of an item to a user
+
+#### Natural Language Processing
+- classification of text data
+- relationship between works
 
 ---
 
