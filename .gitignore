@@ -4,3 +4,6 @@ etc/
 lib/
 share/
 pyvenv.cfg
+
+# jupyter notebook
+.ipynb_checkpoints
