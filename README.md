@@ -12,7 +12,7 @@ The Bachelor Thesis of Philipp Zimmermann
 ## Basic Understanding of GNNs
 Covers basic understanding of graph neural networks [1]
 
-#### Graphs
+### Graphs
 - data structures
 - model set of objects and their relationships
 - nodes represent objects
@@ -25,7 +25,7 @@ Covers basic understanding of graph neural networks [1]
   - E : set of edges
 
 
-#### Graph Neural Networks (GNNs)
+### Graph Neural Networks (GNNs)
 - nodes add information from neighbors
 - last layer combines all information
 - output:
@@ -33,29 +33,41 @@ Covers basic understanding of graph neural networks [1]
   - link prediction
   - graph classification
 
-**node classification**
+#### Node classification
 - every node has a label
 - new nodes get labels assigned based on classification
 
-example:
-- two proteins in a network of 16 proteins
-- 0th and 15th are related to a cancerous disease
-- network should classify which proteins are the most related to each other
 
-**link prediction**
+- example:
+  - two proteins in a network of 16 proteins
+  - 0th and 15th are related to a cancerous disease
+  - network should classify which proteins are the most related to each other
+
+#### Link prediction
 - predict likelihood whether two nodes are linked or not
 
-example:
-- social networks
-- predict whether two people know each other or not
 
-#### CNNs and Network Embedding
+- example:
+  - social networks
+  - predict whether two people know each other or not
 
-#### Python Libraries
+#### Graph classification
+- classify graphs into different classes
+- help discovering patterns in user's interaction in social networks
 
-#### Models
 
-#### Applications
+- example:
+  - social network
+  - group users by age
+  - targeted advertisements
+
+### CNNs and Network Embedding
+
+### Python Libraries
+
+### Models
+
+### Applications
 
 ---
 
