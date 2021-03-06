@@ -42,6 +42,13 @@ example:
 - 0th and 15th are related to a cancerous disease
 - network should classify which proteins are the most related to each other
 
+**link prediction**
+- predict likelihood whether two nodes are linked or not
+
+example:
+- social networks
+- predict whether two people know each other or not
+
 #### CNNs and Network Embedding
 
 #### Python Libraries
