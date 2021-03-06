@@ -62,8 +62,21 @@ Covers basic understanding of graph neural networks [1]
   - targeted advertisements
 
 ### CNNs and Network Embedding
+#### Convolutional Neural Networks
+- share weights
+- share local connections
+- consist of many layers
+
+#### Network Embedding
+- transformation of input networks to low dimensional vectors
 
 ### Python Libraries
+- [PyTorch Geometric](https://pytorch-geometric.readthedocs.io/en/latest)
+- [Graph Nets](https://github.com/deepmind/graph_nets)
+- [Deep Graph Library DGL](https://www.dgl.ai/)
+
+
+- [Zachary's Karate Club problem](https://docs.dgl.ai/tutorials/basics/1_first.html#sphx-glr-download-tutorials-basics-1-first-py)
 
 ### Models
 
