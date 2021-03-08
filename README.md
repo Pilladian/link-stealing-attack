@@ -76,6 +76,7 @@ The Bachelor Thesis of Philipp Zimmermann
 
 
 - [Zachary's Karate Club problem](https://docs.dgl.ai/tutorials/basics/1_first.html#sphx-glr-download-tutorials-basics-1-first-py)
+- [Beginners Guide for DGL](https://docs.dgl.ai/tutorials/basics/2_basics.html)
 
 ### Models
 #### Recurrent Graph Neural Networks - RGNNs
@@ -124,7 +125,6 @@ All references that are included in the bachelor thesis are listed below.
 
 #### Websites
 - [1] https://www.section.io/engineering-education/an-introduction-to-graph-neural-network/
-
 
 #### Research Paper
 - Basic GNN paper
