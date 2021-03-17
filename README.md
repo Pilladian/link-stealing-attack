@@ -120,11 +120,21 @@ The Bachelor Thesis of Philipp Zimmermann
 
 ---
 
+## Basic GNN Paper
+
+### Semi-Supervised Classification with Graph Convolutional Networks
+
+
+---
+
 ## References
 All references that are included in the bachelor thesis are listed below.
 
 #### Websites
 - [1] https://www.section.io/engineering-education/an-introduction-to-graph-neural-network/
+
+#### Videos
+- [1] https://www.youtube.com/watch?v=ex2qllcVneY
 
 #### Research Paper
 - Basic GNN paper
