@@ -123,7 +123,7 @@ The Bachelor Thesis of Philipp Zimmermann
 ## Basic GNN Paper
 
 ### Semi-Supervised Classification with Graph Convolutional Networks
-
+`TODO`
 
 ---
 
