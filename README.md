@@ -139,6 +139,7 @@ All references that are included in the bachelor thesis are listed below.
 - [3] Graph Comvolutional Neural Networks: https://www.youtube.com/watch?v=2KRAOZIULzw
 - [4] Message Passing: https://www.youtube.com/watch?v=ijmxpItkRjc
 - [5] Relational Graph Neural Networks: https://www.youtube.com/watch?v=wJQQFUcHO5U
+- [6] Implementation of Zachary's Karate Club problem: https://www.youtube.com/watch?v=8qTnNXdkF1Q
 
 #### Research Paper
 - Basic GNN paper
