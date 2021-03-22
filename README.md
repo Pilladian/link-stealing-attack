@@ -137,7 +137,8 @@ All references that are included in the bachelor thesis are listed below.
 - [1] Node Classification: https://www.youtube.com/watch?v=ex2qllcVneY
 - [2] Graph Introduction and Label Propagation: https://www.youtube.com/watch?v=OI0Jo-5d190
 - [3] Graph Comvolutional Neural Networks: https://www.youtube.com/watch?v=2KRAOZIULzw
-- [3] Message Passing: https://www.youtube.com/watch?v=ijmxpItkRjc
+- [4] Message Passing: https://www.youtube.com/watch?v=ijmxpItkRjc
+- [5] Relational Graph Neural Networks: https://www.youtube.com/watch?v=wJQQFUcHO5U
 
 #### Research Paper
 - Basic GNN paper
