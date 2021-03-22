@@ -134,7 +134,8 @@ All references that are included in the bachelor thesis are listed below.
 - [1] https://www.section.io/engineering-education/an-introduction-to-graph-neural-network/
 
 #### Videos
-- [1] https://www.youtube.com/watch?v=ex2qllcVneY
+- [1] Node Classification: https://www.youtube.com/watch?v=ex2qllcVneY
+- [2] Message Passing: https://www.youtube.com/watch?v=ijmxpItkRjc
 
 #### Research Paper
 - Basic GNN paper
