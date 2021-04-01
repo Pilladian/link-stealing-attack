@@ -5,7 +5,9 @@ The Bachelor Thesis of Philipp Zimmermann
 
 ## Topic Description
 
-`TODO`
+A GNN (GraphSAGE) is trained on multiple subgraphs of a graph. At the testing phase (unknown / unseen subgraphs) the GNN outputs a posterior. Based on the posteriors I try to reveal information about centroid nodes. Especially if they are connected somehow.
+
+E.g.: I try to predict whether two people on facebook, A and B, know each other (is there a path including multiple other people from A to B) based on the posteriors output of the GNN.
 
 ---
 
