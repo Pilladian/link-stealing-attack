@@ -26,8 +26,10 @@ All references that are included in the bachelor thesis itself or used for initi
 - [4] Message Passing: https://www.youtube.com/watch?v=ijmxpItkRjc
 - [5] Relational Graph Neural Networks: https://www.youtube.com/watch?v=wJQQFUcHO5U
 - [6] Implementation of Zachary's Karate Club problem: https://www.youtube.com/watch?v=8qTnNXdkF1Q
+- [7] GraphSAGE - Inductive Representation Learning on Large Graphs: https://www.youtube.com/watch?v=rGn3bmoxnJU
+- [8] GraphSAGE - Inductive Representation Learning on Large Graphs: https://www.youtube.com/watch?v=M-vN3Jmvhxc
 
 #### Research Paper
-- [1] Basic GNN - Transduction: https://arxiv.org/abs/1609.02907
-- [2] Basic GNN - Induction: https://arxiv.org/abs/1706.02216
+- [1] Basic GNN - Transductive: https://arxiv.org/abs/1609.02907
+- [2] Basic GNN - Inductive: https://arxiv.org/abs/1706.02216
 - [3] Link stealing attack: https://arxiv.org/abs/2005.02131
