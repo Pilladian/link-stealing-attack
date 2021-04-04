@@ -13,11 +13,11 @@ sudo apt install cuda -y
 sudo apt install nvidia-cuda-toolkit -y
 
 # Export Path
-echo "# Cuda" >> /home/us3r/.bashrc
-echo "export PATH=/usr/local/cuda/bin:$PATH" >> /home/us3r/.bashrc
-echo "export CPATH=/usr/local/cuda/include:$CPATH" >> /home/us3r/.bashrc
-echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH" >> /home/us3r/.bashrc
-echo "export DYLD_LIBRARY_PATH=/usr/local/cuda/lib:$DYLD_LIBRARY_PATH" >> /home/us3r/.bashrc
+#echo "# Cuda" >> /home/us3r/.bashrc
+#echo "export PATH=/usr/local/cuda/bin:$PATH" >> /home/us3r/.bashrc
+#echo "export CPATH=/usr/local/cuda/include:$CPATH" >> /home/us3r/.bashrc
+#echo "export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH" >> /home/us3r/.bashrc
+#echo "export DYLD_LIBRARY_PATH=/usr/local/cuda/lib:$DYLD_LIBRARY_PATH" >> /home/us3r/.bashrc
 
 # pip command
 # pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 -f https://download.pytorch.org/whl/torch_stable.html
