@@ -21,7 +21,7 @@ Given a Social Network represented as a graph. Let `f` be the GNN that is traine
   - output is a posterior
 
 
-Given two posteriors of two nodes that have been inserted, is it possible to extract information about their connection. More precisely, is it possible to predict whether two people are connected based on the output posterior of the trained model?
+Given the posteriors of two nodes that have been inserted, is it possible to extract information about their connection? More precisely, is it possible to predict whether two people are connected, with at least one node between them, based on the output posterior of the trained model?
 
 ---
 
