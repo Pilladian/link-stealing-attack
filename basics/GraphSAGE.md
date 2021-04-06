@@ -50,4 +50,4 @@
 
 **Line 13 -** Normalize vector
 
-<img src="images/GraphSAGE-Minibatch-Visualization.png" alt="drawing" width="500"/>
+<img src="images/GraphSAGE-Minibatch-Visualization.png" alt="drawing" width="700"/>
