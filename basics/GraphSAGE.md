@@ -14,7 +14,7 @@
 
 <img src="images/GraphSAGE-Embedding-Generation.png" alt="drawing" width="700"/>
 
--
+
 
 **Line 1 -** For each node initial its feature vector
 
@@ -32,7 +32,7 @@
 
 <img src="images/GraphSAGE-Minibatch-Embedding-Generation.png" alt="drawing" width="700"/>
 
--
+
 
 **Line 1 -** B are the target nodes, the representation should be calculate for. Store them in B_K
 
