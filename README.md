@@ -5,7 +5,7 @@ The Bachelor Thesis of Philipp Zimmermann
 
 ## Topic Description
 
-Given a Social Network represented as a graph. Let `f` be the GNN that is trained to predict labels (e.g. salary of education status). To create the embeddings of the nodes GraphSAGE is used.
+Given a Social Network represented as a graph. Let `f` be the GNN that is trained to predict labels (e.g. salary or education status). To calculate the embeddings of the nodes GraphSAGE is used.
 
 - Training
   - for every node v in the Graph
