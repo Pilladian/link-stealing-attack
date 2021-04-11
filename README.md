@@ -42,6 +42,9 @@ All references that are included in the bachelor thesis itself or used for initi
 - [6] Implementation of Zachary's Karate Club problem: https://www.youtube.com/watch?v=8qTnNXdkF1Q
 - [7] GraphSAGE - Inductive Representation Learning on Large Graphs: https://www.youtube.com/watch?v=vinQCnizqDA
 
+#### Repositories
+- [1] DGL: https://github.com/dmlc/dgl/tree/master/examples/pytorch/graphsage
+
 #### Research Paper
 - [1] Basic GNN - Transductive: https://arxiv.org/abs/1609.02907
 - [2] Basic GNN - Inductive: https://arxiv.org/abs/1706.02216
