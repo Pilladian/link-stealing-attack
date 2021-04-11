@@ -1,4 +1,4 @@
 [submodule "GraphSAGE/dgl"]
 	path = GraphSAGE/dgl
-	url = https://github.com/dmlc/dgl.git
+	url =git@github.com:Pilladian/dgl.git 
 	branch = master
