@@ -3,6 +3,7 @@ bin/
 etc/
 lib/
 share/
+include/
 pyvenv.cfg
 
 # jupyter notebook
