@@ -18,9 +18,9 @@ Given a graph with a few labeled nodes the model performs label prediction on th
 #### Results
 | Dataset  | Avg. Accuracy     
 |------    |------     
-| Cora     | 0.79
-| Citeseer | 0.64
-| Pubmed   | 0.78
+| Cora     | 0.7905
+| Citeseer | 0.6555
+| Pubmed   | 0.7698
 | Reddit   | -
 
 
@@ -73,10 +73,18 @@ One feature vector, consisting of two posteriors are fed into the model. It then
 #### Results
 | Parent Dataset  | Avg. Accuracy     
 |------           |------     
-| Cora            | 0.72
-| Citeseer        | 0.70
-| Pubmed          | 0.80
+| Cora            | 0.7717
+| Citeseer        | 0.8245
+| Pubmed          | 0.6950
 | Reddit          | -
 
 
 `Future Work: ` Train on a model that used Cora as dataset but evaluate on a model that used Citeseer as dataset.
+
+## Comparison
+| (Parent) Dataset  | Target | Attacker     
+|------             |------  |-------
+| Cora              | 0.7905 | 0.7717
+| Citeseer          | 0.6555 | 0.8245
+| Pubmed            | 0.7698 | 0.6950
+| Reddit            | -      | -

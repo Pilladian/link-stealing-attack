@@ -258,30 +258,42 @@ class Attacker:
             return correct.item() * 1.0 / len(labels)
 
 
-if __name__ == '__main__':
+def main(dset, v=False, vvv=False):
     # seed
     random.seed(1234)
 
-    # cmd args
-    parser = argparse.ArgumentParser(description='Link-Stealing Attack')
-    register_data_args(parser)
-    args = parser.parse_args()
-
     # main dataset
-    dataset = load_data(args)
+    dataset = load_data(dset)
 
     # target
     target = Target('config/target-model.conf')
     target.load_parameter()
     target.load_dataset(dataset)
     target.initialize()
-    target.train(show_process=False)
-    print("\n [ Target model ]\n\n\tType: GraphSAGE\n\tAccuracy: {}\n".format(target.evaluate(target.dataset.test_nid)))
+    target.train(show_process=vvv)
+    target_acc = target.evaluate(target.dataset.test_nid)
 
     # attacker
     attacker = Attacker('config/attacker-model.conf', target)
     attacker.load_parameter()
     attacker.create_dataset(dataset)
     attacker.initialize()
-    attacker.train(show_process=False)
-    print("\n [ Attacker model ]\n\n\tType: FNN\n\tAccuracy: {}\n".format(attacker.evaluate(attacker.test_nid)))
+    attacker.train(show_process=vvv)
+    attacker_acc = attacker.evaluate(attacker.test_nid)
+
+    # print results if verbose
+    if v:
+        print("\n [ Target model ]\n\n\tType: GraphSAGE\n\tAccuracy: {}\n".format(target_acc))
+        print("\n [ Attacker model ]\n\n\tType: FNN\n\tAccuracy: {}\n".format(attacker_acc))
+
+    return target_acc, attacker_acc
+
+
+# Link Stealing Attack
+if __name__ == '__main__':
+    # cmd args
+    parser = argparse.ArgumentParser(description='Link-Stealing Attack')
+    register_data_args(parser)
+    args = parser.parse_args()
+
+    main(args.dataset, v=True, vvv=False)

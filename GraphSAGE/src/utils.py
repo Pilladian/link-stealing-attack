@@ -44,16 +44,16 @@ def register_data_args(parser):
     parser.add_argument("--dataset",
                         type=str,
                         required=True,
-                        help="[cora, citeseer, pubmed, syn(synthetic dataset), reddit]")
+                        help="[cora, citeseer, pubmed, reddit]")
 
-def load_data(args):
-    if args.dataset == 'cora':
+def load_data(dataset):
+    if dataset == 'cora':
         return citegrh.load_cora(verbose=False)
-    elif args.dataset == 'citeseer':
+    elif dataset == 'citeseer':
         return citegrh.load_citeseer(verbose=False)
-    elif args.dataset == 'pubmed':
+    elif dataset == 'pubmed':
         return citegrh.load_pubmed(verbose=False)
-    elif args.dataset is not None and args.dataset.startswith('reddit'):
-        return RedditDataset(self_loop=('self-loop' in args.dataset))
+    elif dataset is not None and dataset.startswith('reddit'):
+        return RedditDataset(self_loop=('self-loop' in dataset))
     else:
-        raise ValueError('Unknown dataset: {}'.format(args.dataset))
+        raise ValueError('Unknown dataset: {}'.format(dataset))
