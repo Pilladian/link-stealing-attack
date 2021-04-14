@@ -43,7 +43,8 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
 The dataset currently depends on the one the target model used. It is generated in the following way:
 
 ```py
-set = test_subset of the dataset used for training the target model
+graph = remove_random_edges(graph)
+set = test_subset_of_target_model_dataset
 
 # check for neighbors
 for node in set:
@@ -74,8 +75,8 @@ One feature vector, consisting of two posteriors, is the input for the model. It
 | Parent Dataset  | Avg. Accuracy     
 |------           |------     
 | Cora            | 0.7900
-| Citeseer        | 0.8245
-| Pubmed          | 0.6950
+| Citeseer        | 0.8280
+| Pubmed          | 0.7712
 | Reddit          | -
 
 
