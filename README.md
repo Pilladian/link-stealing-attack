@@ -41,6 +41,7 @@ All references that are included in the bachelor thesis itself or used for initi
 
 #### Repositories
 - [1] DGL: https://github.com/dmlc/dgl/tree/master/examples/pytorch/graphsage
+- [2] Forked DGL: https://github.com/Pilladian/dgl
 
 #### Research Paper
 - [1] Basic GNN - Transductive: https://arxiv.org/abs/1609.02907
