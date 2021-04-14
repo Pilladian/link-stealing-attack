@@ -3,7 +3,7 @@
 ## Target Model
 
 #### Approach
-Given a graph with a few labeled nodes the model performs label prediction on the unlabeled ones. For calculation of the feature / embedding vectors GraphSAGE is used. GraphSage calculates the embedding of node `i` based on their neighborhood.
+Given a graph with a few labeled nodes the model performs label prediction on the unlabeled ones. For calculation of the feature / embedding vectors, GraphSAGE is used. GraphSage calculates the embedding of node `i` based on their neighborhood (connected nodes).
 
 #### Parameter
 | Parameter     | Value     
@@ -40,7 +40,7 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
 | Dropout       | 0.5
 
 #### Dataset
-The dataset currently depends on the dataset the target model used. It is generated in the following way:
+The dataset currently depends on the one the target model used. It is generated in the following way:
 
 ```py
 set = test_subset of the dataset used for training the target model
@@ -68,7 +68,7 @@ for node in set:
 ```
 
 #### Training
-One feature vector, consisting of two posteriors are fed into the model. It then predicts whether the two nodes, the posteriors came from, are connected or not. The label is used for calculating the loss and update the network.
+One feature vector, consisting of two posteriors, is the input for the model. It then predicts whether the two nodes, of which the posteriors came from, are connected or not. The label is used for calculating the loss and update the network.
 
 #### Results
 | Parent Dataset  | Avg. Accuracy     
