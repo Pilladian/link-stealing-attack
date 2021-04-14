@@ -24,7 +24,7 @@ class FNN(nn.Module):
         for i in range(n_layers - 1):
             self.layers.append(nn.Linear(n_hidden, n_hidden))
         # output layer
-        self.layers.append(nn.Linear(n_hidden, n_classes)) # activation None
+        self.layers.append(nn.Linear(n_hidden, n_classes))
 
     def forward(self, inputs):
         h = self.dropout(inputs)
