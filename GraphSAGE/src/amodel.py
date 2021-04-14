@@ -7,7 +7,7 @@ import torch.nn as nn
 class FNN(nn.Module):
 
     def __init__(self,
-                 in_feats,
+                 n_features,
                  n_hidden,
                  n_classes,
                  n_layers,
@@ -19,17 +19,17 @@ class FNN(nn.Module):
         self.activation = activation
 
         # input layer
-        self.layers.append(nn.Linear(in_feats, n_hidden))
+        self.layers.append(nn.Linear(n_features, n_hidden))
         # hidden layers
         for i in range(n_layers - 1):
-            self.layers.append(Linear(n_hidden, n_hidden))
+            self.layers.append(nn.Linear(n_hidden, n_hidden))
         # output layer
-        self.layers.append(Linear(n_hidden, n_classes)) # activation None
+        self.layers.append(nn.Linear(n_hidden, n_classes)) # activation None
 
-    def forward(self, graph, inputs):
+    def forward(self, inputs):
         h = self.dropout(inputs)
         for l, layer in enumerate(self.layers):
-            h = layer(graph, h)
+            h = layer(h)
             if l != len(self.layers) - 1:
                 h = self.activation(h)
                 h = self.dropout(h)
