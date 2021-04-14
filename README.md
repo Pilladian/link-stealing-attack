@@ -1,7 +1,5 @@
 # Bachelor-Thesis
-The Bachelor Thesis of Philipp Zimmermann
-
----
+> Philipp Zimmermann
 
 ## Topic Description
 
@@ -23,7 +21,6 @@ Given a Social Network represented as a graph. Let `f` be the GNN that is traine
 
 Given the posteriors of two nodes that have been inserted, is it possible to extract information about their connection? More precisely, is it possible to predict whether two people are connected, based on the output posterior of the trained model?
 
----
 
 ## References
 All references that are included in the bachelor thesis itself or used for initial research are listed below.
@@ -44,6 +41,7 @@ All references that are included in the bachelor thesis itself or used for initi
 
 #### Repositories
 - [1] DGL: https://github.com/dmlc/dgl/tree/master/examples/pytorch/graphsage
+- [2] Forked DGL: https://github.com/Pilladian/dgl
 
 #### Research Paper
 - [1] Basic GNN - Transductive: https://arxiv.org/abs/1609.02907
