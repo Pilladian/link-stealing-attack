@@ -135,8 +135,8 @@ class Attacker:
         graph = mdata[0]
 
         # set of all eval nodes of target model
-        targets_eval_nid = self.target_model.dataset.val_nid
-        n_nodes = targets_eval_nid.shape[0]
+        targets_test_nid = self.target_model.dataset.test_nid
+        n_nodes = targets_test_nid.shape[0]
 
         # feature amount
         self.n_features = self.target_model.get_posteriors([0]).shape[1] * 2
@@ -144,7 +144,7 @@ class Attacker:
         self.features = torch.zeros((n_nodes, self.n_features), dtype=torch.float)
         self.labels = torch.zeros(n_nodes, dtype=torch.long)
 
-        for i, node in enumerate(targets_eval_nid):
+        for i, node in enumerate(targets_test_nid):
             # neighbors -> label = True
             if bool(random.getrandbits(1)):
                 poss_neighbors = graph.out_edges(i)
@@ -169,7 +169,17 @@ class Attacker:
 
             # no neighbors -> label = False
             else:
-                neighbor_id = i - 1
+                poss_neighbors = graph.out_edges(i)
+                neighbor_amount = poss_neighbors[1].shape[0]
+                # has no neighbors -> label = False
+                if neighbor_amount < 1:
+                    neighbor_id = i - 1
+                # has neighbors -> node that is no neighbor -> label = False
+                else:
+                    neighbor_id = random.randint(0, n_nodes - 1)
+                    while neighbor_id == i or neighbor_id in poss_neighbors[1].tolist():
+                        neighbor_id = random.randint(0, n_nodes - 1)
+                        
                 post_i = self.target_model.get_posteriors([i])
                 post_neighbor = self.target_model.get_posteriors([neighbor_id])
                 feature = torch.cat((post_i, post_neighbor), 1)
