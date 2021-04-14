@@ -73,7 +73,7 @@ One feature vector, consisting of two posteriors, is the input for the model. It
 #### Results
 | Parent Dataset  | Avg. Accuracy     
 |------           |------     
-| Cora            | 0.7717
+| Cora            | 0.7900
 | Citeseer        | 0.8245
 | Pubmed          | 0.6950
 | Reddit          | -
@@ -84,7 +84,7 @@ One feature vector, consisting of two posteriors, is the input for the model. It
 ## Comparison
 | (Parent) Dataset  | Target | Attacker     
 |------             |------  |-------
-| Cora              | 0.7905 | 0.7717
-| Citeseer          | 0.6555 | 0.8245
-| Pubmed            | 0.7698 | 0.6950
+| Cora              | 0.7905 | 0.7900
+| Citeseer          | 0.6555 | 0.8280
+| Pubmed            | 0.7698 | 0.7712
 | Reddit            | -      | -

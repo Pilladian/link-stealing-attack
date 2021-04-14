@@ -139,7 +139,6 @@ class Attacker:
         for i in range(int(edges[0].shape[0] * dperc)):
             ind = random.randint(0, graph.edges()[0].shape[0])
             graph.remove_edges([edges[0][ind], edges[1][ind]])
-            print(graph.edges()[0].shape[0])
 
         # set of all eval nodes of target model
         targets_test_nid = self.target_model.dataset.test_nid
