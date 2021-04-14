@@ -2,28 +2,9 @@
 
 import dgl
 from dgl.data import citation_graph as citegrh
-from dgl.data.citation_graph import CoraBinary, CitationGraphDataset
 from dgl.data.minigc import *
-from dgl.data.tree import SST, SSTDataset
 from dgl.data.utils import *
-from dgl.data.sbm import SBMMixture, SBMMixtureDataset
 from dgl.data.reddit import RedditDataset
-from dgl.data.ppi import PPIDataset, LegacyPPIDataset
-from dgl.data.tu import TUDataset, LegacyTUDataset
-from dgl.data.gnn_benckmark import AmazonCoBuy, CoraFull, Coauthor, AmazonCoBuyComputerDataset, \
-    AmazonCoBuyPhotoDataset, CoauthorPhysicsDataset, CoauthorCSDataset, CoraFullDataset
-from dgl.data.karate import KarateClub, KarateClubDataset
-from dgl.data.gindt import GINDataset
-from dgl.data.bitcoinotc import BitcoinOTC, BitcoinOTCDataset
-from dgl.data.gdelt import GDELT, GDELTDataset
-from dgl.data.icews18 import ICEWS18, ICEWS18Dataset
-from dgl.data.qm7b import QM7b, QM7bDataset
-from dgl.data.qm9 import QM9, QM9Dataset
-from dgl.data.qm9_edge import QM9Edge, QM9EdgeDataset
-from dgl.data.dgl_dataset import DGLDataset, DGLBuiltinDataset
-from dgl.data.citation_graph import CoraGraphDataset, CiteseerGraphDataset, PubmedGraphDataset
-from dgl.data.knowledge_graph import FB15k237Dataset, FB15kDataset, WN18Dataset
-from dgl.data.rdf import AIFBDataset, MUTAGDataset, BGSDataset, AMDataset
 
 
 class Dataset:

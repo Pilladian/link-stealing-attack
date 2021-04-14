@@ -1,9 +1,6 @@
 # Python 3.8.5
 
-import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import dgl
 
 
 # Attacker Model - trained on posteriors to perform link stealing

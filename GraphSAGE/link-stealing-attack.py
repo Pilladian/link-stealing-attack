@@ -8,15 +8,8 @@ warnings.filterwarnings('ignore')
 import argparse
 import time
 import numpy as np
-import networkx as nx
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
-import dgl
-from dgl import DGLGraph
-from dgl.data import citation_graph as citegrh
-from dgl.nn.pytorch.conv import SAGEConv
-import matplotlib.pyplot as plt
 import json
 from src.tmodel import *
 from src.amodel import *
@@ -132,7 +125,7 @@ if __name__ == '__main__':
     dataset = load_data(args)
 
     # target
-    target = Target('configs/target-model.conf')
+    target = Target('config/target-model.conf')
     target.load_parameter()
     target.load_dataset(dataset)
     target.initialize()
