@@ -179,7 +179,7 @@ class Attacker:
                     neighbor_id = random.randint(0, n_nodes - 1)
                     while neighbor_id == i or neighbor_id in poss_neighbors[1].tolist():
                         neighbor_id = random.randint(0, n_nodes - 1)
-                        
+
                 post_i = self.target_model.get_posteriors([i])
                 post_neighbor = self.target_model.get_posteriors([neighbor_id])
                 feature = torch.cat((post_i, post_neighbor), 1)
@@ -283,5 +283,5 @@ if __name__ == '__main__':
     attacker.load_parameter()
     attacker.create_dataset(dataset)
     attacker.initialize()
-    attacker.train(show_process=True)
+    attacker.train(show_process=False)
     print("\n [ Attacker model ]\n\n\tType: FNN\n\tAccuracy: {}\n".format(attacker.evaluate(attacker.test_nid)))
