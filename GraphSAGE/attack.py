@@ -130,9 +130,16 @@ class Attacker:
             self.parameter = json.load(json_file)
             self.gpu = True if self.parameter['gpu'] > 0 else False
 
-    def create_dataset(self, mdata):
+    def create_dataset(self, mdata, dperc=0.05):
         # graph
         graph = mdata[0]
+
+        # randomly remove dperc percent of the edges
+        edges = graph.edges()
+        for i in range(int(edges[0].shape[0] * dperc)):
+            ind = random.randint(0, graph.edges()[0].shape[0])
+            graph.remove_edges([edges[0][ind], edges[1][ind]])
+            print(graph.edges()[0].shape[0])
 
         # set of all eval nodes of target model
         targets_test_nid = self.target_model.dataset.test_nid
@@ -276,7 +283,7 @@ def main(dset, v=False, vvv=False):
     # attacker
     attacker = Attacker('config/attacker-model.conf', target)
     attacker.load_parameter()
-    attacker.create_dataset(dataset)
+    attacker.create_dataset(dataset, 0.05)
     attacker.initialize()
     attacker.train(show_process=vvv)
     attacker_acc = attacker.evaluate(attacker.test_nid)
