@@ -1,4 +1,0 @@
-[submodule "GraphSAGE/dgl"]
-	path = GraphSAGE/dgl
-	url =git@github.com:Pilladian/dgl.git 
-	branch = master
