@@ -18,9 +18,9 @@ from dgl.data import citation_graph as citegrh
 from dgl.nn.pytorch.conv import SAGEConv
 import matplotlib.pyplot as plt
 import json
-from tmodel import *
-from amodel import *
-from utils import *
+from src.tmodel import *
+from src.amodel import *
+from src.utils import *
 
 
 class Target:
