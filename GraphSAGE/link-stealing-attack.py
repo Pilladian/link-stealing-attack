@@ -11,6 +11,7 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import json
+import random
 from src.tmodel import *
 from src.amodel import *
 from src.utils import *
@@ -114,7 +115,142 @@ class Target:
             return logits
 
 
+class Attacker:
+
+    def __init__(self, config, target):
+        self.config = config
+        self.parameter = {}
+        self.target_model = target
+        self.model = None
+        self.optimizer = None
+        self.gpu = False
+
+    def load_parameter(self):
+        with open(self.config) as json_file:
+            self.parameter = json.load(json_file)
+            self.gpu = True if self.parameter['gpu'] > 0 else False
+
+    def create_dataset(self, mdata):
+        # graph
+        graph = mdata[0]
+
+        # set of all eval nodes of target model
+        targets_eval_nid = self.target_model.dataset.val_nid
+        n_nodes = targets_eval_nid.shape[0]
+
+        # feature amount
+        self.n_features = self.target_model.get_posteriors([0]).shape[1] * 2
+        # input features and labels
+        self.features = torch.zeros((n_nodes, self.n_features), dtype=torch.float)
+        self.labels = torch.zeros(n_nodes, dtype=torch.long)
+
+        for i, node in enumerate(targets_eval_nid):
+            # neighbors -> label = True
+            if bool(random.getrandbits(1)):
+                poss_neighbors = graph.out_edges(i)
+                neighbor_amount = poss_neighbors[1].shape[0]
+                # has no neighbors -> label = False
+                if neighbor_amount < 1:
+                    neighbor_id = i - 1
+                    post_i = self.target_model.get_posteriors([i])
+                    post_neighbor = self.target_model.get_posteriors([neighbor_id])
+                    feature = torch.cat((post_i, post_neighbor), 1)
+                    self.features[i] = feature
+                    self.labels[i] = torch.zeros(1, 1)
+
+                # has at least one neighbor -> label True
+                else:
+                    neighbor_id = random.randint(0, neighbor_amount - 1)
+                    post_i = self.target_model.get_posteriors([i])
+                    post_neighbor = self.target_model.get_posteriors([neighbor_id])
+                    feature = torch.cat((post_i, post_neighbor), 1)
+                    self.features[i] = feature
+                    self.labels[i] = torch.ones(1, 1)
+
+            # no neighbors -> label = False
+            else:
+                neighbor_id = i - 1
+                post_i = self.target_model.get_posteriors([i])
+                post_neighbor = self.target_model.get_posteriors([neighbor_id])
+                feature = torch.cat((post_i, post_neighbor), 1)
+                self.features[i] = feature
+                self.labels[i] = torch.zeros(1, 1)
+
+        # train, eval, test : 20%, 40%, 40%
+        self.train_mask = torch.zeros(n_nodes, dtype=torch.bool)
+        self.val_mask = torch.zeros(n_nodes, dtype=torch.bool)
+        self.test_mask = torch.zeros(n_nodes, dtype=torch.bool)
+
+        train_val_split = int(n_nodes * 0.2)
+        val_test_split  = train_val_split + int(n_nodes * 0.4)
+
+        # train masks
+        for a in range(n_nodes):
+            self.train_mask[a] = a < train_val_split
+            self.val_mask[a] = a >= train_val_split and a < val_test_split
+            self.test_mask[a] = a >= val_test_split
+
+        # node ids
+        self.train_nid = self.train_mask.nonzero().squeeze()
+        self.val_nid = self.val_mask.nonzero().squeeze()
+        self.test_nid = self.test_mask.nonzero().squeeze()
+
+    def initialize(self):
+        # create model
+        self.model = FNN(self.n_features,
+                         self.parameter['n_hidden'],
+                         2,
+                         self.parameter['n_layers'],
+                         F.relu,
+                         self.parameter['dropout'])
+
+        if self.gpu:
+            torch.cuda.set_device(self.parameter['gpu'])
+            self.model.cuda()
+
+        # optimizer
+        self.optimizer = torch.optim.Adam(
+                                        self.model.parameters(),
+                                        lr=self.parameter['lr'],
+                                        weight_decay=self.parameter['weight_decay'])
+
+    def train(self, show_process=False):
+        dur = []
+        for epoch in range(self.parameter['n_epochs']):
+            self.model.train()
+            if epoch >= 3:
+                t0 = time.time()
+            # forward
+            logits = self.model(self.features)
+            loss = F.cross_entropy(logits[self.train_nid], self.labels[self.train_nid])
+
+            # update
+            self.optimizer.zero_grad()
+            loss.backward()
+            self.optimizer.step()
+
+            if epoch >= 3:
+                dur.append(time.time() - t0)
+
+            # evaluate
+            acc = self.evaluate(self.val_nid)
+            if show_process:
+                print("Epoch {:05d} | Time(s) {:.4f} | Loss {:.4f} | Accuracy {:.4f}".format(epoch, np.mean(dur), loss.item(), acc))
+
+    def evaluate(self, nid):
+        self.model.eval()
+        with torch.no_grad():
+            logits = self.model(self.features)
+            logits = logits[nid]
+            labels = self.labels[nid]
+            _, indices = torch.max(logits, dim=1)
+            correct = torch.sum(indices == labels)
+            return correct.item() * 1.0 / len(labels)
+
+
 if __name__ == '__main__':
+    # seed
+    random.seed(1234)
 
     # cmd args
     parser = argparse.ArgumentParser(description='Link-Stealing Attack')
@@ -131,3 +267,11 @@ if __name__ == '__main__':
     target.initialize()
     target.train(show_process=False)
     print("\n [ Target model ]\n\n\tType: GraphSAGE\n\tAccuracy: {}\n".format(target.evaluate(target.dataset.test_nid)))
+
+    # attacker
+    attacker = Attacker('config/attacker-model.conf', target)
+    attacker.load_parameter()
+    attacker.create_dataset(dataset)
+    attacker.initialize()
+    attacker.train(show_process=True)
+    print("\n [ Attacker model ]\n\n\tType: FNN\n\tAccuracy: {}\n".format(attacker.evaluate(attacker.test_nid)))
