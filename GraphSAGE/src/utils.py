@@ -1,5 +1,6 @@
 # Python 3.8.5
 
+import torch
 import dgl
 from dgl.data import citation_graph as citegrh
 from dgl.data.minigc import *
@@ -9,21 +10,15 @@ from dgl.data.reddit import RedditDataset
 
 class Dataset:
 
-    def __init__(self, graph, features, labels, train_mask, val_mask,
-                 test_mask, n_features, n_classes, n_edges):
+    def __init__(self, graph, features, labels, n_features, n_classes):
 
         self.graph = graph
         self.features = features
         self.labels = labels
-        self.train_mask = train_mask
-        self.val_mask = val_mask
-        self.test_mask = test_mask
-        self.train_nid = train_mask.nonzero().squeeze()
-        self.val_nid = val_mask.nonzero().squeeze()
-        self.test_nid = test_mask.nonzero().squeeze()
         self.n_features = n_features
         self.n_classes = n_classes
-        self.n_edges = n_edges
+        self.n_nodes = self.graph.number_of_nodes()
+        self.n_edges = self.graph.number_of_edges()
 
     def to(self, gpu):
         torch.cuda.set_device(gpu)
@@ -39,6 +34,32 @@ class Dataset:
         if cuda > 0:
             self.graph = self.graph.int().to(cuda)
 
+    def generate_masks(self, train, val, test):
+        self.train_mask = torch.zeros(self.n_nodes, dtype=torch.bool)
+        self.val_mask = torch.zeros(self.n_nodes, dtype=torch.bool)
+        self.test_mask = torch.zeros(self.n_nodes, dtype=torch.bool)
+
+        train_val_split = int(self.n_nodes * train)
+        val_test_split  = train_val_split + int(self.n_nodes * val)
+
+        # masks
+        for a in range(self.n_nodes):
+            self.train_mask[a] = a < train_val_split
+            self.val_mask[a] = a >= train_val_split and a < val_test_split
+            self.test_mask[a] = a >= val_test_split
+
+        # node ids
+        self.train_nid = self.train_mask.nonzero().squeeze()
+        self.val_nid = self.val_mask.nonzero().squeeze()
+        self.test_nid = self.test_mask.nonzero().squeeze()
+
+    def update(self, graph):
+        self.graph = graph
+        self.features = graph.ndata['feat']
+        self.labels = graph.ndata['label']
+        self.n_features = graph.ndata['feat'].shape[1]
+        self.n_nodes = self.graph.number_of_nodes()
+        self.n_edges = self.graph.number_of_edges()
 
 def register_data_args(parser):
     parser.add_argument("--dataset",
