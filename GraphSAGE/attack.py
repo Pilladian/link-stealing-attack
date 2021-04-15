@@ -32,18 +32,13 @@ class Target:
             self.parameter = json.load(json_file)
             self.gpu = True if self.parameter['gpu'] > 0 else False
 
-    def load_dataset(self, mdata):
-        self.dataset = Dataset(
-                            mdata[0],                        # graph
-                            mdata[0].ndata['feat'],          # features
-                            mdata[0].ndata['label'],         # labels
-                            mdata[0].ndata['train_mask'],    # train mask
-                            mdata[0].ndata['val_mask'],      # val mask
-                            mdata[0].ndata['test_mask'],     # test mask
-                            mdata[0].ndata['feat'].shape[1], # amount of features
-                            mdata.num_classes,               # amount of classes
-                            mdata.graph.number_of_edges)     # amount of edges
-
+    def load_dataset(self, dataset):
+        self.dataset = Dataset(dataset[0],
+                               dataset[0].ndata['feat'],
+                               dataset[0].ndata['label'],
+                               dataset[0].ndata['feat'].shape[1],
+                               dataset.num_classes)
+        self.dataset.generate_masks(0.2, 0.4, 0.4)
 
     def initialize(self):
         # GPU
@@ -81,6 +76,10 @@ class Target:
             # forward
             logits = self.model(self.dataset.graph, self.dataset.features)
             loss = F.cross_entropy(logits[self.dataset.train_nid], self.dataset.labels[self.dataset.train_nid])
+
+            # Optimized?
+            #logits = self.model(self.dataset.graph.subgraph(self.dataset.train_nid), self.dataset.features[self.dataset.train_nid])
+            #loss = F.cross_entropy(logits, self.dataset.labels[self.dataset.train_nid])
 
             # update
             self.optimizer.zero_grad()
@@ -130,65 +129,67 @@ class Attacker:
             self.parameter = json.load(json_file)
             self.gpu = True if self.parameter['gpu'] > 0 else False
 
-    def create_dataset(self, mdata, dperc=0.05):
-        # graph
-        graph = mdata[0]
+    # maybe to complex -> overwritten below
+    def create_dataset(self, mdata, nid):
+        # original dataset graph
+        mgraph = mdata[0]
 
-        # randomly remove dperc percent of the edges
-        edges = graph.edges()
-        for i in range(int(edges[0].shape[0] * dperc)):
-            ind = random.randint(0, graph.edges()[0].shape[0])
-            graph.remove_edges([edges[0][ind], edges[1][ind]])
-
-        # set of all eval nodes of target model
-        targets_test_nid = self.target_model.dataset.test_nid
-        n_nodes = targets_test_nid.shape[0]
+        # set of nodes that will be included in the graph
+        n_nodes = len(nid)
 
         # feature amount
-        self.n_features = self.target_model.get_posteriors([0]).shape[1] * 2
+        self.num_features = self.target_model.get_posteriors([0], self.target_model.dataset.graph).shape[1] * 2
         # input features and labels
-        self.features = torch.zeros((n_nodes, self.n_features), dtype=torch.float)
+        self.features = torch.zeros((n_nodes, self.num_features), dtype=torch.float)
         self.labels = torch.zeros(n_nodes, dtype=torch.long)
 
-        for i, node in enumerate(targets_test_nid):
+        for i, node in enumerate(nid):
+            # copy target-model graph
+            tgraph = copy.deepcopy(self.target_model.dataset.graph)
+            # add links to target model graph
+            dsts = mgraph.out_edges(node)[1]
+            for v in dsts:
+                tgraph.add_edges(node, v)
+
             # neighbors -> label = True
             if bool(random.getrandbits(1)):
-                poss_neighbors = graph.out_edges(i)
+                poss_neighbors = tgraph.out_edges(node)
                 neighbor_amount = poss_neighbors[1].shape[0]
                 # has no neighbors -> label = False
                 if neighbor_amount < 1:
-                    neighbor_id = i - 1
-                    post_i = self.target_model.get_posteriors([i])
-                    post_neighbor = self.target_model.get_posteriors([neighbor_id])
-                    feature = torch.cat((post_i, post_neighbor), 1)
+                    neighbor_id = nid[node] - 1
+                    post_node = self.target_model.get_posteriors([node], tgraph)
+                    post_neighbor = self.target_model.get_posteriors([neighbor_id], tgraph)
+                    feature = torch.cat((post_node, post_neighbor), 1)
                     self.features[i] = feature
                     self.labels[i] = torch.zeros(1, 1)
 
                 # has at least one neighbor -> label True
                 else:
-                    neighbor_id = random.randint(0, neighbor_amount - 1)
-                    post_i = self.target_model.get_posteriors([i])
-                    post_neighbor = self.target_model.get_posteriors([neighbor_id])
-                    feature = torch.cat((post_i, post_neighbor), 1)
+                    neighbor_id = poss_neighbors[1].tolist()[random.randint(0, neighbor_amount - 1)]
+                    post_node = self.target_model.get_posteriors([node], tgraph)
+                    post_neighbor = self.target_model.get_posteriors([neighbor_id], tgraph)
+                    feature = torch.cat((post_node, post_neighbor), 1)
                     self.features[i] = feature
                     self.labels[i] = torch.ones(1, 1)
 
             # no neighbors -> label = False
             else:
-                poss_neighbors = graph.out_edges(i)
+                poss_neighbors = tgraph.out_edges(node)
                 neighbor_amount = poss_neighbors[1].shape[0]
                 # has no neighbors -> label = False
                 if neighbor_amount < 1:
-                    neighbor_id = i - 1
+                    neighbor_id = nid[node] - 1
                 # has neighbors -> node that is no neighbor -> label = False
                 else:
                     neighbor_id = random.randint(0, n_nodes - 1)
-                    while neighbor_id == i or neighbor_id in poss_neighbors[1].tolist():
-                        neighbor_id = random.randint(0, n_nodes - 1)
+                    # Possibility for infinity loop if one node is connected with every other node in the mask
+                    while neighbor_id == node or neighbor_id in poss_neighbors[1].tolist():
+                        neighbor_id = poss_neighbors[1].tolist()[random.randint(0, n_nodes - 1)]
 
-                post_i = self.target_model.get_posteriors([i])
-                post_neighbor = self.target_model.get_posteriors([neighbor_id])
-                feature = torch.cat((post_i, post_neighbor), 1)
+                post_node = self.target_model.get_posteriors([node], tgraph)
+                post_neighbor = self.target_model.get_posteriors([neighbor_id], tgraph)
+                feature = torch.cat((post_node, post_neighbor), 1)
                 self.features[i] = feature
                 self.labels[i] = torch.zeros(1, 1)
 
@@ -211,9 +212,51 @@ class Attacker:
         self.val_nid = self.val_mask.nonzero().squeeze()
         self.test_nid = self.test_mask.nonzero().squeeze()
 
+    def create_dataset(self, mdata, nid=None, create_nid=True):
+        # overwrite nid if set
+        if create_nid:
+            attacker_mask = torch.ones(mdata[0].number_of_nodes(), dtype=torch.bool)
+            nid = attacker_mask.nonzero().squeeze()
+
+        # number of nodes in nid
+        n_nodes = nid.shape[0]
+
+        # feature amount
+        self.num_features = self.target_model.get_posteriors([0]).shape[1] * 2
+        # input features and labels
+        self.features = torch.zeros((n_nodes, self.num_features), dtype=torch.float)
+        self.labels = torch.zeros(n_nodes, dtype=torch.long)
+
+        for i in range(1, n_nodes, 2):
+            post_i = self.target_model.get_posteriors([nid[i - 1].item()])
+            post_j = self.target_model.get_posteriors([nid[i].item()])
+            feature = torch.cat((post_i, post_j), 1)
+            label = mdata[0].has_edge_between(nid[i - 1], nid[i])
+            self.features[i] = feature
+            self.labels[i] = torch.ones(1, 1) if label else torch.zeros(1, 1)
+
+        # train, eval, test : 20%, 40%, 40%
+        self.train_mask = torch.zeros(n_nodes, dtype=torch.bool)
+        self.val_mask = torch.zeros(n_nodes, dtype=torch.bool)
+        self.test_mask = torch.zeros(n_nodes, dtype=torch.bool)
+
+        train_val_split = int(n_nodes * 0.2)
+        val_test_split  = train_val_split + int(n_nodes * 0.4)
+
+        # train masks
+        for a in range(n_nodes):
+            self.train_mask[a] = a < train_val_split
+            self.val_mask[a] = a >= train_val_split and a < val_test_split
+            self.test_mask[a] = a >= val_test_split
+
+        # node ids
+        self.train_nid = self.train_mask.nonzero().squeeze()
+        self.val_nid = self.val_mask.nonzero().squeeze()
+        self.test_nid = self.test_mask.nonzero().squeeze()
+
     def initialize(self):
         # create model
-        self.model = FNN(self.n_features,
+        self.model = FNN(self.num_features,
                          self.parameter['n_hidden'],
                          2,
                          self.parameter['n_layers'],
@@ -263,18 +306,57 @@ class Attacker:
             correct = torch.sum(indices == labels)
             return correct.item() * 1.0 / len(labels)
 
+    def query(self, i, j):
+        self.model.eval()
+        post_i = self.target_model.get_posteriors([i])
+        post_j = self.target_model.get_posteriors([j])
+        feature = torch.cat((post_i, post_j), 1)
+        with torch.no_grad():
+            logits = self.model(feature)
+            _, indices = torch.max(logits, dim=1)
 
-def main(dset, v=False, vvv=False):
+        return True if indices == 1 else False
+
+
+
+def main(dset, vv=False, vvv=False):
     # seed
     random.seed(1234)
 
     # main dataset
-    dataset = load_data(dset)
+    mdata = load_data(dset)
+
+    '''
+    dataset = copy.deepcopy(mdata)
+    # split dataset
+    SPLIT_PERC = 0.1
+
+    attacker_nids = []
+    for i in range(int(mdata[0].number_of_nodes() * SPLIT_PERC)):
+        nid = random.randint(0, mdata[0].number_of_nodes() - 1)
+        while nid in attacker_nids:
+            nid = random.randint(0, mdata[0].number_of_nodes() - 1)
+        attacker_nids.append(nid)
+
+    # remove edges of attacker_nids
+    for node_id in attacker_nids:
+        edge_ids = []
+        _, dst = dataset[0].out_edges(node_id)
+        src, _ = dataset[0].in_edges(node_id)
+        src, dst = src.tolist(), dst.tolist()
+
+        for v in dst:
+            edge_ids.append(dataset[0].edge_id(node_id, v))
+        for u in src:
+            edge_ids.append(dataset[0].edge_id(u, node_id))
+
+        dataset[0].remove_edges(edge_ids)
+    '''
 
     # target
     target = Target('config/target-model.conf')
     target.load_parameter()
-    target.load_dataset(dataset)
+    target.load_dataset(mdata)
     target.initialize()
     target.train(show_process=vvv)
     target_acc = target.evaluate(target.dataset.test_nid)
@@ -282,13 +364,13 @@ def main(dset, v=False, vvv=False):
     # attacker
     attacker = Attacker('config/attacker-model.conf', target)
     attacker.load_parameter()
-    attacker.create_dataset(dataset, 0.05)
+    attacker.create_dataset(mdata)
     attacker.initialize()
     attacker.train(show_process=vvv)
     attacker_acc = attacker.evaluate(attacker.test_nid)
 
     # print results if verbose
-    if v:
+    if vv:
         print("\n [ Target model ]\n\n\tType: GraphSAGE\n\tAccuracy: {}\n".format(target_acc))
         print("\n [ Attacker model ]\n\n\tType: FNN\n\tAccuracy: {}\n".format(attacker_acc))
 
@@ -302,4 +384,4 @@ if __name__ == '__main__':
     register_data_args(parser)
     args = parser.parse_args()
 
-    main(args.dataset, v=True, vvv=False)
+    main(args.dataset, vv=True, vvv=False)
