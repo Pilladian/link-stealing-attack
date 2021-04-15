@@ -3,24 +3,9 @@
 
 ## Topic Description
 
-Given a Social Network represented as a graph. Let `f` be the GNN that is trained to predict labels (e.g. salary or education status). To calculate the embeddings of the nodes GraphSAGE is used.
+Given a graph dataset `d` ( nodes and edges ). Let `f` be a GraphSAGE Graph Neural Network that is trained on `d` to predict labels of nodes. Let `a` be a Fully Connected Neural Network that is trained on the output-posteriors of `f` to perform a link stealing attack.
 
-- Training
-  - for every node v in the Graph
-    - collect all neighbors of v
-    - aggregate neighbors embeddings from the prior iteration
-    - concatenate current embedding with aggregated one
-    - use this embedding as input for `f`
-
-- Testing
-  - new node inserted in the graph
-  - generate embeddings with GraphSAGE Algorithm
-  - query `f` with embedding to get a label prediction
-  - output is a posterior
-
-
-Given the posteriors of two nodes that have been inserted, is it possible to extract information about their connection? More precisely, is it possible to predict whether two people are connected, based on the output posterior of the trained model?
-
+Let `i` and `j` be two nodes in `d`. The goal is to predict whether the edge `(i,j)` exists or not. Therefor `f` is queried twice, once for each node, giving back two posteriors for the labels `post_i` and `post_j`. These are now concatenated, being the input feature for `a`. Based on that `a` now decides whether `i` and `j` are connected or not.
 
 ## References
 All references that are included in the bachelor thesis itself or used for initial research are listed below.
