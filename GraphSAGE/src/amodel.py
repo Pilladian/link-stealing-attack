@@ -4,7 +4,7 @@ import torch.nn as nn
 
 
 # Attacker Model - trained on posteriors to perform link stealing
-class FNN(nn.Module):
+class MLP(nn.Module):
 
     def __init__(self,
                  n_features,
@@ -13,7 +13,7 @@ class FNN(nn.Module):
                  n_layers,
                  activation,
                  dropout):
-        super(FNN, self).__init__()
+        super(MLP, self).__init__()
         self.layers = nn.ModuleList()
         self.dropout = nn.Dropout(dropout)
         self.activation = activation

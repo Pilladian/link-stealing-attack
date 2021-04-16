@@ -1,20 +1,16 @@
 # Python 3.8.5
 
 import argparse
-import transductive
 import inductive
 
 def main(args):
 
     tacc, aacc = [], []
-    print(f'\n [+] {"Inductive" if args.ind else "Transductive"} setting selected')
+    print(f'\n [+] Inductive setting')
     print(f' [+] Initialize attacks for dataset {args.dataset}')
     for i in range(args.iter):
         print(f' [+] Attack {i + 1} of {args.iter} running...', end='\r')
-        if args.ind:
-            t, a = inductive.main(args.dataset)
-        else:
-            t, a = transductive.main(args.dataset)
+        t, a = inductive.main(args.dataset)
         tacc.append(t)
         aacc.append(a)
 

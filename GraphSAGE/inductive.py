@@ -175,7 +175,7 @@ class Attacker:
 
     def initialize(self):
         # create model
-        self.model = FNN(self.feature_amount,
+        self.model = MLP(self.feature_amount,
                          self.parameter['n_hidden'],
                          2,
                          self.parameter['n_layers'],
