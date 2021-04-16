@@ -34,9 +34,5 @@ if __name__ == '__main__':
                         required=False,
                         help="Amount of iterations")
 
-    parser.add_argument("--ind",
-                        action='store_true',
-                        help="Set flag for inductive attacks")
-
     args = parser.parse_args()
     main(args)
