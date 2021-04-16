@@ -1,6 +1,6 @@
 # Link Stealing Attack - Evaluation
 
-> Link Stealing attacks on GraphSAGE GNN
+> Transductive and Inductive Link Stealing Attacks on GraphSAGE GNNs
 
 ## Target model - GraphSAGE GNN
 
@@ -33,39 +33,79 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
 | Dropout       | 0.5
 
 
-## Attack
+## Attacks
 
-### Setup
+### Attack 1 - Transductive
+#### Setup
 - Dataset `d`
 - Target model `target` is trained on `d`
 - Attacker model `attacker` queries `target` on node-pairs
 - predicts based on posteriors whether they are connected or not
 
-### Knowledge of Attacker
+#### Knowledge of Attacker
 - Target Dataset `d` that was used for training `target`
 - Query Access to Target model `target`
 
-### Dataset Generation
+#### Dataset Generation
 
-##### Target Model
+###### Target Model
 - Split `d` into train, eval and test
 
-##### Attacker Model
+###### Attacker Model
 - Create Sub-Dataset `sd` based on Dataset `d` ( equal to test-mask of target )
 - `sd` contains nodes ( e.g. [234, 423, 456, 32, 12, ..., 2345, 778 ] )
 - pairs of nodes are queried on `target` to obtain two posteriors
 - both posteriors are concatenated into one feature vector for `attacker`
 - original graph is queried for the label ( whether an edge exists between the two nodes )
 
-<img src="img/Datasets.png" alt="drawing" width="800"/>
+<img src="img/Transductive.png" alt="drawing" width="800"/>
 
-### Training the Attacker Model
+#### Training the Attacker Model
 One feature vector, consisting of two posteriors, is the input for the model. It then predicts whether the two nodes, of which the posteriors came from, are connected or not. The label is used for calculating the loss and updating the network.
 
-### Results
+#### Results
 | (Parent) Dataset  | Target | Attacker     
 |------             |------  |-------
 | Cora              | 0.8437 | 0.9465
 | Citeseer          | 0.7256 | 0.9414
 | Pubmed            | 0.8513 | 0.9978
+| Reddit            | -      | -
+
+### Attack 2 - Inductive
+#### Setup
+- Dataset `d`
+- Target model `target` is trained on **subgraph** of `d`
+- Attacker model `attacker` queries `target` on node-pairs
+- predicts based on posteriors whether they are connected or not
+
+#### Knowledge of Attacker
+- Target Dataset `d` that was used for training `target`
+- Query Access to Target model `target`
+
+#### Dataset Generation
+- Split Dataset `d` into `traingraph` and `testgraph`
+
+###### Target Model
+- Train Target Model `target` on `traingraph`
+- No validating or testing
+
+###### Attacker Model
+- Remove random edges from `testgraph`
+  - `modified_testgraph`
+- Query `target` on `modified_testgraph` to obtain attacker dataset `da`
+  - positive samples - edges that have been removed from `testgraph`
+  - negative samples - edges that didn't exist in `testgraph`
+- Train Attacker model `attacker` on `da`
+
+<img src="img/Inductive.png" alt="drawing" width="800"/>
+
+#### Training the Attacker Model
+One feature vector, consisting of two posteriors, is the input for the model. It then predicts whether the two nodes, of which the posteriors came from, are connected or not. The label is used for calculating the loss and updating the network.
+
+#### Results
+| (Parent) Dataset  | Target | Attacker     
+|------             |------  |-------
+| Cora              | 0.5415 | 0.6444
+| Citeseer          | 0.4902 | 0.6273
+| Pubmed            | 0.6952 | 0.6085
 | Reddit            | -      | -

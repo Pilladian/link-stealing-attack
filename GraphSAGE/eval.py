@@ -1,21 +1,26 @@
 # Python 3.8.5
 
 import argparse
-import attack
+import transductive
+import inductive
 
 def main(args):
 
     tacc, aacc = [], []
-    print(f'\n [+] Initialize Attacks for dataset {args.dataset}')
+    print(f'\n [+] {"Inductive" if args.ind else "Transductive"} setting selected')
+    print(f' [+] Initialize attacks for dataset {args.dataset}')
     for i in range(args.iter):
         print(f' [+] Attack {i + 1} of {args.iter} running...', end='\r')
-        t, a = attack.main(args.dataset)
+        if args.ind:
+            t, a = inductive.main(args.dataset)
+        else:
+            t, a = transductive.main(args.dataset)
         tacc.append(t)
         aacc.append(a)
 
     print(f'\n [+] Done')
-    print(f'\n [ Avg. Acc. Target ] {round(sum(tacc) / len(tacc), 4)}')
-    print(f' [ Avg. Acc. Attack ] {round(sum(aacc) / len(aacc), 4)}\n')
+    print(f'\n [  Target  ] {round(sum(tacc) / len(tacc), 4):.4f}')
+    print(f' [ Attacker ] {round(sum(aacc) / len(aacc), 4):.4f}\n')
 
 
 if __name__ == '__main__':
@@ -32,6 +37,10 @@ if __name__ == '__main__':
                         default=10,
                         required=False,
                         help="Amount of iterations")
+
+    parser.add_argument("--ind",
+                        action='store_true',
+                        help="Set flag for inductive attacks")
 
     args = parser.parse_args()
     main(args)
