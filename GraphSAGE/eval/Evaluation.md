@@ -64,6 +64,8 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
 One feature vector, consisting of two posteriors, is the input for the model. It then predicts whether the two nodes, of which the posteriors came from, are connected or not. The label is used for calculating the loss and updating the network.
 
 #### Results
+Average Accuracy of `20` runs
+
 | (Parent) Dataset  | Target | Attacker     
 |------             |------  |-------
 | Cora              | 0.8437 | 0.9465
@@ -103,9 +105,11 @@ One feature vector, consisting of two posteriors, is the input for the model. It
 One feature vector, consisting of two posteriors, is the input for the model. It then predicts whether the two nodes, of which the posteriors came from, are connected or not. The label is used for calculating the loss and updating the network.
 
 #### Results
+Average Accuracy of `20` runs
+
 | (Parent) Dataset  | Target | Attacker     
 |------             |------  |-------
-| Cora              | 0.5415 | 0.6444
-| Citeseer          | 0.4902 | 0.6273
-| Pubmed            | 0.6952 | 0.6085
+| Cora              | 0.7520 | 0.7855
+| Citeseer          | 0.7088 | 0.7959
+| Pubmed            | 0.8566 | 0.6654
 | Reddit            | -      | -
