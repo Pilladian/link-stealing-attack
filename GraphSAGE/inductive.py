@@ -259,8 +259,8 @@ def main(dset, vv=False, vvv=False):
         train_mask[a] = a < split
         test_mask[a] = a >= split
 
-    traingraph = mdata[0].subgraph(mdata[0].ndata['train_mask'])
-    testgraph = mdata[0].subgraph(mdata[0].ndata['test_mask'])
+    traingraph = mdata[0].subgraph(train_mask)
+    testgraph = mdata[0].subgraph(test_mask)
 
     # remove self loops
     traingraph = dgl.remove_self_loop(traingraph)
