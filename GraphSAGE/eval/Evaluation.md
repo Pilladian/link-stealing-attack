@@ -111,5 +111,5 @@ Average Accuracy of `20` runs
 |------             |------  |-------
 | Cora              | 0.7520 | 0.7855
 | Citeseer          | 0.7088 | 0.7959
-| Pubmed            | 0.8566 | 0.6654
+| Pubmed            | 0.8566 | 0.6602
 | Reddit            | -      | -
