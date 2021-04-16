@@ -4,3 +4,9 @@
 2. Read [GAT](https://arxiv.org/abs/1710.10903), [GIN](https://arxiv.org/abs/1810.00826), [GCN](https://arxiv.org/abs/1609.02907) paper;
 
 [ 2021-04-16 ]
+
+0. Add argparse for different settings
+1. Implement the baseline
+  1.1. Accuracy for baseline with traingraph ( no edges )
+  1.2. Accuracy for baseline with testgraph ( no edges )
+2. Work on impromevents ( more edges, different types of GNNs, Node Classification Datasets...)
