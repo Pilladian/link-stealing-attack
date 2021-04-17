@@ -13,8 +13,8 @@ import torch.nn.functional as F
 import json
 import random
 import copy
-from src.MLP import *
-from src.GraphSAGE import *
+from src.mlp import *
+from src.graphsage import *
 from src.utils import *
 
 
@@ -37,7 +37,6 @@ class Target:
         if self.gpu:
             torch.cuda.set_device(gpu)
             self.traingraph.cuda()
-            self.evalgraph.cuda()
 
         # create model
         self.model = GraphSAGE(
@@ -249,8 +248,8 @@ def main(dset, vv=False, vvv=False):
 
     # main dataset
     mdata = load_data(dset)
-    print(f'Name: {dset}, #N: {mdata[0].num_nodes()}, #E: {mdata[0].num_edges()}, #C: {mdata.num_classes}, #F: {mdata[0].ndata["feat"].shape[1]}')
-    exit(0)
+    #print(f'Name: {dset}, #N: {mdata[0].num_nodes()}, #E: {mdata[0].num_edges()}, #C: {mdata.num_classes}, #F: {mdata[0].ndata["feat"].shape[1]}')
+    #exit(0)
     # split main graph / dataset in train and test graph
     split = mdata[0].number_of_nodes() * 0.5
     train_mask = torch.zeros(mdata[0].number_of_nodes(), dtype=torch.bool)
