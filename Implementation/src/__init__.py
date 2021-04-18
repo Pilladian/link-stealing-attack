@@ -15,6 +15,35 @@ from src.graphsage import *
 from src.mlp import *
 import time
 
+def _stats(pred, labels):
+    pos_mask = labels == 1
+    neg_mask = labels == 0
+
+    tp = torch.sum(pred[pos_mask] == labels[pos_mask])
+    tn = torch.sum(pred[neg_mask] == labels[neg_mask])
+
+    fp = torch.sum(pred[pos_mask] != labels[pos_mask])
+    fn = torch.sum(pred[neg_mask] != labels[neg_mask])
+
+    return tp, tn, fp, fn
+
+
+def _precision(pred, labels):
+    tp, tn, fp, fn = _stats(pred, labels)
+    return tp / (tp + fp)
+
+def _recall(pred, labels):
+    tp, tn, fp, fn = _stats(pred, labels)
+    return tp / (tp + fn)
+
+def _f1_score(precision, recall):
+    return 2 * (precision * recall) / (precision + recall)
+
+def _accuracy(pred, labels):
+    tp, tn, fp, fn = _stats(pred, labels)
+    return (tp + tn) / (tp + tn + fp + fn)
+
+
 class Target:
 
     def __init__(self, gnn, graph, num_classes):
@@ -83,10 +112,10 @@ class Target:
             logits = self.model(graph, graph.ndata['feat'])
             logits = logits
             labels = graph.ndata['label']
-            _, indices = torch.max(logits, dim=1)
-            # calculate accuracy
-            correct = torch.sum(indices == labels)
-            return correct.item() * 1.0 / len(labels)
+            _, pred = torch.max(logits, dim=1)
+
+            # accuracy
+            return _accuracy(pred, labels)
 
     def get_posteriors(self, graph, id):
         if self.gpu:
@@ -227,7 +256,12 @@ class Attacker:
             logits = self.model(self.features)
             logits = logits[nid]
             labels = self.labels[nid]
-            _, indices = torch.max(logits, dim=1)
-            # calculate accuracy
-            correct = torch.sum(indices == labels)
-            return correct.item() * 1.0 / len(labels)
+            _, pred = torch.max(logits, dim=1)
+
+            # metrices
+            precision = _precision(pred, labels)
+            recall = _recall(pred, labels)
+            f1_score = _f1_score(precision, recall)
+            acc = _accuracy(pred, labels)
+            
+            return (precision, recall, f1_score, acc)

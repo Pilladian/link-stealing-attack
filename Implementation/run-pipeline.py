@@ -12,18 +12,21 @@ from src.utils import *
 from src import *
 
 
-class Attack:
+class Experiment:
 
     def __init__(self, gnn, dataset):
         self.gnn_type = gnn
         self.dataset_name = dataset
+        self.targets = {}
+        self.attacker = {}
+        self.descs = {}
 
     def initialize(self):
         # load dataset
         self.dataset = load_data(self.dataset_name)
         self.original_graph = self.dataset[0]
         self.num_classes = self.dataset.num_classes
-        # split_dataset()
+        # split dataset
         self._split_dataset()
 
     def _split_dataset(self):
@@ -42,34 +45,59 @@ class Attack:
         self.traingraph = dgl.remove_self_loop(traingraph)
         self.testgraph = dgl.remove_self_loop(testgraph)
 
-    def create_baseline(self):
-        # Baseline 1 - Train on traingraph - Test on traingraph
-        # target
-        self.bl1_target = Target(self.gnn_type, self.traingraph, self.num_classes)
-        self.bl1_target.train()
+    def _create_target(self, tname, traingraph):
+        self.targets[tname] = Target(self.gnn_type, traingraph, self.num_classes)
+        self.targets[tname].train()
 
+    def evaluate_attack(self, attack_name, graph):
+        target = self.targets[attack_name]
+        tacc = target.evaluate(graph)
+
+        attacker = self.attacker[attack_name]
+        aprec, arecall, af1, aacc = attacker.evaluate(attacker.test_nid)
+
+        print_attack_results(tacc, aprec, arecall, af1, aacc)
+
+
+    def baseline(self):
+        # Baseline 1 - Train on traingraph - Test on traingraph
+        attack_name = 'baseline_1'
+        # description of attack
+        self.descs[attack_name] = '''\n      --- Baseline 1 ---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker samples his dataset on the traingraph-subset as well.
+      Both models are evaluated on the traingraph-subset.'''
+        print(self.descs[attack_name])
+        # target
+        self._create_target(attack_name, self.traingraph)
         # attacker
-        self.bl1_attacker = Attacker(self.bl1_target, self.traingraph)
-        self.bl1_attacker.create_modified_graph(0)   # remove all edges ( 0% ) -> only node features
-        self.bl1_attacker.sample_data(0.2, 0.4)
-        self.bl1_attacker.train()
+        self.attacker[attack_name] = Attacker(self.targets[attack_name], self.traingraph)
+        self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data(0.2, 0.4)
+        self.attacker[attack_name].train()
+        # evaluate baseline 1
+        self.evaluate_attack(attack_name, self.traingraph)
 
         # Baseline 2 - Train on traingraph - Test on testgraph
+        attack_name = 'baseline_2'
+        # description of attack
+        self.descs[attack_name] = '''\n      --- Baseline 2 ---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker samples his dataset on the testgraph-subset of the original dataset.
+      Both models are evaluated on the traingraph-subset.'''
+        print(self.descs[attack_name])
         # target
-        self.bl2_target = Target(self.gnn_type, self.traingraph, self.num_classes)
-        self.bl2_target.train()
-
+        self._create_target('baseline_2', self.traingraph)
         # attacker
-        self.bl2_attacker = Attacker(self.bl1_target, self.testgraph)
-        self.bl2_attacker.create_modified_graph(0)   # remove all edges ( 0% ) -> only node features
-        self.bl2_attacker.sample_data(0.2, 0.4)
-        self.bl2_attacker.train()
+        self.attacker[attack_name] = Attacker(self.targets[attack_name], self.testgraph)
+        self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data(0.2, 0.4)
+        self.attacker[attack_name].train()
+        # evaluate baseline 2
+        self.evaluate_attack('baseline_2', self.testgraph)
 
-        # Evaluation
-        self.bl1_target_result = self.bl1_target.evaluate(self.testgraph)
-        self.bl1_attacker_result = self.bl1_attacker.evaluate(self.bl1_attacker.test_nid)
-        self.bl2_target_result = self.bl2_target.evaluate(self.testgraph)
-        self.bl2_attacker_result = self.bl2_attacker.evaluate(self.bl2_attacker.test_nid)
 
 
 
@@ -83,25 +111,18 @@ def main(args):
     gnns = print_gnns(args.gnn)
 
     # create Attack objects
-    attacks = []
+    experiments = []
     for gnn in gnns:
         for dataset in datasets:
-            attack = Attack(gnn, dataset)
-            attack.initialize()
-            attacks.append(attack)
+            exp = Experiment(gnn, dataset)
+            exp.initialize()
+            experiments.append(exp)
 
-    # [2] Create Baseline ( only node features )
-    print('  [+] Train Baseline Models\n')
-    print('       GNN         Dataset     B1 Target     B1 Attacker     B2 Target     B2 Attacker')
-    print(f'      ---------------------------------------------------------------------------------')
-    for i, attack in enumerate(attacks):
-        attack.create_baseline()
-        print(f'       {attack.gnn_type}   '
-              f'{attack.dataset_name}{" " * (12 - len(attack.dataset_name))}'
-              f'{attack.bl1_target_result:0.4f}        '
-              f'{attack.bl1_attacker_result:0.4f}          '
-              f'{attack.bl2_target_result:0.4f}        '
-              f'{attack.bl2_attacker_result:0.4f}         ')
+    # run attacks
+    for experiment in experiments:
+        print(f'  [+] Run Attacks on {experiment.gnn_type} trained with {experiment.dataset_name}')
+        experiment.baseline()
+
         # [2.0] [Toggle] Description
         # [2.1] Target Model
             # [2.1.1] Parameter

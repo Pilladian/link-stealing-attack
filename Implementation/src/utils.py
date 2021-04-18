@@ -44,8 +44,8 @@ def print_datasets(d):
     datasets = possible_datasets if d == 'all' else [d]
 
     print(f'  [+] Datasets\n')
-    print(f'       Name        Nodes     Edges     Features     Classes')
-    print(f'      ------------------------------------------------------')
+    print(f'      Name        Nodes     Edges     Features     Classes')
+    print(f'      ----------------------------------------------------')
     for dataset in datasets:
         print_desc(dataset, 'datasets/')
     print('\n')
@@ -59,12 +59,20 @@ def print_gnns(gnn):
     gnns = possible_gnns if gnn == 'all' else [gnn]
 
     print(f'  [+] Graph Neural Networks\n')
-    print(f'       Type         Aggregator Type')
-    print(f'      ------------------------------')
+    print(f'      Type         Aggregator Type')
+    print(f'      ----------------------------')
     for gnn in gnns:
         with open(f'config/{gnn}.conf') as json_file:
             parameter = json.load(json_file)
-            print(f'       {gnn}    {parameter["aggregator_type"]}')
+            print(f'      {gnn}    {parameter["aggregator_type"]}')
     print('\n')
 
     return gnns
+
+def print_attack_results(tacc, aprec, arecall, af1, aacc):
+    print(f'''\n      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         {aprec:.4f}
+      Recall         -         {arecall:.4f}
+      F1-Score       -         {af1:.4f}
+      Accuracy     {tacc:.4f}      {aacc:.4f}\n''')
