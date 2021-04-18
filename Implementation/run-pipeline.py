@@ -17,9 +17,10 @@ class Experiment:
     def __init__(self, gnn, dataset):
         self.gnn_type = gnn
         self.dataset_name = dataset
+        self.descs = {}
         self.targets = {}
         self.attacker = {}
-        self.descs = {}
+        self.results = {}
 
     def initialize(self):
         # load dataset
@@ -56,6 +57,11 @@ class Experiment:
         attacker = self.attacker[attack_name]
         aprec, arecall, af1, aacc = attacker.evaluate(attacker.test_nid)
 
+        self.results[attack_name] = {'target': tacc,
+                                     'attacker': {'prec': aprec,
+                                                  'recall': arecall,
+                                                  'f1-score': af1,
+                                                  'acc': aacc}}
         print_attack_results(tacc, aprec, arecall, af1, aacc)
 
 
@@ -123,6 +129,8 @@ def main(args):
         print(f'  [+] Run Attacks on {experiment.gnn_type} trained with {experiment.dataset_name}')
         experiment.baseline()
 
+    # Conclude all results
+    final_evaluation(experiments)
         # [2.0] [Toggle] Description
         # [2.1] Target Model
             # [2.1.1] Parameter
