@@ -18,7 +18,6 @@ class Experiment:
         self.gnn_type = gnn
         self.dataset_name = dataset
         self.descs = {}
-        self.targets = {}
         self.attacker = {}
         self.results = {}
 
@@ -29,6 +28,8 @@ class Experiment:
         self.num_classes = self.dataset.num_classes
         # split dataset
         self._split_dataset()
+        # create and train target
+        self._create_target()
 
     def _split_dataset(self):
         split = self.original_graph.number_of_nodes() * 0.5
@@ -46,13 +47,12 @@ class Experiment:
         self.traingraph = dgl.remove_self_loop(traingraph)
         self.testgraph = dgl.remove_self_loop(testgraph)
 
-    def _create_target(self, tname, traingraph):
-        self.targets[tname] = Target(self.gnn_type, traingraph, self.num_classes)
-        self.targets[tname].train()
+    def _create_target(self):
+        self.target = Target(self.gnn_type, self.traingraph, self.num_classes)
+        self.target.train()
 
     def evaluate_attack(self, attack_name, graph):
-        target = self.targets[attack_name]
-        tacc = target.evaluate(graph)
+        tacc = self.target.evaluate(graph)
 
         attacker = self.attacker[attack_name]
         aprec, arecall, af1, aacc = attacker.evaluate(attacker.test_nid)
@@ -72,13 +72,12 @@ class Experiment:
         self.descs[attack_name] = '''\n      --- Baseline 1 ---
 
       The target model in this attack is trained on the traingraph-subset of the original dataset.
-      The attacker samples his dataset on the traingraph-subset as well.
+      The attacker model samples its dataset on the traingraph-subset and removes all edges.
       Both models are evaluated on the traingraph-subset.'''
         print(self.descs[attack_name])
-        # target
-        self._create_target(attack_name, self.traingraph)
+
         # attacker
-        self.attacker[attack_name] = Attacker(self.targets[attack_name], self.traingraph)
+        self.attacker[attack_name] = Attacker(self.target, self.traingraph)
         self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
         self.attacker[attack_name].sample_data(0.2, 0.4)
         self.attacker[attack_name].train()
@@ -91,13 +90,12 @@ class Experiment:
         self.descs[attack_name] = '''\n      --- Baseline 2 ---
 
       The target model in this attack is trained on the traingraph-subset of the original dataset.
-      The attacker samples his dataset on the testgraph-subset of the original dataset.
-      Both models are evaluated on the traingraph-subset.'''
+      The attacker model samples its dataset on the testgraph-subset and removes all edges.
+      Both models are evaluated on the testgraph-subset.'''
         print(self.descs[attack_name])
-        # target
-        self._create_target('baseline_2', self.traingraph)
+
         # attacker
-        self.attacker[attack_name] = Attacker(self.targets[attack_name], self.testgraph)
+        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
         self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
         self.attacker[attack_name].sample_data(0.2, 0.4)
         self.attacker[attack_name].train()
@@ -105,6 +103,24 @@ class Experiment:
         self.evaluate_attack('baseline_2', self.testgraph)
 
 
+    def surviving_edges(self, survivors):
+        # Baseline 1 - Train on traingraph - Test on traingraph
+        attack_name = f'surviving_edges_{survivors*100}p'
+        # description of attack
+        self.descs[attack_name] = f'''\n      --- Surviving Edges - {survivors*100}% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( {survivors*100} percent ).
+      Both models are evaluated on the testgraph-subset.'''
+        print(self.descs[attack_name])
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name].create_modified_graph(survivors) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data(0.2, 0.4)
+        self.attacker[attack_name].train()
+        # evaluate surviving_edges
+        self.evaluate_attack(attack_name, self.testgraph)
 
 
 def main(args):
@@ -128,6 +144,11 @@ def main(args):
     for experiment in experiments:
         print(f'  [+] Run Attacks on {experiment.gnn_type} trained with {experiment.dataset_name}')
         experiment.baseline()
+        experiment.surviving_edges(0.05)
+        experiment.surviving_edges(0.10)
+        experiment.surviving_edges(0.20)
+        experiment.surviving_edges(0.50)
+        experiment.surviving_edges(0.80)
 
     # Conclude all results
     final_evaluation(experiments)

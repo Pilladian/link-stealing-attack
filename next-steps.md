@@ -17,6 +17,6 @@
   - [x] F1-Score
   - [x] Accuracy
 - [ ] Work on impromevents
-  - [ ] More edges
+  - [x] More edges
   - [ ] Different types of GNNs
   - [ ] Node Classification Datasets

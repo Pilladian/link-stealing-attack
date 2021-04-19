@@ -1,0 +1,349 @@
+
+  --- Link Stealing Attack ---
+
+
+  [+] Datasets
+
+      Name        Nodes     Edges     Features     Classes
+      ----------------------------------------------------
+      cora        2708      10556     1433          7
+      citeseer    3327      9228      3703          6
+      pubmed      19717     88651     500           3
+
+
+  [+] Graph Neural Networks
+
+      Type         Aggregator Type
+      ----------------------------
+      graphsage    gcn
+
+
+  [+] Run Attacks on graphsage trained with cora
+
+      --- Baseline 1 ---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the traingraph-subset and removes all edges.
+      Both models are evaluated on the traingraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8999
+      Recall         -         0.6827
+      F1-Score       -         0.7764
+      Accuracy     0.8710      0.7407
+
+
+      --- Baseline 2 ---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes all edges.
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8270
+      Recall         -         0.6619
+      F1-Score       -         0.7353
+      Accuracy     0.6782      0.7089
+
+
+      --- Surviving Edges - 5.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 5.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8977
+      Recall         -         0.6389
+      F1-Score       -         0.7465
+      Accuracy     0.6782      0.7011
+
+
+      --- Surviving Edges - 10.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 10.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9138
+      Recall         -         0.6099
+      F1-Score       -         0.7315
+      Accuracy     0.6782      0.6639
+
+
+      --- Surviving Edges - 20.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 20.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8803
+      Recall         -         0.6773
+      F1-Score       -         0.7656
+      Accuracy     0.6782      0.7370
+
+
+      --- Surviving Edges - 50.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 50.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9631
+      Recall         -         0.6832
+      F1-Score       -         0.7994
+      Accuracy     0.6782      0.7579
+
+
+      --- Surviving Edges - 80.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 80.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9175
+      Recall         -         0.7000
+      F1-Score       -         0.7941
+      Accuracy     0.6782      0.7737
+
+  [+] Run Attacks on graphsage trained with citeseer
+
+      --- Baseline 1 ---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the traingraph-subset and removes all edges.
+      Both models are evaluated on the traingraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8027
+      Recall         -         0.7441
+      F1-Score       -         0.7723
+      Accuracy     0.6359      0.7672
+
+
+      --- Baseline 2 ---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes all edges.
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.5295
+      Recall         -         0.6845
+      F1-Score       -         0.5971
+      Accuracy     0.5543      0.6421
+
+
+      --- Surviving Edges - 5.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 5.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8940
+      Recall         -         0.6458
+      F1-Score       -         0.7499
+      Accuracy     0.5543      0.7098
+
+
+      --- Surviving Edges - 10.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 10.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9041
+      Recall         -         0.6423
+      F1-Score       -         0.7510
+      Accuracy     0.5543      0.7211
+
+
+      --- Surviving Edges - 20.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 20.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8068
+      Recall         -         0.6815
+      F1-Score       -         0.7389
+      Accuracy     0.5543      0.7275
+
+
+      --- Surviving Edges - 50.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 50.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9095
+      Recall         -         0.7035
+      F1-Score       -         0.7934
+      Accuracy     0.5543      0.7648
+
+
+      --- Surviving Edges - 80.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 80.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9435
+      Recall         -         0.7591
+      F1-Score       -         0.8413
+      Accuracy     0.5543      0.8136
+
+  [+] Run Attacks on graphsage trained with pubmed
+
+      --- Baseline 1 ---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the traingraph-subset and removes all edges.
+      Both models are evaluated on the traingraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8497
+      Recall         -         0.6410
+      F1-Score       -         0.7308
+      Accuracy     0.8915      0.6895
+
+
+      --- Baseline 2 ---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes all edges.
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.8324
+      Recall         -         0.6671
+      F1-Score       -         0.7406
+      Accuracy     0.8837      0.7036
+
+
+      --- Surviving Edges - 5.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 5.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9801
+      Recall         -         0.5715
+      F1-Score       -         0.7220
+      Accuracy     0.8837      0.6188
+
+
+      --- Surviving Edges - 10.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 10.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9529
+      Recall         -         0.6016
+      F1-Score       -         0.7376
+      Accuracy     0.8837      0.6629
+
+
+      --- Surviving Edges - 20.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 20.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9692
+      Recall         -         0.5937
+      F1-Score       -         0.7363
+      Accuracy     0.8837      0.6517
+
+
+      --- Surviving Edges - 50.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 50.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9806
+      Recall         -         0.6011
+      F1-Score       -         0.7453
+      Accuracy     0.8837      0.6686
+
+
+      --- Surviving Edges - 80.0% survivors---
+
+      The target model in this attack is trained on the traingraph-subset of the original dataset.
+      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( 80.0 percent ).
+      Both models are evaluated on the testgraph-subset.
+
+      Metric       Target      Attacker
+      ---------------------------------
+      Precision      -         0.9805
+      Recall         -         0.6176
+      F1-Score       -         0.7579
+      Accuracy     0.8837      0.6872
+
+
+  [+] Lineup of all results
+
+      Attack                    GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
+      ---------------------------------------------------------------------------------------------------------
+      baseline_1                graphsage     cora          87.10           74.07             77.64
+                                graphsage     citeseer      63.59           76.72             77.23
+                                graphsage     pubmed        89.15           68.95             73.08
+
+      baseline_2                graphsage     cora          67.82           70.89             73.53
+                                graphsage     citeseer      55.43           64.21             59.71
+                                graphsage     pubmed        88.37           70.36             74.06
+
+      surviving_edges_5.0p      graphsage     cora          67.82           70.11             74.65
+                                graphsage     citeseer      55.43           70.98             74.99
+                                graphsage     pubmed        88.37           61.88             72.20
+
+      surviving_edges_10.0p     graphsage     cora          67.82           66.39             73.15
+                                graphsage     citeseer      55.43           72.11             75.10
+                                graphsage     pubmed        88.37           66.29             73.76
+
+      surviving_edges_20.0p     graphsage     cora          67.82           73.70             76.56
+                                graphsage     citeseer      55.43           72.75             73.89
+                                graphsage     pubmed        88.37           65.17             73.63
+
+      surviving_edges_50.0p     graphsage     cora          67.82           75.79             79.94
+                                graphsage     citeseer      55.43           76.48             79.34
+                                graphsage     pubmed        88.37           66.86             74.53
+
+      surviving_edges_80.0p     graphsage     cora          67.82           77.37             79.41
+                                graphsage     citeseer      55.43           81.36             84.13
+                                graphsage     pubmed        88.37           68.72             75.79

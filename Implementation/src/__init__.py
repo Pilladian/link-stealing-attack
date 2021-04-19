@@ -143,7 +143,7 @@ class Attacker:
             self.parameter = json.load(json_file)
             self.gpu = True if self.parameter['gpu'] > 0 else False
 
-    def create_modified_graph(self, survivors, rand=False):
+    def create_modified_graph(self, survivors):
         # modified graph
         self.modified_graph = copy.deepcopy(self.graph)
 
@@ -152,14 +152,14 @@ class Attacker:
         # edges that do not exist in (modified_)graph
         neg = []
 
-        for p in range(self.graph.num_edges() * (1 - survivors)):
+        for p in range(int(self.graph.num_edges() * (1 - survivors))):
             edge_id = random.randint(0, self.modified_graph.num_edges() - 1)
             src, dst = self.modified_graph.find_edges([edge_id])[0].item(), self.modified_graph.find_edges([edge_id])[1].item()
             self.modified_graph.remove_edges([self.modified_graph.edge_id(src, dst)])
             pos.append(((src, dst), True))
 
         # neg_samples
-        for n in range(self.graph.num_edges() * (1 - survivors)):
+        for n in range(int(self.graph.num_edges() * (1 - survivors))):
             src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
             while self.graph.has_edges_between(src, dst) and (src, dst) not in neg:
                 src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
@@ -263,5 +263,5 @@ class Attacker:
             recall = _recall(pred, labels)
             f1_score = _f1_score(precision, recall)
             acc = _accuracy(pred, labels)
-            
+
             return (precision, recall, f1_score, acc)

@@ -78,14 +78,15 @@ def print_attack_results(tacc, aprec, arecall, af1, aacc):
       Accuracy     {tacc:.4f}      {aacc:.4f}\n''')
 
 def final_evaluation(experiments):
-    print(f'''\n  [+] Lineup of all results
-      Attack        GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
-      ---------------------------------------------------------------------------------------------''')
+    print(f'''\n  [+] Lineup of all results\n
+      Attack                    GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
+      ---------------------------------------------------------------------------------------------------------''')
 
-    for i, exp in enumerate(experiments):
-        for a in ['baseline_1', 'baseline_2']:
+    for a in list(experiments[0].results.keys()):
+        for i, exp in enumerate(experiments):
             if i == 0:
-                print(f'''      {a}{" " * (14 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]:.4f}{" " * 10}{exp.results[a]["attacker"]["acc"]:.4f}{" " * 12}{exp.results[a]["attacker"]["f1-score"]:.4f}''')
+                print(f'''      {a}{" " * (26 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}''')
             else:
-                print(f'''{" " * 18}{" " * (14 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]:.4f}{" " * 10}{exp.results[a]["attacker"]["acc"]:.4f}{" " * 12}{exp.results[a]["attacker"]["f1-score"]:.4f}''')
+                print(f'''      {" " * len(a)}{" " * (26 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}''')
+        print()
     print()
