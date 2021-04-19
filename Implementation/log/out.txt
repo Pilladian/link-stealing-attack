@@ -28,10 +28,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8999
-      Recall         -         0.6827
-      F1-Score       -         0.7764
-      Accuracy     0.8710      0.7407
+      Precision      -         0.9529
+      Recall         -         0.6405
+      F1-Score       -         0.7661
+      Accuracy     0.8961      0.7081
 
 
       --- Baseline 2 ---
@@ -42,10 +42,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8270
-      Recall         -         0.6619
-      F1-Score       -         0.7353
-      Accuracy     0.6782      0.7089
+      Precision      -         0.7832
+      Recall         -         0.6953
+      F1-Score       -         0.7366
+      Accuracy     0.6817      0.7135
 
 
       --- Surviving Edges - 5.0% survivors---
@@ -56,10 +56,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8977
-      Recall         -         0.6389
-      F1-Score       -         0.7465
-      Accuracy     0.6782      0.7011
+      Precision      -         0.8250
+      Recall         -         0.6743
+      F1-Score       -         0.7421
+      Accuracy     0.6817      0.7113
 
 
       --- Surviving Edges - 10.0% survivors---
@@ -70,10 +70,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9138
-      Recall         -         0.6099
-      F1-Score       -         0.7315
-      Accuracy     0.6782      0.6639
+      Precision      -         0.9333
+      Recall         -         0.6092
+      F1-Score       -         0.7372
+      Accuracy     0.6817      0.6670
 
 
       --- Surviving Edges - 20.0% survivors---
@@ -84,10 +84,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8803
-      Recall         -         0.6773
-      F1-Score       -         0.7656
-      Accuracy     0.6782      0.7370
+      Precision      -         0.8857
+      Recall         -         0.6602
+      F1-Score       -         0.7565
+      Accuracy     0.6817      0.7231
 
 
       --- Surviving Edges - 50.0% survivors---
@@ -98,10 +98,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9631
-      Recall         -         0.6832
-      F1-Score       -         0.7994
-      Accuracy     0.6782      0.7579
+      Precision      -         0.9586
+      Recall         -         0.6598
+      F1-Score       -         0.7816
+      Accuracy     0.6817      0.7366
 
 
       --- Surviving Edges - 80.0% survivors---
@@ -112,10 +112,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9175
-      Recall         -         0.7000
-      F1-Score       -         0.7941
-      Accuracy     0.6782      0.7737
+      Precision      -         0.9817
+      Recall         -         0.6221
+      F1-Score       -         0.7616
+      Accuracy     0.6817      0.6905
 
   [+] Run Attacks on graphsage trained with citeseer
 
@@ -127,10 +127,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8027
-      Recall         -         0.7441
-      F1-Score       -         0.7723
-      Accuracy     0.6359      0.7672
+      Precision      -         0.9779
+      Recall         -         0.7007
+      F1-Score       -         0.8164
+      Accuracy     0.6359      0.7830
 
 
       --- Baseline 2 ---
@@ -141,10 +141,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.5295
-      Recall         -         0.6845
-      F1-Score       -         0.5971
-      Accuracy     0.5543      0.6421
+      Precision      -         0.8147
+      Recall         -         0.6568
+      F1-Score       -         0.7273
+      Accuracy     0.5543      0.7058
 
 
       --- Surviving Edges - 5.0% survivors---
@@ -155,10 +155,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8940
-      Recall         -         0.6458
-      F1-Score       -         0.7499
-      Accuracy     0.5543      0.7098
+      Precision      -         0.6634
+      Recall         -         0.7810
+      F1-Score       -         0.7174
+      Accuracy     0.5543      0.7346
 
 
       --- Surviving Edges - 10.0% survivors---
@@ -169,10 +169,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9041
-      Recall         -         0.6423
-      F1-Score       -         0.7510
-      Accuracy     0.5543      0.7211
+      Precision      -         0.8592
+      Recall         -         0.7155
+      F1-Score       -         0.7808
+      Accuracy     0.5543      0.7572
 
 
       --- Surviving Edges - 20.0% survivors---
@@ -183,10 +183,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8068
-      Recall         -         0.6815
-      F1-Score       -         0.7389
-      Accuracy     0.5543      0.7275
+      Precision      -         0.7635
+      Recall         -         0.7317
+      F1-Score       -         0.7473
+      Accuracy     0.5543      0.7452
 
 
       --- Surviving Edges - 50.0% survivors---
@@ -197,10 +197,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9095
-      Recall         -         0.7035
-      F1-Score       -         0.7934
-      Accuracy     0.5543      0.7648
+      Precision      -         0.8601
+      Recall         -         0.7895
+      F1-Score       -         0.8233
+      Accuracy     0.5543      0.8097
 
 
       --- Surviving Edges - 80.0% survivors---
@@ -211,10 +211,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9435
-      Recall         -         0.7591
-      F1-Score       -         0.8413
-      Accuracy     0.5543      0.8136
+      Precision      -         0.9880
+      Recall         -         0.6522
+      F1-Score       -         0.7857
+      Accuracy     0.5543      0.7337
 
   [+] Run Attacks on graphsage trained with pubmed
 
@@ -226,10 +226,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8497
-      Recall         -         0.6410
-      F1-Score       -         0.7308
-      Accuracy     0.8915      0.6895
+      Precision      -         0.8963
+      Recall         -         0.6460
+      F1-Score       -         0.7508
+      Accuracy     0.8900      0.7006
 
 
       --- Baseline 2 ---
@@ -240,10 +240,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.8324
-      Recall         -         0.6671
-      F1-Score       -         0.7406
-      Accuracy     0.8837      0.7036
+      Precision      -         0.7077
+      Recall         -         0.7008
+      F1-Score       -         0.7042
+      Accuracy     0.8792      0.7018
 
 
       --- Surviving Edges - 5.0% survivors---
@@ -254,10 +254,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9801
-      Recall         -         0.5715
-      F1-Score       -         0.7220
-      Accuracy     0.8837      0.6188
+      Precision      -         0.9127
+      Recall         -         0.6502
+      F1-Score       -         0.7594
+      Accuracy     0.8792      0.7125
 
 
       --- Surviving Edges - 10.0% survivors---
@@ -268,10 +268,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9529
-      Recall         -         0.6016
-      F1-Score       -         0.7376
-      Accuracy     0.8837      0.6629
+      Precision      -         0.9289
+      Recall         -         0.6564
+      F1-Score       -         0.7693
+      Accuracy     0.8792      0.7201
 
 
       --- Surviving Edges - 20.0% survivors---
@@ -282,10 +282,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9692
-      Recall         -         0.5937
-      F1-Score       -         0.7363
-      Accuracy     0.8837      0.6517
+      Precision      -         0.9502
+      Recall         -         0.6360
+      F1-Score       -         0.7620
+      Accuracy     0.8792      0.7028
 
 
       --- Surviving Edges - 50.0% survivors---
@@ -296,10 +296,10 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9806
-      Recall         -         0.6011
-      F1-Score       -         0.7453
-      Accuracy     0.8837      0.6686
+      Precision      -         0.9632
+      Recall         -         0.6470
+      F1-Score       -         0.7741
+      Accuracy     0.8792      0.7186
 
 
       --- Surviving Edges - 80.0% survivors---
@@ -310,40 +310,36 @@
 
       Metric       Target      Attacker
       ---------------------------------
-      Precision      -         0.9805
-      Recall         -         0.6176
-      F1-Score       -         0.7579
-      Accuracy     0.8837      0.6872
+      Precision      -         0.9879
+      Recall         -         0.6220
+      F1-Score       -         0.7633
+      Accuracy     0.8792      0.6958
 
 
   [+] Lineup of all results
 
       Attack                    GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
       ---------------------------------------------------------------------------------------------------------
-      baseline_1                graphsage     cora          87.10           74.07             77.64
-                                graphsage     citeseer      63.59           76.72             77.23
-                                graphsage     pubmed        89.15           68.95             73.08
+      baseline_1                graphsage     cora          89.61           70.81             76.61
+      baseline_2                graphsage     cora          68.17           71.35             73.66
+      surviving_edges_5.0p      graphsage     cora          68.17           71.13             74.21
+      surviving_edges_10.0p     graphsage     cora          68.17           66.70             73.72
+      surviving_edges_20.0p     graphsage     cora          68.17           72.31             75.65
+      surviving_edges_50.0p     graphsage     cora          68.17           73.66             78.16
+      surviving_edges_80.0p     graphsage     cora          68.17           69.05             76.16
 
-      baseline_2                graphsage     cora          67.82           70.89             73.53
-                                graphsage     citeseer      55.43           64.21             59.71
-                                graphsage     pubmed        88.37           70.36             74.06
+      baseline_1                graphsage     citeseer      63.59           78.30             81.64
+      baseline_2                graphsage     citeseer      55.43           70.58             72.73
+      surviving_edges_5.0p      graphsage     citeseer      55.43           73.46             71.74
+      surviving_edges_10.0p     graphsage     citeseer      55.43           75.72             78.08
+      surviving_edges_20.0p     graphsage     citeseer      55.43           74.52             74.73
+      surviving_edges_50.0p     graphsage     citeseer      55.43           80.97             82.33
+      surviving_edges_80.0p     graphsage     citeseer      55.43           73.37             78.57
 
-      surviving_edges_5.0p      graphsage     cora          67.82           70.11             74.65
-                                graphsage     citeseer      55.43           70.98             74.99
-                                graphsage     pubmed        88.37           61.88             72.20
-
-      surviving_edges_10.0p     graphsage     cora          67.82           66.39             73.15
-                                graphsage     citeseer      55.43           72.11             75.10
-                                graphsage     pubmed        88.37           66.29             73.76
-
-      surviving_edges_20.0p     graphsage     cora          67.82           73.70             76.56
-                                graphsage     citeseer      55.43           72.75             73.89
-                                graphsage     pubmed        88.37           65.17             73.63
-
-      surviving_edges_50.0p     graphsage     cora          67.82           75.79             79.94
-                                graphsage     citeseer      55.43           76.48             79.34
-                                graphsage     pubmed        88.37           66.86             74.53
-
-      surviving_edges_80.0p     graphsage     cora          67.82           77.37             79.41
-                                graphsage     citeseer      55.43           81.36             84.13
-                                graphsage     pubmed        88.37           68.72             75.79
+      baseline_1                graphsage     pubmed        89.00           70.06             75.08
+      baseline_2                graphsage     pubmed        87.92           70.18             70.42
+      surviving_edges_5.0p      graphsage     pubmed        87.92           71.25             75.94
+      surviving_edges_10.0p     graphsage     pubmed        87.92           72.01             76.93
+      surviving_edges_20.0p     graphsage     pubmed        87.92           70.28             76.20
+      surviving_edges_50.0p     graphsage     pubmed        87.92           71.86             77.41
+      surviving_edges_80.0p     graphsage     pubmed        87.92           69.58             76.33

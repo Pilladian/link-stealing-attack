@@ -82,11 +82,17 @@ def final_evaluation(experiments):
       Attack                    GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
       ---------------------------------------------------------------------------------------------------------''')
 
-    for a in list(experiments[0].results.keys()):
-        for i, exp in enumerate(experiments):
-            if i == 0:
-                print(f'''      {a}{" " * (26 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}''')
-            else:
-                print(f'''      {" " * len(a)}{" " * (26 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}''')
+    #for a in list(experiments[0].results.keys()):
+    #    for i, exp in enumerate(experiments):
+    #        if i == 0:
+    #            print(f'''      {a}{" " * (26 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}''')
+    #        else:
+    #            print(f'''      {" " * len(a)}{" " * (26 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}''')
+    #    print()
+    #print()
+
+    for i, exp in enumerate(experiments):
+        for a in list(experiments[0].results.keys()):
+            print(f'''      {a}{" " * (26 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}''')
         print()
     print()
