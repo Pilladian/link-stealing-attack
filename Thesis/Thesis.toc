@@ -1,12 +1,1 @@
-\contentsline {chapter}{Abstract}{vii}{dummy.2}%
-\vspace {1em}
-\contentsline {chapter}{Acknowledgements}{ix}{dummy.3}%
-\vspace {1em}
-\vspace {2em}
-\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.5}%
-\vspace {2em}
-\contentsline {chapter}{List of Figures}{5}{dummy.35}%
-\contentsline {chapter}{List of Tables}{9}{dummy.37}%
-\contentsline {chapter}{\numberline {A}Additional Something}{11}{appendix.39}%
-\vspace {2em}
-\contentsline {chapter}{Bibliography}{13}{dummy.40}%
+\contentsline {chapter}{\numberline {1}Introduction}{7}{chapter.1}%
