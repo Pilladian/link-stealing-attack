@@ -116,8 +116,6 @@
 
 
 
-
-
 \newcommand{\blankpage}{
 	\clearpage
 	\null

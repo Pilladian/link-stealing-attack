@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.4.18)  20 APR 2021 19:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.4.18)  20 APR 2021 20:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -253,33 +253,41 @@ ination with the same identifier (name{page.1}) has been already used, duplicat
 e ignored
 <to be read again> 
                    \relax 
-l.40 	\blankpage
+l.36 	\blankpage
                  [1
 
 ] (./src/Presections/abstract.tex) [2
 
-]
-(./src/Presections/acknowledgment.tex) [3] [4
+]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.44 	\blankpage
+                 [2
 
-] (./Thesis.toc)
+] (./src/Presections/acknowledgment.tex) [3
+
+] [4
+
+]
+(./Thesis.toc)
 \tf@toc=\write4
 \openout4 = `Thesis.toc'.
 
-
-(./src/content/introduction.tex [5] [6
+ (./src/content/introduction.tex [5] [6
 
 ]
 Chapter 1.
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 130.
  [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 130.
  (./Thesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 132.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 132.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 130.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 130.
 Package rerunfilecheck Info: File `Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 801D62DD1A15D68C626BAEEC19C65BEA;47.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 130.
  ) 
 Here is how much of TeX's memory you used:
  4950 strings out of 481239
@@ -295,10 +303,10 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on Thesis.pdf (8 pages, 67062 bytes).
+Output written on Thesis.pdf (9 pages, 65487 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
  10 named destinations out of 1000 (max. 500000)
  9 words of extra memory for PDF output out of 10000 (max. 10000000)
 
