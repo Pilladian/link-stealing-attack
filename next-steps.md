@@ -6,6 +6,8 @@
 #### [ 2021-04-16 ]
 
 - [x] Add argparse for different settings
+  - [x] Descriptions for Attacks
+  - [ ] Logging results
   - [x] Different GNN types
   - [x] Different datasets
 - [x]  Implement the baseline
