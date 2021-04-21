@@ -14,10 +14,10 @@ from src import *
 
 class Experiment:
 
-    def __init__(self, gnn, dataset):
+    def __init__(self, gnn, dataset, verbose):
+        self.verbose = verbose
         self.gnn_type = gnn
         self.dataset_name = dataset
-        self.descs = {}
         self.attacker = {}
         self.results = {}
 
@@ -51,30 +51,37 @@ class Experiment:
         self.target = Target(self.gnn_type, self.traingraph, self.num_classes)
         self.target.train()
 
-    def evaluate_attack(self, attack_name, graph):
+    def evaluate_attack(self, attack_name, graph, verbose=False):
         tacc = self.target.evaluate(graph)
 
         attacker = self.attacker[attack_name]
         aprec, arecall, af1, aacc = attacker.evaluate(attacker.test_nid)
 
-        self.results[attack_name] = {'target': tacc,
+        self.results[attack_name] = {'target': {'acc': tacc},
                                      'attacker': {'prec': aprec,
                                                   'recall': arecall,
                                                   'f1-score': af1,
                                                   'acc': aacc}}
-        print_attack_results(tacc, aprec, arecall, af1, aacc)
+        if verbose:
+            print_attack_results(tacc, aprec, arecall, af1, aacc)
 
 
-    def baseline(self):
+    def baselines(self):
+        """
+        Baseline 1:
+        The target model in this attack is trained on the traingraph-subset of the original dataset.
+        The attacker model samples its dataset on the traingraph-subset and removes all edges.
+        Both models are evaluated on the traingraph-subset.
+
+        Baseline 2:
+        The target model in this attack is trained on the traingraph-subset of the original dataset.
+        The attacker model samples its dataset on the testgraph-subset and removes all edges.
+        Both models are evaluated on the testgraph-subset.
+        """
+
         # Baseline 1 - Train on traingraph - Test on traingraph
         attack_name = 'baseline_1'
-        # description of attack
-        self.descs[attack_name] = '''\n      --- Baseline 1 ---
-
-      The target model in this attack is trained on the traingraph-subset of the original dataset.
-      The attacker model samples its dataset on the traingraph-subset and removes all edges.
-      Both models are evaluated on the traingraph-subset.'''
-        print(self.descs[attack_name])
+        print_attack_start(attack_name)
 
         # attacker
         self.attacker[attack_name] = Attacker(self.target, self.traingraph)
@@ -82,17 +89,12 @@ class Experiment:
         self.attacker[attack_name].sample_data(0.2, 0.4)
         self.attacker[attack_name].train()
         # evaluate baseline 1
-        self.evaluate_attack(attack_name, self.traingraph)
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
 
         # Baseline 2 - Train on traingraph - Test on testgraph
         attack_name = 'baseline_2'
-        # description of attack
-        self.descs[attack_name] = '''\n      --- Baseline 2 ---
-
-      The target model in this attack is trained on the traingraph-subset of the original dataset.
-      The attacker model samples its dataset on the testgraph-subset and removes all edges.
-      Both models are evaluated on the testgraph-subset.'''
-        print(self.descs[attack_name])
+        print_attack_start(attack_name)
 
         # attacker
         self.attacker[attack_name] = Attacker(self.target, self.testgraph)
@@ -100,19 +102,19 @@ class Experiment:
         self.attacker[attack_name].sample_data(0.2, 0.4)
         self.attacker[attack_name].train()
         # evaluate baseline 2
-        self.evaluate_attack('baseline_2', self.testgraph)
+        print_attack_done(attack_name)
+        self.evaluate_attack('baseline_2', self.testgraph, verbose=self.verbose)
 
 
     def surviving_edges(self, survivors):
-        # Baseline 1 - Train on traingraph - Test on traingraph
-        attack_name = f'surviving_edges_{survivors*100}p'
-        # description of attack
-        self.descs[attack_name] = f'''\n      --- Surviving Edges - {survivors*100}% survivors---
-
-      The target model in this attack is trained on the traingraph-subset of the original dataset.
-      The attacker model samples its dataset on the testgraph-subset and removes almost all edges ( {survivors*100} percent ).
-      Both models are evaluated on the testgraph-subset.'''
-        print(self.descs[attack_name])
+        """
+        The target model in this attack is trained on the traingraph-subset of the original dataset.
+        The attacker model samples its dataset on the testgraph-subset and removes almost all edges.
+        Both models are evaluated on the testgraph-subset.
+        """
+        attack_name = f'surviving_edges_{int(survivors*100)}p'
+        # print(f'\n      --- Surviving Edges - {survivors*100}% survivors---')
+        print_attack_start(attack_name)
 
         # attacker
         self.attacker[attack_name] = Attacker(self.target, self.testgraph)
@@ -120,13 +122,14 @@ class Experiment:
         self.attacker[attack_name].sample_data(0.2, 0.4)
         self.attacker[attack_name].train()
         # evaluate surviving_edges
-        self.evaluate_attack(attack_name, self.testgraph)
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
 
 
 def main(args):
     # Init
-    os.system('clear')
-    print_desc('init')
+    print_init(args)
+
     # Datasets
     datasets = print_datasets(args.dataset)
     # GNNs
@@ -136,14 +139,14 @@ def main(args):
     experiments = []
     for gnn in gnns:
         for dataset in datasets:
-            exp = Experiment(gnn, dataset)
+            exp = Experiment(gnn, dataset, args.verbose)
             exp.initialize()
             experiments.append(exp)
 
     # run attacks
     for experiment in experiments:
-        print(f'  [+] Run Attacks on {experiment.gnn_type} trained with {experiment.dataset_name}')
-        experiment.baseline()
+        print(f'\n\n  [+] Run Attacks on {experiment.gnn_type} trained with {experiment.dataset_name}\n')
+        experiment.baselines()
         experiment.surviving_edges(0.05)
         experiment.surviving_edges(0.10)
         experiment.surviving_edges(0.20)
@@ -151,30 +154,25 @@ def main(args):
         experiment.surviving_edges(0.80)
 
     # Conclude all results
-    final_evaluation(experiments)
-        # [2.0] [Toggle] Description
-        # [2.1] Target Model
-            # [2.1.1] Parameter
-            # [2.1.2] Dataset-Stats
-            # [2.1.3] Parameter
+    final_evaluation(experiments, log=args.log, clear=args.clear)
 
-        # [2.2] Attacker Model
-            # [2.2.1] Parameter
-            # [2.2.2] Dataset-Stats
-            # [2.2.3] Parameter
-
-
-    # [3] 1. Modification ( more Edges )
-
-    # [4] 2. Modification ( different  )
 
 if __name__ == '__main__':
 
     # cmd args
     parser = argparse.ArgumentParser(description='Link-Stealing Attack')
-    parser.add_argument("--desc",
-                        action="store_false",
-                        help="Ouput Process Descriptions")
+
+    parser.add_argument("--log",
+                        action="store_true",
+                        help="Log Ouput in ./log/lineup.txt and ./log/results.json")
+
+    parser.add_argument("--clear",
+                        action="store_true",
+                        help="Clear all files in ./log/")
+
+    parser.add_argument("--verbose",
+                        action="store_true",
+                        help="Output Attack results")
 
     parser.add_argument("--dataset",
                         type=str,
@@ -184,17 +182,8 @@ if __name__ == '__main__':
     parser.add_argument("--gnn",
                         type=str,
                         default='all',
-                        help="Type of GNN [all, graphsage, ...]")
+                        help="Type of GNN [all, graphsage]")
 
 
     args = parser.parse_args()
     main(args)
-
-
-#       GNN         Dataset     B1 Target     B1 Attacker     B2 Target     B2 Attacker
-#      ---------------------------------------------------------------------------------
-#       graphsage   cora        0.7851        0.7411          0.8006        0.6802
-#       graphsage   citeseer    0.7264        0.7214          0.7222        0.7206
-#       graphsage   pubmed      0.8497        0.6535          0.8513        0.6875
-
-# add time

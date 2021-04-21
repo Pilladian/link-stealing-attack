@@ -1,0 +1,26 @@
+Attack                    GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
+---------------------------------------------------------------------------------------------------------
+baseline_1                graphsage     cora          86.74           72.84             72.24
+baseline_2                graphsage     cora          64.71           62.80             54.90
+surviving_edges_5p        graphsage     cora          64.71           66.75             69.60
+surviving_edges_10p       graphsage     cora          64.71           70.04             73.54
+surviving_edges_20p       graphsage     cora          64.71           72.89             76.54
+surviving_edges_50p       graphsage     cora          64.71           75.88             78.59
+surviving_edges_80p       graphsage     cora          64.71           75.06             79.31
+
+baseline_1                graphsage     citeseer      67.23           76.28             77.21
+baseline_2                graphsage     citeseer      55.43           68.64             61.72
+surviving_edges_5p        graphsage     citeseer      55.43           71.54             76.32
+surviving_edges_10p       graphsage     citeseer      55.43           73.36             75.30
+surviving_edges_20p       graphsage     citeseer      55.43           68.46             74.26
+surviving_edges_50p       graphsage     citeseer      55.43           71.99             76.83
+surviving_edges_80p       graphsage     citeseer      55.43           76.33             79.70
+
+baseline_1                graphsage     pubmed        88.39           69.09             74.94
+baseline_2                graphsage     pubmed        87.57           70.46             72.13
+surviving_edges_5p        graphsage     pubmed        87.57           68.22             74.74
+surviving_edges_10p       graphsage     pubmed        87.57           69.05             75.16
+surviving_edges_20p       graphsage     pubmed        87.57           63.29             72.70
+surviving_edges_50p       graphsage     pubmed        87.57           63.91             73.20
+surviving_edges_80p       graphsage     pubmed        87.57           68.38             76.01
+
