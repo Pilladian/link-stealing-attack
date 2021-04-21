@@ -13,6 +13,7 @@ import numpy as np
 import torch.nn.functional as F
 from src.graphsage import *
 from src.mlp import *
+from src.gat import *
 import time
 
 def _stats(pred, labels):
@@ -65,7 +66,10 @@ class Target:
         for epoch in range(self.parameter['n_epochs']):
             self.model.train()
             # forward
-            logits = self.model(self.graph, self.graph.ndata['feat'])
+            if self.gnn_name == 'graphsage':
+                logits = self.model(self.graph, self.graph.ndata['feat'])
+            elif self.gnn_name == 'gat':
+                logits = self.model(self.graph.ndata['feat'])
             loss = F.cross_entropy(logits, self.graph.ndata['label'])
             # update
             self.optimizer.zero_grad()
@@ -92,6 +96,24 @@ class Target:
                             self.parameter['dropout'],
                             self.parameter['aggregator_type'])
 
+        elif self.gnn_name == 'gat':
+            # modify graph - add self loops
+            g = dgl.remove_self_loop(self.graph)
+            self.graph = dgl.add_self_loop(self.graph)
+            heads = ([self.parameter['n_heads']] * self.parameter['n_layers']) + [self.parameter['n_outheads']]
+            self.model = GAT(
+                            self.graph,
+                            self.parameter['n_layers'],
+                            self.graph.ndata['feat'].shape[1],
+                            self.parameter['n_hidden'],
+                            self.num_classes,
+                            heads,
+                            F.elu,
+                            self.parameter['dropout'],
+                            self.parameter['dropout'],
+                            self.parameter['negative_slope'],
+                            self.parameter['residual'])
+
         # load model to gpu
         if self.gpu:
             self.model.cuda()
@@ -109,7 +131,10 @@ class Target:
         self.model.eval()
         with torch.no_grad():
             # query model
-            logits = self.model(graph, graph.ndata['feat'])
+            if self.gnn_name == 'graphsage':
+                logits = self.model(graph, graph.ndata['feat'])
+            elif self.gnn_name == 'gat':
+                logits = self.model(graph.ndata['feat'])
             logits = logits
             labels = graph.ndata['label']
             _, pred = torch.max(logits, dim=1)
@@ -124,7 +149,10 @@ class Target:
         self.model.eval()
         with torch.no_grad():
             # query model
-            logits = self.model(graph, graph.ndata['feat'])
+            if self.gnn_name == 'graphsage':
+                logits = self.model(graph, graph.ndata['feat'])
+            elif self.gnn_name == 'gat':
+                logits = self.model(graph.ndata['feat'])
             logits = logits[id]
             # return posteriors predicted by the model
             return logits

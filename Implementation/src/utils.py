@@ -42,6 +42,7 @@ def print_desc(opt, dir=''):
 def print_init(args):
     os.system('clear')
     print_desc('init')
+    print(f'  [+] Verbose Output {"enabled" if args.log else "disabled"}')
     print(f'  [+] Logging {"enabled" if args.log else "disabled"}\n\n')
 
 def print_datasets(d):
@@ -64,20 +65,18 @@ def print_datasets(d):
 
 def print_gnns(gnns):
     gnns = [s.strip() for s in gnns.split(",")]
-    gnn_types = ['graphsage']
+    gnn_types = ['graphsage', 'gat']
     for g in gnns:
         if g != 'all' and g not in gnn_types:
-            error_msg(f'Unknown GNN type \'{ds}\'')
+            error_msg(f'Unknown GNN type \'{g}\'')
 
-    gnns = gnn_types if 'all' in g else g
+    gnns = gnn_types if 'all' in gnns else gnns
 
     print(f'  [+] Graph Neural Networks\n')
-    print(f'      Type         Aggregator Type')
-    print(f'      ----------------------------')
+    print(f'      Type')
+    print(f'      -----------')
     for gnn in gnns:
-        with open(f'config/{gnn}.conf') as json_file:
-            parameter = json.load(json_file)
-            print(f'      {gnn}    {parameter["aggregator_type"]}')
+        print(f'      {gnn}')
 
     return gnns
 
@@ -109,13 +108,13 @@ def final_evaluation(experiments, log, clear):
 
         for i, exp in enumerate(experiments):
             for a in list(experiments[0].results.keys()):
-                lineup.write(f'{a}{" " * (26 - len(a))}{exp.gnn_type}{" " * (14 - len(exp.gnn_type))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]["acc"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
+                lineup.write(f'{a}{" " * (26 - len(a))}{exp.gnn_name}{" " * (14 - len(exp.gnn_name))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]["acc"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
             lineup.write('\n')
 
     if log:
         res = dict()
         for ind, exp in enumerate(experiments):
-            gnn = exp.gnn_type
+            gnn = exp.gnn_name
             if gnn not in res:
                 res[gnn] = {}
 

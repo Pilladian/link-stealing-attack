@@ -16,7 +16,7 @@ class Experiment:
 
     def __init__(self, gnn, dataset, verbose):
         self.verbose = verbose
-        self.gnn_type = gnn
+        self.gnn_name = gnn
         self.dataset_name = dataset
         self.attacker = {}
         self.results = {}
@@ -48,7 +48,7 @@ class Experiment:
         self.testgraph = dgl.remove_self_loop(testgraph)
 
     def _create_target(self):
-        self.target = Target(self.gnn_type, self.traingraph, self.num_classes)
+        self.target = Target(self.gnn_name, self.traingraph, self.num_classes)
         self.target.train()
 
     def evaluate_attack(self, attack_name, graph, verbose=False):
@@ -145,7 +145,7 @@ def main(args):
 
     # run attacks
     for experiment in experiments:
-        print(f'\n\n  [+] Run Attacks on {experiment.gnn_type} trained with {experiment.dataset_name}\n')
+        print(f'\n\n  [+] Run Attacks on {experiment.gnn_name} trained with {experiment.dataset_name}\n')
         experiment.baselines()
         experiment.surviving_edges(0.05)
         experiment.surviving_edges(0.10)
