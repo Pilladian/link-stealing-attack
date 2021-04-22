@@ -1,7 +1,10 @@
 #### [ 2021-04-09 ]
 
 - [x] Get familiar with DGL implementation of GraphSAGE, maybe also check the document
-- [ ] Read [GAT](https://arxiv.org/abs/1710.10903), [GIN](https://arxiv.org/abs/1810.00826), [GCN](https://arxiv.org/abs/1609.02907) paper
+- [ ] Read 
+  - [x] [GAT](https://arxiv.org/abs/1710.10903)
+  - [ ] [GIN](https://arxiv.org/abs/1810.00826)
+  - [ ] [GCN](https://arxiv.org/abs/1609.02907)
 
 #### [ 2021-04-16 ]
 
@@ -26,4 +29,7 @@
     - [x] 50% surviving edges ( 50% of deleted edges can be used for training )
     - [x] 80% surviving edges ( 20% of deleted edges can be used for training ) 
   - [ ] Different types of GNNs
+    - [x] GAT
+    - [ ] GIN
+    - [ ] GCN
   - [ ] Node Classification Datasets
