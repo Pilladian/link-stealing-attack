@@ -4,7 +4,7 @@
 - [ ] Read 
   - [x] [GAT](https://arxiv.org/abs/1710.10903)
   - [ ] [GIN](https://arxiv.org/abs/1810.00826)
-  - [ ] [GCN](https://arxiv.org/abs/1609.02907) paper
+  - [ ] [GCN](https://arxiv.org/abs/1609.02907)
 
 #### [ 2021-04-16 ]
 
@@ -30,4 +30,6 @@
     - [x] 80% surviving edges ( 20% of deleted edges can be used for training ) 
   - [ ] Different types of GNNs
     - [x] GAT
+    - [ ] GIN
+    - [ ] GCN
   - [ ] Node Classification Datasets
