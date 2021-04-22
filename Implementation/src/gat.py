@@ -1,5 +1,7 @@
 # Python 3.8.5
 
+# Reference: https://github.com/dmlc/dgl/blob/master/examples/pytorch/gat/
+
 import torch
 import torch.nn as nn
 import dgl.function as fn

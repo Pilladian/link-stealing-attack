@@ -1,7 +1,8 @@
 # Python 3.8.5
 
-import torch.nn as nn
+# Reference: https://github.com/dmlc/dgl/blob/master/examples/pytorch/graphsage/
 
+import torch.nn as nn
 
 # Attacker Model - trained on posteriors to perform link stealing
 class MLP(nn.Module):

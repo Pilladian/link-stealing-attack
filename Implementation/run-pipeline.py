@@ -32,7 +32,7 @@ class Experiment:
         self._create_target()
 
     def _split_dataset(self):
-        split = self.original_graph.number_of_nodes() * 0.5
+        split = self.original_graph.number_of_nodes() * 0.7
         train_mask = torch.zeros(self.original_graph.number_of_nodes(), dtype=torch.bool)
         test_mask = torch.zeros(self.original_graph.number_of_nodes(), dtype=torch.bool)
 
@@ -46,11 +46,6 @@ class Experiment:
         # remove self loops
         self.traingraph = dgl.remove_self_loop(traingraph)
         self.testgraph = dgl.remove_self_loop(testgraph)
-
-        # add self loops again - only for GATs
-        if self.gnn_name == 'gat':
-            self.traingraph = dgl.add_self_loop(traingraph)
-            self.testgraph = dgl.add_self_loop(testgraph)
 
     def _create_target(self):
         self.target = Target(self.gnn_name, self.traingraph, self.num_classes)

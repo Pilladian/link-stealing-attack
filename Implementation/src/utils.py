@@ -6,6 +6,7 @@ from dgl.data import citation_graph as citegrh
 from dgl.data.minigc import *
 from dgl.data.utils import *
 from dgl.data.reddit import RedditDataset
+from dgl.data.ppi import PPIDataset
 import json
 import os
 from datetime import datetime
@@ -15,7 +16,7 @@ def register_data_args(parser):
     parser.add_argument("--dataset",
                         type=str,
                         required=True,
-                        help="[cora, citeseer, pubmed, reddit]")
+                        help="[cora, citeseer, pubmed, ppi]")
 
 def load_data(dataset):
     if dataset == 'cora':
@@ -24,6 +25,8 @@ def load_data(dataset):
         return citegrh.load_citeseer(verbose=False)
     elif dataset == 'pubmed':
         return citegrh.load_pubmed(verbose=False)
+    elif dataset == 'ppi':
+        return PPIDataset()
     elif dataset is not None and dataset.startswith('reddit'):
         return RedditDataset(self_loop=('self-loop' in dataset))
     else:
@@ -47,7 +50,7 @@ def print_init(args):
 
 def print_datasets(d):
     d = [s.strip() for s in d.split(",")]
-    possible_datasets = ['cora', 'citeseer', 'pubmed']
+    possible_datasets = ['cora', 'citeseer', 'pubmed', 'ppi']
     for ds in d:
         if ds != 'all' and ds not in possible_datasets:
             error_msg(f'Unknown dataset \'{ds}\'')
@@ -65,7 +68,7 @@ def print_datasets(d):
 
 def print_gnns(gnns):
     gnns = [s.strip() for s in gnns.split(",")]
-    gnn_types = ['graphsage', 'gat']
+    gnn_types = ['graphsage', 'gat', 'gcn']
     for g in gnns:
         if g != 'all' and g not in gnn_types:
             error_msg(f'Unknown GNN type \'{g}\'')
@@ -74,7 +77,7 @@ def print_gnns(gnns):
 
     print(f'  [+] Graph Neural Networks\n')
     print(f'      Type')
-    print(f'      -----------')
+    print(f'      ----------')
     for gnn in gnns:
         print(f'      {gnn}')
 

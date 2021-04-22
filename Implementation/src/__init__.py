@@ -14,6 +14,7 @@ import torch.nn.functional as F
 from src.graphsage import *
 from src.mlp import *
 from src.gat import *
+from src.gcn import *
 import time
 
 def _stats(pred, labels):
@@ -68,8 +69,9 @@ class Target:
             # forward
             if self.gnn_name == 'graphsage':
                 logits = self.model(self.graph, self.graph.ndata['feat'])
-            elif self.gnn_name == 'gat':
-                self.model.g = self.graph
+            elif self.gnn_name in ['gat', 'gcn']:
+                g = dgl.remove_self_loop(self.graph)
+                self.model.g = dgl.add_self_loop(g)
                 logits = self.model(self.graph.ndata['feat'])
             loss = F.cross_entropy(logits, self.graph.ndata['label'])
             # update
@@ -98,7 +100,6 @@ class Target:
                             self.parameter['aggregator_type'])
 
         elif self.gnn_name == 'gat':
-            # modify graph - add self loops
             heads = ([self.parameter['n_heads']] * self.parameter['n_layers']) + [self.parameter['n_outheads']]
             self.model = GAT(
                             self.graph,
@@ -112,6 +113,16 @@ class Target:
                             self.parameter['dropout'],
                             self.parameter['negative_slope'],
                             self.parameter['residual'])
+
+        elif self.gnn_name == 'gcn':
+            self.model = GCN(
+                            self.graph,
+                            self.graph.ndata['feat'].shape[1],
+                            self.parameter['n_hidden'],
+                            self.num_classes,
+                            self.parameter['n_layers'],
+                            F.relu,
+                            self.parameter['dropout'])
 
         # load model to gpu
         if self.gpu:
@@ -132,8 +143,9 @@ class Target:
             # query model
             if self.gnn_name == 'graphsage':
                 logits = self.model(graph, graph.ndata['feat'])
-            elif self.gnn_name == 'gat':
-                self.model.g = graph
+            elif self.gnn_name in ['gat', 'gcn']:
+                g = dgl.remove_self_loop(graph)
+                self.model.g = dgl.add_self_loop(g)
                 logits = self.model(graph.ndata['feat'])
             logits = logits
             labels = graph.ndata['label']
@@ -151,8 +163,9 @@ class Target:
             # query model
             if self.gnn_name == 'graphsage':
                 logits = self.model(graph, graph.ndata['feat'])
-            elif self.gnn_name == 'gat':
-                self.model.g = graph
+            elif self.gnn_name in ['gat', 'gcn']:
+                g = dgl.remove_self_loop(graph)
+                self.model.g = dgl.add_self_loop(g)
                 logits = self.model(graph.ndata['feat'])
             logits = logits[id]
             # return posteriors predicted by the model
@@ -174,9 +187,8 @@ class Attacker:
 
     def create_modified_graph(self, survivors):
         # modified graph
-        self.modified_graph = copy.deepcopy(self.graph)
-        self.modified_graph = dgl.remove_self_loop(self.modified_graph)
-        orig_num_of_edges = self.modified_graph.number_of_nodes()
+        self.modified_graph = dgl.remove_self_loop(copy.deepcopy(self.graph))
+        orig_num_of_edges = self.modified_graph.number_of_edges()
 
 
         # edges in modified_graph that have been in graph but are going to be deleted
@@ -193,14 +205,10 @@ class Attacker:
         # neg_samples
         for n in range(int(orig_num_of_edges * (1 - survivors))):
             src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
-            while self.graph.has_edges_between(src, dst) and (src, dst) not in neg:
+            while self.graph.has_edges_between(src, dst) and (src, dst) not in neg and src != dst:
                 src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
             neg.append(((src, dst), False))
 
-
-        # add self loops neccesarry for GAT
-        if self.target_model.gnn_name == 'gat':
-            self.modified_graph = dgl.add_self_loop(self.modified_graph)
         # create raw dataset
         self.raw_dataset = pos + neg
         random.shuffle(self.raw_dataset)

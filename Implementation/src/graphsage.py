@@ -1,5 +1,7 @@
 # Python 3.8.5
 
+# Reference: https://github.com/dmlc/dgl/blob/master/examples/pytorch/graphsage/
+
 import torch.nn as nn
 from dgl.nn.pytorch.conv import SAGEConv
 
