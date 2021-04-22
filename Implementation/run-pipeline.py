@@ -47,6 +47,11 @@ class Experiment:
         self.traingraph = dgl.remove_self_loop(traingraph)
         self.testgraph = dgl.remove_self_loop(testgraph)
 
+        # add self loops again - only for GATs
+        if self.gnn_name == 'gat':
+            self.traingraph = dgl.add_self_loop(traingraph)
+            self.testgraph = dgl.add_self_loop(testgraph)
+
     def _create_target(self):
         self.target = Target(self.gnn_name, self.traingraph, self.num_classes)
         self.target.train()

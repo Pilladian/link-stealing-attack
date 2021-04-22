@@ -69,6 +69,7 @@ class Target:
             if self.gnn_name == 'graphsage':
                 logits = self.model(self.graph, self.graph.ndata['feat'])
             elif self.gnn_name == 'gat':
+                self.model.g = self.graph
                 logits = self.model(self.graph.ndata['feat'])
             loss = F.cross_entropy(logits, self.graph.ndata['label'])
             # update
@@ -98,8 +99,6 @@ class Target:
 
         elif self.gnn_name == 'gat':
             # modify graph - add self loops
-            g = dgl.remove_self_loop(self.graph)
-            self.graph = dgl.add_self_loop(self.graph)
             heads = ([self.parameter['n_heads']] * self.parameter['n_layers']) + [self.parameter['n_outheads']]
             self.model = GAT(
                             self.graph,
@@ -134,6 +133,7 @@ class Target:
             if self.gnn_name == 'graphsage':
                 logits = self.model(graph, graph.ndata['feat'])
             elif self.gnn_name == 'gat':
+                self.model.g = graph
                 logits = self.model(graph.ndata['feat'])
             logits = logits
             labels = graph.ndata['label']
@@ -152,6 +152,7 @@ class Target:
             if self.gnn_name == 'graphsage':
                 logits = self.model(graph, graph.ndata['feat'])
             elif self.gnn_name == 'gat':
+                self.model.g = graph
                 logits = self.model(graph.ndata['feat'])
             logits = logits[id]
             # return posteriors predicted by the model
@@ -174,26 +175,32 @@ class Attacker:
     def create_modified_graph(self, survivors):
         # modified graph
         self.modified_graph = copy.deepcopy(self.graph)
+        self.modified_graph = dgl.remove_self_loop(self.modified_graph)
+        orig_num_of_edges = self.modified_graph.number_of_nodes()
+
 
         # edges in modified_graph that have been in graph but are going to be deleted
         pos = []
         # edges that do not exist in (modified_)graph
         neg = []
 
-        for p in range(int(self.graph.num_edges() * (1 - survivors))):
+        for p in range(int(orig_num_of_edges * (1 - survivors))):
             edge_id = random.randint(0, self.modified_graph.num_edges() - 1)
             src, dst = self.modified_graph.find_edges([edge_id])[0].item(), self.modified_graph.find_edges([edge_id])[1].item()
             self.modified_graph.remove_edges([self.modified_graph.edge_id(src, dst)])
             pos.append(((src, dst), True))
 
         # neg_samples
-        for n in range(int(self.graph.num_edges() * (1 - survivors))):
+        for n in range(int(orig_num_of_edges * (1 - survivors))):
             src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
             while self.graph.has_edges_between(src, dst) and (src, dst) not in neg:
                 src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
             neg.append(((src, dst), False))
 
 
+        # add self loops neccesarry for GAT
+        if self.target_model.gnn_name == 'gat':
+            self.modified_graph = dgl.add_self_loop(self.modified_graph)
         # create raw dataset
         self.raw_dataset = pos + neg
         random.shuffle(self.raw_dataset)
