@@ -6,6 +6,7 @@ warnings.filterwarnings('ignore')
 
 # Imports
 import argparse
+import random
 import json
 import os
 from src.utils import *
@@ -32,13 +33,13 @@ class Experiment:
         self._create_target()
 
     def _split_dataset(self):
-        split = self.original_graph.number_of_nodes() * 0.5
         train_mask = torch.zeros(self.original_graph.number_of_nodes(), dtype=torch.bool)
         test_mask = torch.zeros(self.original_graph.number_of_nodes(), dtype=torch.bool)
 
         for a in range(self.original_graph.number_of_nodes()):
-            train_mask[a] = a < split
-            test_mask[a] = a >= split
+            val = random.choice([True, False])
+            train_mask[a] = val
+            test_mask[a] = not val
 
         traingraph = self.original_graph.subgraph(train_mask)
         testgraph = self.original_graph.subgraph(test_mask)
@@ -152,10 +153,9 @@ def main(args):
         print(f'\n\n  [+] Run Attacks on {experiment.gnn_name} trained with {experiment.dataset_name}\n')
         experiment.baseline_1()
         experiment.baseline_2()
-        experiment.surviving_edges(0.05)
-        experiment.surviving_edges(0.10)
         experiment.surviving_edges(0.20)
-        experiment.surviving_edges(0.50)
+        experiment.surviving_edges(0.40)
+        experiment.surviving_edges(0.60)
         experiment.surviving_edges(0.80)
 
     # Conclude all results
@@ -187,7 +187,7 @@ if __name__ == '__main__':
     parser.add_argument("--gnn",
                         type=str,
                         default='all',
-                        help="Type of GNN [all, graphsage]")
+                        help="Type of GNN [all, graphsage, gcn, gat]")
 
 
     args = parser.parse_args()
