@@ -16,7 +16,7 @@ def register_data_args(parser):
     parser.add_argument("--dataset",
                         type=str,
                         required=True,
-                        help="[cora, citeseer, pubmed, ppi]")
+                        help="[cora, citeseer, pubmed]")
 
 def load_data(dataset):
     if dataset == 'cora':
@@ -25,8 +25,6 @@ def load_data(dataset):
         return citegrh.load_citeseer(verbose=False)
     elif dataset == 'pubmed':
         return citegrh.load_pubmed(verbose=False)
-    elif dataset == 'ppi':
-        return PPIDataset()
     elif dataset is not None and dataset.startswith('reddit'):
         return RedditDataset(self_loop=('self-loop' in dataset))
     else:
@@ -50,7 +48,7 @@ def print_init(args):
 
 def print_datasets(d):
     d = [s.strip() for s in d.split(",")]
-    possible_datasets = ['cora', 'citeseer', 'pubmed', 'ppi']
+    possible_datasets = ['cora', 'citeseer', 'pubmed']
     for ds in d:
         if ds != 'all' and ds not in possible_datasets:
             error_msg(f'Unknown dataset \'{ds}\'')
