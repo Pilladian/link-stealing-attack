@@ -27,30 +27,23 @@ class Experiment:
         self.dataset = load_data(self.dataset_name)
         self.original_graph = self.dataset[0]
         self.num_classes = self.dataset.num_classes
-        # split dataset
-        self._split_dataset()
-        # create and train target
-        self._create_target()
+        # load subgraphs
+        self._load_dataset_subgraphs()
+        # load target model
+        self._load_target_model()
 
-    def _split_dataset(self):
-        train_mask = torch.zeros(self.original_graph.number_of_nodes(), dtype=torch.bool)
-        test_mask = torch.zeros(self.original_graph.number_of_nodes(), dtype=torch.bool)
+    def _load_dataset_subgraphs(self):
+        self.dir = f'./models/{self.dataset_name}/{self.gnn_name}/'
+        traingraph, labels1 = load_graphs(f'{self.dir}traingraph.bin', [0])
+        testgraph, labels2 = load_graphs(f'{self.dir}testgraph.bin', [0])
 
-        for a in range(self.original_graph.number_of_nodes()):
-            val = random.choice([True, False])
-            train_mask[a] = val
-            test_mask[a] = not val
+        self.traingraph = traingraph[0]
+        self.testgraph = testgraph[0]
 
-        traingraph = self.original_graph.subgraph(train_mask)
-        testgraph = self.original_graph.subgraph(test_mask)
-
-        # remove self loops
-        self.traingraph = dgl.remove_self_loop(traingraph)
-        self.testgraph = dgl.remove_self_loop(testgraph)
-
-    def _create_target(self):
-        self.target = Target(self.gnn_name, self.traingraph, self.num_classes)
-        self.target.train()
+    def _load_target_model(self):
+        self.target = Target(self.gnn_name, self.traingraph, self.dataset.num_classes)
+        self.target._initialize()
+        self.target.model.load_state_dict(torch.load(f'{self.dir}model.pt'))
 
     def evaluate_attack(self, attack_name, graph, verbose=False):
         tacc = self.target.evaluate(graph)
