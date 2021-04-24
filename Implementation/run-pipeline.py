@@ -32,7 +32,7 @@ class Experiment:
         self._create_target()
 
     def _split_dataset(self):
-        split = self.original_graph.number_of_nodes() * 0.7
+        split = self.original_graph.number_of_nodes() * 0.5
         train_mask = torch.zeros(self.original_graph.number_of_nodes(), dtype=torch.bool)
         test_mask = torch.zeros(self.original_graph.number_of_nodes(), dtype=torch.bool)
 
@@ -66,19 +66,13 @@ class Experiment:
             print_attack_results(tacc, aprec, arecall, af1, aacc)
 
 
-    def baselines(self):
+    def baseline_1(self):
         """
         Baseline 1:
         The target model in this attack is trained on the traingraph-subset of the original dataset.
         The attacker model samples its dataset on the traingraph-subset and removes all edges.
         Both models are evaluated on the traingraph-subset.
-
-        Baseline 2:
-        The target model in this attack is trained on the traingraph-subset of the original dataset.
-        The attacker model samples its dataset on the testgraph-subset and removes all edges.
-        Both models are evaluated on the testgraph-subset.
         """
-
         # Baseline 1 - Train on traingraph - Test on traingraph
         attack_name = 'baseline_1'
         print_attack_start(attack_name)
@@ -88,10 +82,18 @@ class Experiment:
         self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
         self.attacker[attack_name].sample_data(0.2, 0.4)
         self.attacker[attack_name].train()
+
         # evaluate baseline 1
         print_attack_done(attack_name)
         self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
 
+    def baseline_2(self):
+        """
+        Baseline 2:
+        The target model in this attack is trained on the traingraph-subset of the original dataset.
+        The attacker model samples its dataset on the testgraph-subset and removes all edges.
+        Both models are evaluated on the testgraph-subset.
+        """
         # Baseline 2 - Train on traingraph - Test on testgraph
         attack_name = 'baseline_2'
         print_attack_start(attack_name)
@@ -101,6 +103,7 @@ class Experiment:
         self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
         self.attacker[attack_name].sample_data(0.2, 0.4)
         self.attacker[attack_name].train()
+
         # evaluate baseline 2
         print_attack_done(attack_name)
         self.evaluate_attack('baseline_2', self.testgraph, verbose=self.verbose)
@@ -112,15 +115,16 @@ class Experiment:
         The attacker model samples its dataset on the testgraph-subset and removes almost all edges.
         Both models are evaluated on the testgraph-subset.
         """
+        # Surviving Edges
         attack_name = f'surviving_edges_{int(survivors*100)}p'
-        # print(f'\n      --- Surviving Edges - {survivors*100}% survivors---')
         print_attack_start(attack_name)
 
         # attacker
         self.attacker[attack_name] = Attacker(self.target, self.testgraph)
-        self.attacker[attack_name].create_modified_graph(survivors) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].create_modified_graph(survivors)
         self.attacker[attack_name].sample_data(0.2, 0.4)
         self.attacker[attack_name].train()
+
         # evaluate surviving_edges
         print_attack_done(attack_name)
         self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
@@ -135,7 +139,7 @@ def main(args):
     # GNNs
     gnns = print_gnns(args.gnn)
 
-    # create Attack objects
+    # create Experiments
     experiments = []
     for gnn in gnns:
         for dataset in datasets:
@@ -146,7 +150,8 @@ def main(args):
     # run attacks
     for experiment in experiments:
         print(f'\n\n  [+] Run Attacks on {experiment.gnn_name} trained with {experiment.dataset_name}\n')
-        experiment.baselines()
+        experiment.baseline_1()
+        experiment.baseline_2()
         experiment.surviving_edges(0.05)
         experiment.surviving_edges(0.10)
         experiment.surviving_edges(0.20)
