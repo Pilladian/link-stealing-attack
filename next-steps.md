@@ -23,13 +23,21 @@
   - [x] Accuracy
 - [ ] Work on impromevents
   - [x] More edges survive in graph (are not deleted)
-    - [x] 5% surviving edges ( 95% of deleted edges can be used for training )
-    - [x] 10% surviving edges ( 90% of deleted edges can be used for training )
-    - [x] 20% surviving edges ( 80% of deleted edges can be used for training )
-    - [x] 50% surviving edges ( 50% of deleted edges can be used for training )
-    - [x] 80% surviving edges ( 20% of deleted edges can be used for training ) 
+    - [x] 20% surviving edges ( 20% of edges can be used for training )
+    - [ ] 40% surviving edges ( 40% of edges can be used for training )
+    - [ ] 60% surviving edges ( 60% of edges can be used for training )
+    - [x] 80% surviving edges ( 80% of edges can be used for training ) 
   - [ ] Different types of GNNs
     - [x] GAT
     - [ ] GIN
-    - [ ] GCN
+    - [x] GCN
   - [ ] Node Classification Datasets
+    - [x] PPI
+
+#### [ 2021-04-23 ]
+
+- [ ] Include old and new datasets ( Testing and Training -> Randomize instead of ids )
+- [ ] Create Evaluation Markdown file for attacks
+- [ ] Thread Model ( Knowledge of Attacker )
+- [ ] Attack Methodology ( What does attacker need to do for attacking )
+- [ ] Visualization ( Plot )
