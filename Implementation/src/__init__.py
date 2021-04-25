@@ -190,20 +190,21 @@ class Attacker:
         self.modified_graph = dgl.remove_self_loop(copy.deepcopy(self.graph))
         orig_num_of_edges = self.modified_graph.number_of_edges()
 
-
-        # edges in modified_graph that have been in graph but are going to be deleted
         pos = []
-        # edges that do not exist in (modified_)graph
-        neg = []
-
         for p in range(int(orig_num_of_edges * (1 - survivors))):
             edge_id = random.randint(0, self.modified_graph.num_edges() - 1)
             src, dst = self.modified_graph.find_edges([edge_id])[0].item(), self.modified_graph.find_edges([edge_id])[1].item()
             self.modified_graph.remove_edges([self.modified_graph.edge_id(src, dst)])
             pos.append(((src, dst), True))
 
-        # neg_samples
-        for n in range(int(orig_num_of_edges * (1 - survivors))):
+        for p in range(int(orig_num_of_edges * survivors)):
+            edge_id = random.randint(0, self.modified_graph.num_edges() - 1)
+            src, dst = self.modified_graph.find_edges([edge_id])[0].item(), self.modified_graph.find_edges([edge_id])[1].item()
+            pos.append(((src, dst), True))
+
+        # neg_samples - edges that do not exist in (modified_)graph
+        neg = []
+        for n in range(int(orig_num_of_edges)):# * (1 - survivors))):
             src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
             while self.graph.has_edges_between(src, dst) and (src, dst) not in neg and src != dst:
                 src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
