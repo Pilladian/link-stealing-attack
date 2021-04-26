@@ -1,0 +1,65 @@
+Attack                    GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
+---------------------------------------------------------------------------------------------------------
+baseline_1                graphsage     cora          89.61           67.32             61.51
+baseline_2                graphsage     cora          83.04           65.79             71.00
+surviving_edges_20p       graphsage     cora          83.04           71.33             76.53
+surviving_edges_40p       graphsage     cora          83.04           72.90             77.49
+surviving_edges_60p       graphsage     cora          83.04           76.60             80.63
+surviving_edges_80p       graphsage     cora          83.04           79.51             82.85
+
+baseline_1                graphsage     citeseer      69.40           71.86             77.59
+baseline_2                graphsage     citeseer      56.72           72.19             75.62
+surviving_edges_20p       graphsage     citeseer      56.72           77.21             80.47
+surviving_edges_40p       graphsage     citeseer      56.72           83.53             85.57
+surviving_edges_60p       graphsage     citeseer      56.72           82.23             84.26
+surviving_edges_80p       graphsage     citeseer      56.72           78.92             82.21
+
+baseline_1                graphsage     pubmed        89.49           72.00             74.17
+baseline_2                graphsage     pubmed        89.38           69.03             75.62
+surviving_edges_20p       graphsage     pubmed        89.38           71.40             77.13
+surviving_edges_40p       graphsage     pubmed        89.38           70.40             76.82
+surviving_edges_60p       graphsage     pubmed        89.38           71.64             77.61
+surviving_edges_80p       graphsage     pubmed        89.38           71.77             78.13
+
+baseline_1                gat           cora          85.71           74.88             74.31
+baseline_2                gat           cora          77.78           64.27             59.62
+surviving_edges_20p       gat           cora          77.78           73.29             77.15
+surviving_edges_40p       gat           cora          77.78           73.43             78.89
+surviving_edges_60p       gat           cora          77.78           71.96             77.53
+surviving_edges_80p       gat           cora          77.78           74.00             79.40
+
+baseline_1                gat           citeseer      77.75           75.32             76.40
+baseline_2                gat           citeseer      60.88           72.04             72.77
+surviving_edges_20p       gat           citeseer      60.88           71.74             76.60
+surviving_edges_40p       gat           citeseer      60.88           76.81             80.61
+surviving_edges_60p       gat           citeseer      60.88           76.01             78.92
+surviving_edges_80p       gat           citeseer      60.88           78.75             80.56
+
+baseline_1                gat           pubmed        89.10           68.57             75.13
+baseline_2                gat           pubmed        89.13           69.75             73.16
+surviving_edges_20p       gat           pubmed        89.13           69.22             71.71
+surviving_edges_40p       gat           pubmed        89.13           64.97             73.94
+surviving_edges_60p       gat           pubmed        89.13           72.53             78.42
+surviving_edges_80p       gat           pubmed        89.13           68.01             75.67
+
+baseline_1                gcn           cora          89.83           71.40             75.22
+baseline_2                gcn           cora          75.46           63.64             66.95
+surviving_edges_20p       gcn           cora          75.46           68.35             70.40
+surviving_edges_40p       gcn           cora          75.46           75.60             76.06
+surviving_edges_60p       gcn           cora          75.46           73.82             76.23
+surviving_edges_80p       gcn           cora          75.46           73.21             70.39
+
+baseline_1                gcn           citeseer      71.11           70.13             75.19
+baseline_2                gcn           citeseer      57.24           70.81             75.44
+surviving_edges_20p       gcn           citeseer      57.24           69.32             74.69
+surviving_edges_40p       gcn           citeseer      57.24           73.24             76.25
+surviving_edges_60p       gcn           citeseer      57.24           74.24             78.70
+surviving_edges_80p       gcn           citeseer      57.24           74.89             79.17
+
+baseline_1                gcn           pubmed        90.35           69.51             75.28
+baseline_2                gcn           pubmed        87.74           70.43             73.25
+surviving_edges_20p       gcn           pubmed        87.74           66.83             74.70
+surviving_edges_40p       gcn           pubmed        87.74           73.81             78.28
+surviving_edges_60p       gcn           pubmed        87.74           73.84             71.52
+surviving_edges_80p       gcn           pubmed        87.74           62.14             40.49
+
