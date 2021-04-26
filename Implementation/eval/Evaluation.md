@@ -656,4 +656,3 @@ Predict whether one knows people or not.
     </tbody>
     </table>
 <img src="/eval/plots/surviving_edges_80p.jpg" alt="drawing" width="520"/>
-

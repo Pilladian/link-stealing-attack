@@ -35,7 +35,7 @@ def get_plot(data, name):
     for i, (dataset, vals) in enumerate(values.items()):
         plt.bar(pos[i], values[dataset], label=dataset, width=bar_width, color=colors[i])
 
-    if name == 'baseline_2':
+    if name == 'baseline_1':
         plt.legend()
     path = f"./eval/plots/{name}.jpg"
     plt.savefig(path)
