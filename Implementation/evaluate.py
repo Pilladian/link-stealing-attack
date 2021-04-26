@@ -40,7 +40,7 @@ def get_plot(data, name):
     path = f"./eval/plots/{name}.jpg"
     plt.savefig(path)
 
-    return path[1:]
+    return path[7:]
 
 def get_results(data, name):
     content = """<table>

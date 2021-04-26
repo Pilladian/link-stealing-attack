@@ -215,7 +215,7 @@ Predict whether one knows people or not.
         </tr>
     </tbody>
     </table>
-<img src="/eval/plots/baseline_1.jpg" alt="drawing" width="520"/>
+<img src="plots/baseline_1.jpg" alt="drawing" width="520"/>
 
 #### Baseline 2
 Unfollow everybody but keep in mind, that one know them. Sample `pos` with one self and its former follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -303,7 +303,7 @@ Predict whether one knows people or not.
         </tr>
     </tbody>
     </table>
-<img src="/eval/plots/baseline_2.jpg" alt="drawing" width="520"/>
+<img src="plots/baseline_2.jpg" alt="drawing" width="520"/>
 
 #### Surviving Edges 20
 Unfollow 80% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -391,7 +391,7 @@ Predict whether one knows people or not.
         </tr>
     </tbody>
     </table>
-<img src="/eval/plots/surviving_edges_20p.jpg" alt="drawing" width="520"/>
+<img src="plots/surviving_edges_20p.jpg" alt="drawing" width="520"/>
 
 #### Surviving Edges 40
 Unfollow 60% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -479,7 +479,7 @@ Predict whether one knows people or not.
         </tr>
     </tbody>
     </table>
-<img src="/eval/plots/surviving_edges_40p.jpg" alt="drawing" width="520"/>
+<img src="plots/surviving_edges_40p.jpg" alt="drawing" width="520"/>
 
 #### Surviving Edges 60
 Unfollow 40% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -567,7 +567,7 @@ Predict whether one knows people or not.
         </tr>
     </tbody>
     </table>
-<img src="/eval/plots/surviving_edges_60p.jpg" alt="drawing" width="520"/>
+<img src="plots/surviving_edges_60p.jpg" alt="drawing" width="520"/>
 
 #### Surviving Edges 80
 Unfollow 20% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -655,4 +655,5 @@ Predict whether one knows people or not.
         </tr>
     </tbody>
     </table>
-<img src="/eval/plots/surviving_edges_80p.jpg" alt="drawing" width="520"/>
+<img src="plots/surviving_edges_80p.jpg" alt="drawing" width="520"/>
+
