@@ -77,7 +77,9 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
 | Optimizer     | Adam
 
 #### Threat Model
-- Black Box Access ( Query Access ) to Target Model `target`
+- Model: Black Box Access ( Query Access ) to Target Model `target`
+- Dataset: Same distribution dataset (training or testing)
+- Node-topology: No edge, 20%, 40%, 60%, 80% known edges;
 
 #### Attack Methodology
 > Example: Social Network like Instagram or Facebook
