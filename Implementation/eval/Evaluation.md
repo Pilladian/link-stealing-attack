@@ -132,6 +132,7 @@ Now it is possible to predict whether two private accounts are connected to each
 A GNN was trained on Instagram profiles to predict the salary of people. To train the  `attacker` one could use its own profile, its follower and also the follower of its own follower. The network now contains people that one is connected to and people one doesn't know.
 
 #### Baseline 1
+- Use train dataset to query (0-hop)
 Use the Social Network Graph, the Target Model was trained on to also train the Attacker Model (<span style="color:red">Knowledge of the dataset needed</span>). Remove all edges but keep in mind, which nodes have been connected. Sample `pos` with nodes that have been connected. Sample `neg` with nodes that haven't. Query the GNN with the modified Social Network Graph to get posteriors to sample features. Train `attacker` on the sampled dataset.
 
 Predict whether one knows people or not.
@@ -220,6 +221,7 @@ Predict whether one knows people or not.
 <img src="plots/baseline_1.jpg" alt="drawing" width="520"/>
 
 #### Baseline 2
+- Use test dataset to query (0-hop)
 Unfollow everybody but keep in mind, that one know them. Sample `pos` with one self and its former follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
 
 Predict whether one knows people or not.
