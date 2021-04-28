@@ -159,7 +159,9 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
 | Optimizer     | Adam
 
 #### Threat Model
-- Black Box Access ( Query Access ) to Target Model `target`
+- Model: Black Box Access ( Query Access ) to Target Model `target`
+- Dataset: Same distribution dataset (training or testing)
+- Node-topology: No edge, 20%, 40%, 60%, 80% known edges;
 
 #### Attack Methodology
 > Example: Social Network like Instagram or Facebook
@@ -170,20 +172,15 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
 
 
 - Target Model `target` that has been trained on the Social Network to perform some Task
-    - Input: Node ID
+    - Input: Node's feature ( maybe also its neighbors' features and the edges between them )
     - Output: Some posterior
 
 
 - Create Raw Attacker Training Dataset `raw-train`
     - Collect `pos` ( node pairs of people that are connected )
     - Collect `neg` ( node pairs of people that are not connected )
-    - <span style="color:green">Possible because public profiles reveal such information</span>
-        - Private profile `private` follows Public profile `public`
-            - `public` has `private` as follower
-            - append (`private`, `public`, True) to `pos`
-        - Private profile `private` does not follow Public Profile `public`
-            - `public` has `private` not as follower
-            - append (`private`, `public`, False) to `neg`
+    - E.g.: (NodeID_1, NodeID_2, True) in `pos` would mean that NodeID_1 and NodeID_2 know each other / are connected
+    - `raw-train` = `pos` + `neg`
 
 
 - Sample `attacker-train` with `raw-train`
@@ -191,6 +188,7 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
     - Get posteriors for both nodes
     - Concatinate the posteriors as feature
     - Use 1 (`pos`) or 0 (`neg`) as label
+    - E.g.: (Posterior_Concat, 0) means that the nodes of which the posteriors came from haven't known each other / haven't been connected
 
 
 - Train Attacker Model `attacker`
@@ -212,6 +210,7 @@ Now it is possible to predict whether two private accounts are connected to each
 A GNN was trained on Instagram profiles to predict the salary of people. To train the  `attacker` one could use its own profile, its follower and also the follower of its own follower. The network now contains people that one is connected to and people one doesn't know.
 
 #### Baseline 1
+- Use train dataset to query (0-hop)
 Use the Social Network Graph, the Target Model was trained on to also train the Attacker Model (<span style="color:red">Knowledge of the dataset needed</span>). Remove all edges but keep in mind, which nodes have been connected. Sample `pos` with nodes that have been connected. Sample `neg` with nodes that haven't. Query the GNN with the modified Social Network Graph to get posteriors to sample features. Train `attacker` on the sampled dataset.
 
 Predict whether one knows people or not.
@@ -221,6 +220,7 @@ Predict whether one knows people or not.
 <img src=\"{get_plot(data, "baseline_1")}\" alt="drawing" width="520"/>
 
 #### Baseline 2
+- Use test dataset to query (0-hop)
 Unfollow everybody but keep in mind, that one know them. Sample `pos` with one self and its former follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
 
 Predict whether one knows people or not.

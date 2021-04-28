@@ -90,20 +90,15 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
 
 
 - Target Model `target` that has been trained on the Social Network to perform some Task
-    - Input: Node ID
+    - Input: Node's feature ( maybe also its neighbors' features and the edges between them )
     - Output: Some posterior
 
 
 - Create Raw Attacker Training Dataset `raw-train`
     - Collect `pos` ( node pairs of people that are connected )
     - Collect `neg` ( node pairs of people that are not connected )
-    - <span style="color:green">Possible because public profiles reveal such information</span>
-        - Private profile `private` follows Public profile `public`
-            - `public` has `private` as follower
-            - append (`private`, `public`, True) to `pos`
-        - Private profile `private` does not follow Public Profile `public`
-            - `public` has `private` not as follower
-            - append (`private`, `public`, False) to `neg`
+    - E.g.: (NodeID_1, NodeID_2, True) in `pos` would mean that NodeID_1 and NodeID_2 know each other / are connected
+    - `raw-train` = `pos` + `neg`
 
 
 - Sample `attacker-train` with `raw-train`
@@ -111,6 +106,7 @@ Given a Graph Neural Network the model performs a link stealing attack based on 
     - Get posteriors for both nodes
     - Concatinate the posteriors as feature
     - Use 1 (`pos`) or 0 (`neg`) as label
+    - E.g.: (Posterior_Concat, 0) means that the nodes of which the posteriors came from haven't known each other / haven't been connected
 
 
 - Train Attacker Model `attacker`
