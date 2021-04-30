@@ -4,6 +4,8 @@
 *.out
 *.synctex.gz
 *.toc
+lstpatch.sty
+
 
 # virtualenv
 bin/

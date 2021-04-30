@@ -4,6 +4,7 @@ import json
 import matplotlib.pyplot as plt
 
 def get_plot(data, name):
+    plt.clf()
     bar_width = 0.1
 
     gnns = [type for type, _ in data.items()]
@@ -24,7 +25,7 @@ def get_plot(data, name):
     plt.xlabel('Graph Neural Network Type')
     plt.ylabel('Attack F1-Score')
     plt.title(name)
-    plt.ylim([0, 1.2])
+    plt.ylim([0, 1.1])
 
     # GNN Type centered between 3 bars
     tick_pos = [val + (bar_width * 2) / 2 for val in pos[0]]
@@ -35,8 +36,8 @@ def get_plot(data, name):
     for i, (dataset, vals) in enumerate(values.items()):
         plt.bar(pos[i], values[dataset], label=dataset, width=bar_width, color=colors[i])
 
-    if name == 'baseline_1':
-        plt.legend()
+
+    plt.legend()
     path = f"./eval/plots/{name}.jpg"
     plt.savefig(path)
 
@@ -48,9 +49,9 @@ def get_results(data, name):
             <tr>
                 <th>Type</th>
                 <th>Dataset</th>
+                <th>F1-Score</th>
                 <th>Precision</th>
                 <th>Recall</th>
-                <th>F1-Score</th>
                 <th>Accuracy</th>
             </tr>
         </thead>
@@ -66,18 +67,18 @@ def get_results(data, name):
             if i == 0:
                 f += f"""
             <td>{dataset}</td>
+            <td>{cont2[name]['attacker']['f1-score']:0.4f}</td>
             <td>{cont2[name]['attacker']['prec']:0.4f}</td>
             <td>{cont2[name]['attacker']['recall']:0.4f}</td>
-            <td>{cont2[name]['attacker']['f1-score']:0.4f}</td>
             <td>{cont2[name]['attacker']['acc']:0.4f}</td>
         </tr>"""
             else:
                 f += f"""
         <tr>
             <td>{dataset}</td>
+            <td>{cont2[name]['attacker']['f1-score']:0.4f}</td>
             <td>{cont2[name]['attacker']['prec']:0.4f}</td>
             <td>{cont2[name]['attacker']['recall']:0.4f}</td>
-            <td>{cont2[name]['attacker']['f1-score']:0.4f}</td>
             <td>{cont2[name]['attacker']['acc']:0.4f}</td>
         </tr>"""
         content += f

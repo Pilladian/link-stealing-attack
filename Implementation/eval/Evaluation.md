@@ -139,9 +139,9 @@ Predict whether one knows people or not.
             <tr>
                 <th>Type</th>
                 <th>Dataset</th>
+                <th>F1-Score</th>
                 <th>Precision</th>
                 <th>Recall</th>
-                <th>F1-Score</th>
                 <th>Accuracy</th>
             </tr>
         </thead>
@@ -149,67 +149,67 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
+            <td>0.6151</td>
             <td>0.5115</td>
             <td>0.7715</td>
-            <td>0.6151</td>
             <td>0.6732</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7759</td>
             <td>0.9637</td>
             <td>0.6494</td>
-            <td>0.7759</td>
             <td>0.7186</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7417</td>
             <td>0.8018</td>
             <td>0.6900</td>
-            <td>0.7417</td>
             <td>0.7200</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
+            <td>0.7431</td>
             <td>0.7544</td>
             <td>0.7321</td>
-            <td>0.7431</td>
             <td>0.7488</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7640</td>
             <td>0.8135</td>
             <td>0.7201</td>
-            <td>0.7640</td>
             <td>0.7532</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7513</td>
             <td>0.9524</td>
             <td>0.6204</td>
-            <td>0.7513</td>
             <td>0.6857</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
+            <td>0.7522</td>
             <td>0.8786</td>
             <td>0.6577</td>
-            <td>0.7522</td>
             <td>0.7140</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7519</td>
             <td>0.9153</td>
             <td>0.6380</td>
-            <td>0.7519</td>
             <td>0.7013</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7528</td>
             <td>0.9376</td>
             <td>0.6288</td>
-            <td>0.7528</td>
             <td>0.6951</td>
         </tr>
     </tbody>
@@ -228,9 +228,9 @@ Predict whether one knows people or not.
             <tr>
                 <th>Type</th>
                 <th>Dataset</th>
+                <th>F1-Score</th>
                 <th>Precision</th>
                 <th>Recall</th>
-                <th>F1-Score</th>
                 <th>Accuracy</th>
             </tr>
         </thead>
@@ -238,67 +238,67 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
+            <td>0.7100</td>
             <td>0.8494</td>
             <td>0.6098</td>
-            <td>0.7100</td>
             <td>0.6579</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7562</td>
             <td>0.8496</td>
             <td>0.6813</td>
-            <td>0.7562</td>
             <td>0.7219</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7562</td>
             <td>0.9510</td>
             <td>0.6276</td>
-            <td>0.7562</td>
             <td>0.6903</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
+            <td>0.5962</td>
             <td>0.5244</td>
             <td>0.6906</td>
-            <td>0.5962</td>
             <td>0.6427</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7277</td>
             <td>0.7421</td>
             <td>0.7138</td>
-            <td>0.7277</td>
             <td>0.7204</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7316</td>
             <td>0.8201</td>
             <td>0.6602</td>
-            <td>0.7316</td>
             <td>0.6975</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
+            <td>0.6695</td>
             <td>0.7512</td>
             <td>0.6038</td>
-            <td>0.6695</td>
             <td>0.6364</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7544</td>
             <td>0.8825</td>
             <td>0.6588</td>
-            <td>0.7544</td>
             <td>0.7081</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7325</td>
             <td>0.8055</td>
             <td>0.6716</td>
-            <td>0.7325</td>
             <td>0.7043</td>
         </tr>
     </tbody>
@@ -316,9 +316,9 @@ Predict whether one knows people or not.
             <tr>
                 <th>Type</th>
                 <th>Dataset</th>
+                <th>F1-Score</th>
                 <th>Precision</th>
                 <th>Recall</th>
-                <th>F1-Score</th>
                 <th>Accuracy</th>
             </tr>
         </thead>
@@ -326,67 +326,67 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
+            <td>0.7653</td>
             <td>0.9326</td>
             <td>0.6488</td>
-            <td>0.7653</td>
             <td>0.7133</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.8047</td>
             <td>0.9543</td>
             <td>0.6956</td>
-            <td>0.8047</td>
             <td>0.7721</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7713</td>
             <td>0.9656</td>
             <td>0.6420</td>
-            <td>0.7713</td>
             <td>0.7140</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
+            <td>0.7715</td>
             <td>0.8899</td>
             <td>0.6809</td>
-            <td>0.7715</td>
             <td>0.7329</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7660</td>
             <td>0.9453</td>
             <td>0.6439</td>
-            <td>0.7660</td>
             <td>0.7174</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7171</td>
             <td>0.7856</td>
             <td>0.6596</td>
-            <td>0.7171</td>
             <td>0.6922</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
+            <td>0.7040</td>
             <td>0.7516</td>
             <td>0.6620</td>
-            <td>0.7040</td>
             <td>0.6835</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7469</td>
             <td>0.9100</td>
             <td>0.6334</td>
-            <td>0.7469</td>
             <td>0.6932</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7470</td>
             <td>0.9779</td>
             <td>0.6043</td>
-            <td>0.7470</td>
             <td>0.6683</td>
         </tr>
     </tbody>
@@ -404,9 +404,9 @@ Predict whether one knows people or not.
             <tr>
                 <th>Type</th>
                 <th>Dataset</th>
+                <th>F1-Score</th>
                 <th>Precision</th>
                 <th>Recall</th>
-                <th>F1-Score</th>
                 <th>Accuracy</th>
             </tr>
         </thead>
@@ -414,67 +414,67 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
+            <td>0.7749</td>
             <td>0.9388</td>
             <td>0.6597</td>
-            <td>0.7749</td>
             <td>0.7290</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.8557</td>
             <td>0.9639</td>
             <td>0.7694</td>
-            <td>0.8557</td>
             <td>0.8353</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7682</td>
             <td>0.9839</td>
             <td>0.6300</td>
-            <td>0.7682</td>
             <td>0.7040</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
+            <td>0.7889</td>
             <td>0.9767</td>
             <td>0.6616</td>
-            <td>0.7889</td>
             <td>0.7343</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.8061</td>
             <td>0.9724</td>
             <td>0.6884</td>
-            <td>0.8061</td>
             <td>0.7681</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7394</td>
             <td>0.9946</td>
             <td>0.5884</td>
-            <td>0.7394</td>
             <td>0.6497</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
+            <td>0.7606</td>
             <td>0.7719</td>
             <td>0.7495</td>
-            <td>0.7606</td>
             <td>0.7560</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7625</td>
             <td>0.8931</td>
             <td>0.6652</td>
-            <td>0.7625</td>
             <td>0.7324</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7828</td>
             <td>0.9449</td>
             <td>0.6682</td>
-            <td>0.7828</td>
             <td>0.7381</td>
         </tr>
     </tbody>
@@ -492,9 +492,9 @@ Predict whether one knows people or not.
             <tr>
                 <th>Type</th>
                 <th>Dataset</th>
+                <th>F1-Score</th>
                 <th>Precision</th>
                 <th>Recall</th>
-                <th>F1-Score</th>
                 <th>Accuracy</th>
             </tr>
         </thead>
@@ -502,67 +502,67 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
+            <td>0.8063</td>
             <td>0.9579</td>
             <td>0.6961</td>
-            <td>0.8063</td>
             <td>0.7660</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.8426</td>
             <td>0.9817</td>
             <td>0.7380</td>
-            <td>0.8426</td>
             <td>0.8223</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7761</td>
             <td>0.9915</td>
             <td>0.6376</td>
-            <td>0.7761</td>
             <td>0.7164</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
+            <td>0.7753</td>
             <td>0.9706</td>
             <td>0.6454</td>
-            <td>0.7753</td>
             <td>0.7196</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7892</td>
             <td>0.8924</td>
             <td>0.7074</td>
-            <td>0.7892</td>
             <td>0.7601</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7842</td>
             <td>0.9904</td>
             <td>0.6491</td>
-            <td>0.7842</td>
             <td>0.7253</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
+            <td>0.7623</td>
             <td>0.8323</td>
             <td>0.7032</td>
-            <td>0.7623</td>
             <td>0.7382</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7870</td>
             <td>0.9482</td>
             <td>0.6727</td>
-            <td>0.7870</td>
             <td>0.7424</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7152</td>
             <td>0.6562</td>
             <td>0.7859</td>
-            <td>0.7152</td>
             <td>0.7384</td>
         </tr>
     </tbody>
@@ -580,9 +580,9 @@ Predict whether one knows people or not.
             <tr>
                 <th>Type</th>
                 <th>Dataset</th>
+                <th>F1-Score</th>
                 <th>Precision</th>
                 <th>Recall</th>
-                <th>F1-Score</th>
                 <th>Accuracy</th>
             </tr>
         </thead>
@@ -590,67 +590,67 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
+            <td>0.8285</td>
             <td>0.9849</td>
             <td>0.7150</td>
-            <td>0.8285</td>
             <td>0.7951</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.8221</td>
             <td>0.9947</td>
             <td>0.7005</td>
-            <td>0.8221</td>
             <td>0.7892</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7813</td>
             <td>0.9972</td>
             <td>0.6422</td>
-            <td>0.7813</td>
             <td>0.7177</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
+            <td>0.7940</td>
             <td>0.9934</td>
             <td>0.6613</td>
-            <td>0.7940</td>
             <td>0.7400</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.8056</td>
             <td>0.8541</td>
             <td>0.7623</td>
-            <td>0.8056</td>
             <td>0.7875</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.7567</td>
             <td>0.9961</td>
             <td>0.6101</td>
-            <td>0.7567</td>
             <td>0.6801</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
+            <td>0.7039</td>
             <td>0.6400</td>
             <td>0.7819</td>
-            <td>0.7039</td>
             <td>0.7321</td>
         </tr>
         <tr>
             <td>citeseer</td>
+            <td>0.7917</td>
             <td>0.9807</td>
             <td>0.6638</td>
-            <td>0.7917</td>
             <td>0.7489</td>
         </tr>
         <tr>
             <td>pubmed</td>
+            <td>0.4049</td>
             <td>0.2590</td>
             <td>0.9270</td>
-            <td>0.4049</td>
             <td>0.6214</td>
         </tr>
     </tbody>
