@@ -90,6 +90,15 @@
 	\end{center}
 }
 
+% ---- References ----
+\newenvironment{references}{
+	\setstretch{1.1}
+	\begin{center}
+		\huge{\textit{References}} \par
+		\bigskip\bigskip\bigskip\bigskip
+	\end{center}
+}
+
 
 
 

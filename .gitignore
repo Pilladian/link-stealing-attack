@@ -1,4 +1,9 @@
 # latex
+*.blg
+*.bbl
+*.bcf
+*.brf
+*.run.xml
 *.aux
 *.log
 *.out
