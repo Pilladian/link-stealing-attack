@@ -24,20 +24,23 @@
 - [ ] Work on impromevents
   - [x] More edges survive in graph (are not deleted)
     - [x] 20% surviving edges ( 20% of edges can be used for training )
-    - [ ] 40% surviving edges ( 40% of edges can be used for training )
-    - [ ] 60% surviving edges ( 60% of edges can be used for training )
+    - [x] 40% surviving edges ( 40% of edges can be used for training )
+    - [x] 60% surviving edges ( 60% of edges can be used for training )
     - [x] 80% surviving edges ( 80% of edges can be used for training ) 
   - [ ] Different types of GNNs
     - [x] GAT
     - [ ] GIN
     - [x] GCN
-  - [ ] Node Classification Datasets
-    - [x] PPI
 
 #### [ 2021-04-23 ]
 
-- [ ] Include old and new datasets ( Testing and Training -> Randomize instead of ids )
-- [ ] Create Evaluation Markdown file for attacks
-- [ ] Thread Model ( Knowledge of Attacker )
-- [ ] Attack Methodology ( What does attacker need to do for attacking )
-- [ ] Visualization ( Plot )
+- [x] Cora, Citeseer, Pubmed ( Testing and Training -> Randomized Sub-Graph )
+  - [x] Save Subgraphs
+- [x] Evaluation.md
+  - [x] Thread Model ( Knowledge of Attacker )
+  - [x] Attack Methodology ( What does attacker need to do for attacking )
+  - [x] Visualization ( Plots, Tables )
+
+#### [ 2021-04-30 ]
+
+- [ ] 
