@@ -25,6 +25,7 @@
 \rhead[\fancyplain{}{\sl{\leftmark}}]{\rm\thepage}
 \chead{}\lfoot{}\rfoot{}\cfoot{}
 \pagestyle{fancy}
+\usepackage[dvipsnames]{xcolor}
 
 % ---- University - Faculty - Department ----
 \newcommand{\university}[3]{
@@ -99,7 +100,10 @@
 	\end{center}
 }
 
-
+% ---- TODO ----
+\newcommand{\TODO}[1]{
+	\textcolor{red}{#1}
+}
 
 
 
