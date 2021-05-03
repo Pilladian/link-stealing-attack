@@ -147,7 +147,6 @@ class Target:
                 g = dgl.remove_self_loop(graph)
                 self.model.g = dgl.add_self_loop(g)
                 logits = self.model(graph.ndata['feat'])
-            logits = logits
             labels = graph.ndata['label']
             _, pred = torch.max(logits, dim=1)
 
