@@ -1,7 +1,7 @@
 #### [ 2021-04-09 ]
 
 - [x] Get familiar with DGL implementation of GraphSAGE, maybe also check the document
-- [ ] Read 
+- [ ] Read
   - [x] [GAT](https://arxiv.org/abs/1710.10903)
   - [ ] [GIN](https://arxiv.org/abs/1810.00826)
   - [ ] [GCN](https://arxiv.org/abs/1609.02907)
@@ -26,7 +26,7 @@
     - [x] 20% surviving edges ( 20% of edges can be used for training )
     - [x] 40% surviving edges ( 40% of edges can be used for training )
     - [x] 60% surviving edges ( 60% of edges can be used for training )
-    - [x] 80% surviving edges ( 80% of edges can be used for training ) 
+    - [x] 80% surviving edges ( 80% of edges can be used for training )
   - [ ] Different types of GNNs
     - [x] GAT
     - [ ] GIN
@@ -43,4 +43,6 @@
 
 #### [ 2021-04-30 ]
 
-- [ ] 
+- [ ] Train on `dataset_1` and evaluate on `dataset_2`
+  - [ ] calculate posterior features
+  - [ ] evaluate
