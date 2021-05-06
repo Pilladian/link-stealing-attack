@@ -16,6 +16,7 @@ from src.mlp import *
 from src.gat import *
 from src.gcn import *
 import time
+from scipy.spatial import distance
 
 def _stats(pred, labels):
     pos_mask = labels == 1
@@ -213,7 +214,12 @@ class Attacker:
         self.raw_dataset = pos + neg
         random.shuffle(self.raw_dataset)
 
-    def sample_data(self, train_val, val_test):
+    def sample_data_posteriors(self, train_val, val_test):
+        """
+        [1] Query target on two nodes
+        [2] Get their posteriors for node classification
+        [3] Concatinate posteriors to form the input feature vector for the attacker model
+        """
         size = len(self.raw_dataset) - 1
         self.feature_amount = self.target_model.get_posteriors(self.modified_graph, 0).shape[0] * 2
         self.features = torch.zeros((size + 1, self.feature_amount), dtype=torch.float)
@@ -246,6 +252,90 @@ class Attacker:
         self.train_nid = self.train_mask.nonzero().squeeze()
         self.val_nid = self.val_mask.nonzero().squeeze()
         self.test_nid = self.test_mask.nonzero().squeeze()
+
+    def sample_data_vector_distances(self, train_val, val_test):
+        """
+        [1] Query target on two nodes
+        [2] Get their posteriors for node classification
+        [3] Create input feature vector for attacker model
+            [3.1] Calculate distances between posterior vectors
+            [3.2] Concatinate results to form a 8-dim input feature vector
+        """
+        size = len(self.raw_dataset) - 1
+        self.feature_amount = 8
+        self.features = torch.zeros((size + 1, self.feature_amount), dtype=torch.float)
+        self.labels = torch.zeros(size + 1, dtype=torch.long)
+
+        for i, ((src, dst), label) in enumerate(self.raw_dataset):
+            # query target model to get posteriors
+            post_src = self.target_model.get_posteriors(self.modified_graph, src)
+            post_dst = self.target_model.get_posteriors(self.modified_graph, dst)
+            src_list = [x.item() for x in post_src]
+            dst_list = [x.item() for x in post_dst]
+
+            # cosine distance
+            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cosine.html
+            cosine_distance = distance.cosine(src_list, dst_list)
+
+            # euclidean distance
+            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.euclidean.html?highlight=euclidean#scipy.spatial.distance.euclidean
+            euclidean_distance = distance.euclidean(src_list, dst_list)
+
+            # correlation distance
+            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.correlation.html?highlight=correlation#scipy.spatial.distance.correlation
+            correlation_distance = distance.correlation(src_list, dst_list)
+
+            # chebyshev distance
+            # formular https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.chebyshev.html?highlight=chebyshev#scipy.spatial.distance.chebyshev
+            chebyshev_distance = distance.chebyshev(src_list, dst_list)
+
+            # braycurtis distance
+            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.braycurtis.html?highlight=braycurtis#scipy.spatial.distance.braycurtis
+            braycurtis_distance = distance.braycurtis(src_list, dst_list)
+
+            # manhattan distance
+            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cityblock.html?highlight=manhattan
+            manhattan_distance = distance.cityblock(src_list, dst_list)
+
+            # canberra distance
+            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.canberra.html?highlight=canberra#scipy.spatial.distance.canberra
+            canberra_distance = distance.canberra(src_list, dst_list)
+
+            # sqeuclidean distance
+            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.sqeuclidean.html?highlight=sqeuclidean#scipy.spatial.distance.sqeuclidean
+            sqeuclidean_distance = distance.sqeuclidean(src_list, dst_list)
+
+            feature = torch.tensor([cosine_distance,
+                                    euclidean_distance,
+                                    correlation_distance,
+                                    chebyshev_distance,
+                                    braycurtis_distance,
+                                    manhattan_distance,
+                                    canberra_distance,
+                                    sqeuclidean_distance])
+            # create feature and label
+            self.features[i] = feature
+            self.labels[i] = torch.ones(1, 1) if label else torch.zeros(1, 1)
+
+        # train, eval, test
+        self.train_mask = torch.zeros(size, dtype=torch.bool)
+        self.val_mask = torch.zeros(size, dtype=torch.bool)
+        self.test_mask = torch.zeros(size, dtype=torch.bool)
+
+        train_val_split = int(size * train_val)
+        val_test_split  = train_val_split + int(size * val_test)
+
+        # train masks
+        for a in range(size):
+            self.train_mask[a] = a < train_val_split
+            self.val_mask[a] = a >= train_val_split and a < val_test_split
+            self.test_mask[a] = a >= val_test_split
+
+        # node ids
+        self.train_nid = self.train_mask.nonzero().squeeze()
+        self.val_nid = self.val_mask.nonzero().squeeze()
+        self.test_nid = self.test_mask.nonzero().squeeze()
+
 
     def train(self, verbose=False):
         # initialize model

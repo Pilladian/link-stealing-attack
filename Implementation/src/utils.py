@@ -43,7 +43,7 @@ def print_desc(opt, dir=''):
 def print_init(args):
     os.system('clear')
     print_desc('init')
-    print(f'  [+] Verbose Output {"enabled" if args.log else "disabled"}')
+    print(f'  [+] Verbose Output {"enabled" if args.verbose else "disabled"}')
     print(f'  [+] Logging {"enabled" if args.log else "disabled"}\n\n')
 
 def print_datasets(d):
@@ -82,11 +82,11 @@ def print_gnns(gnns):
     return gnns
 
 def print_attack_start(name):
-    print(f'                                                              ', end='\r')
+    print(f'                                                                                 ', end='\r')
     print(f'      [-] {name} - currently running...', end='\r')
 
 def print_attack_done(name):
-    print(f'                                                              ', end='\r')
+    print(f'                                                                                 ', end='\r')
     print(f'      [-] {name} - done..', end='\r')
     print()
 
@@ -101,7 +101,7 @@ def print_attack_results(tacc, aprec, arecall, af1, aacc):
 def final_evaluation(experiments, log, clear):
     if clear:
         os.system('rm ./log/*')
-    lineup_file = f'./log/lineup-{datetime.now().strftime("%Y-%m-%d-%H-%M")}.txt'
+    lineup_file = f'./log/{datetime.now().strftime("%Y%m%d%H%M")}-same-ds-lineup.txt'
     with open(lineup_file, 'w') as lineup:
 
         lineup.write('''Attack                    GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score\n''')
@@ -130,7 +130,50 @@ def final_evaluation(experiments, log, clear):
                     for metric, value in metrics.items():
                         res[gnn][ds][attack][obj][metric] = value.item()
 
-        with open('./log/results.json', 'w') as jf:
+        with open(f'./log/same-ds-results.json', 'w') as jf:
+            json_string = json.dumps(res, indent = 4)
+            jf.write(json_string)
+
+    print('\n')
+    print(f'  [+] Lineup of all Attacks - cat from {lineup_file}\n')
+    with open(lineup_file, 'r') as out:
+        lines = out.readlines()
+        string = ""
+        for line in lines:
+            string += '      ' + line
+        print(string)
+
+def final_evaluation_distances(experiments, log):
+    lineup_file = f'./log/{datetime.now().strftime("%Y%m%d%H%M")}-diff-ds-lineup.txt'
+    with open(lineup_file, 'w') as lineup:
+
+        lineup.write('''Attack (target_ds, attacker_ds)      GNN           Target Acc      Attacker Acc      Attacker F1-Score\n''')
+        lineup.write('''---------------------------------------------------------------------------------------------------------\n''')
+
+        for i, exp in enumerate(experiments):
+            for a in list(exp.results.keys()):
+                lineup.write(f'{a}{" " * (37 - len(a))}{exp.gnn_name}{" " * (14 - len(exp.gnn_name))}{exp.results[a]["target"]["acc"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
+            lineup.write('\n')
+
+    if log:
+        res = dict()
+        for ind, exp in enumerate(experiments):
+            gnn = exp.gnn_name
+            if gnn not in res:
+                res[gnn] = {}
+
+            ds = exp.dataset_name
+            if ds not in res[gnn]:
+                res[gnn][ds] = {}
+
+            for attack, vals in exp.results.items():
+                res[gnn][ds][attack] = {}
+                for obj, metrics in vals.items():
+                    res[gnn][ds][attack][obj] = {}
+                    for metric, value in metrics.items():
+                        res[gnn][ds][attack][obj][metric] = value.item()
+
+        with open(f'./log/diff-ds-results.json', 'w') as jf:
             json_string = json.dumps(res, indent = 4)
             jf.write(json_string)
 

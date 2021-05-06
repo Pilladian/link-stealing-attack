@@ -91,8 +91,8 @@ def get_results(data, name):
 
 def main():
     # load json
-    with open('./log/results.json') as json_file:
-        data = json.load(json_file)
+    with open('./log/same-ds-results.json') as json_file:
+        sds_data = json.load(json_file)
 
     # create markdown file
     content = """# Link Stealing Attacks - Evaluation
@@ -116,9 +116,9 @@ Given a graph with a few labeled nodes the model performs label prediction on th
     </thead>
     <tbody>"""
 
-    dataset_amount = len(data[list(data.keys())[0]].keys())
+    dataset_amount = len(sds_data[list(sds_data.keys())[0]].keys())
     # target models
-    for type, cont in data.items():
+    for type, cont in sds_data.items():
         f = f"""
         <tr>
             <td rowspan={dataset_amount}>{type}</td>"""
@@ -217,8 +217,8 @@ Use the Social Network Graph, the Target Model was trained on to also train the 
 Predict whether one knows people or not.
 
 ##### Results
-{get_results(data, 'baseline_1')}
-<img src=\"{get_plot(data, "baseline_1")}\" alt="drawing" width="520"/>
+{get_results(sds_data, 'baseline_1')}
+<img src=\"{get_plot(sds_data, "baseline_1")}\" alt="drawing" width="520"/>
 
 #### Baseline 2
 - Use test dataset to query (0-hop)
@@ -227,8 +227,8 @@ Unfollow everybody but keep in mind, that one know them. Sample `pos` with one s
 Predict whether one knows people or not.
 
 ##### Results
-{get_results(data, 'baseline_2')}
-<img src=\"{get_plot(data, "baseline_2")}\" alt="drawing" width="520"/>
+{get_results(sds_data, 'baseline_2')}
+<img src=\"{get_plot(sds_data, "baseline_2")}\" alt="drawing" width="520"/>
 
 #### Surviving Edges 20
 Unfollow 80% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -236,8 +236,8 @@ Unfollow 80% but keep in mind, that one know them. Sample `pos` with one self, i
 Predict whether one knows people or not.
 
 ##### Results
-{get_results(data, 'surviving_edges_20p')}
-<img src=\"{get_plot(data, "surviving_edges_20p")}\" alt="drawing" width="520"/>
+{get_results(sds_data, 'surviving_edges_20p')}
+<img src=\"{get_plot(sds_data, "surviving_edges_20p")}\" alt="drawing" width="520"/>
 
 #### Surviving Edges 40
 Unfollow 60% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -245,8 +245,8 @@ Unfollow 60% but keep in mind, that one know them. Sample `pos` with one self, i
 Predict whether one knows people or not.
 
 ##### Results
-{get_results(data, 'surviving_edges_40p')}
-<img src=\"{get_plot(data, "surviving_edges_40p")}\" alt="drawing" width="520"/>
+{get_results(sds_data, 'surviving_edges_40p')}
+<img src=\"{get_plot(sds_data, "surviving_edges_40p")}\" alt="drawing" width="520"/>
 
 #### Surviving Edges 60
 Unfollow 40% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -254,8 +254,8 @@ Unfollow 40% but keep in mind, that one know them. Sample `pos` with one self, i
 Predict whether one knows people or not.
 
 ##### Results
-{get_results(data, 'surviving_edges_60p')}
-<img src=\"{get_plot(data, "surviving_edges_60p")}\" alt="drawing" width="520"/>
+{get_results(sds_data, 'surviving_edges_60p')}
+<img src=\"{get_plot(sds_data, "surviving_edges_60p")}\" alt="drawing" width="520"/>
 
 #### Surviving Edges 80
 Unfollow 20% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
@@ -263,8 +263,8 @@ Unfollow 20% but keep in mind, that one know them. Sample `pos` with one self, i
 Predict whether one knows people or not.
 
 ##### Results
-{get_results(data, 'surviving_edges_80p')}
-<img src=\"{get_plot(data, "surviving_edges_80p")}\" alt="drawing" width="520"/>
+{get_results(sds_data, 'surviving_edges_80p')}
+<img src=\"{get_plot(sds_data, "surviving_edges_80p")}\" alt="drawing" width="520"/>
 
 """
 
