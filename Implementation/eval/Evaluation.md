@@ -8,7 +8,6 @@
 Given a graph with a few labeled nodes the model performs label prediction on the unlabeled ones. For calculation of the feature / embedding vectors, all model types calculate the embedding of node `i` based on their neighborhood (connected nodes).
 
 #### Models and their Accuracy
-
 <table>
     <thead>
         <tr>
@@ -123,12 +122,15 @@ Now it is possible to predict whether two private accounts are connected to each
 
 ## Attacks
 
+### Target and Attacker trained on same dataset-distribution
+
 > Example: Social Network like Instagram or Facebook
 
 A GNN was trained on Instagram profiles to predict the salary of people. To train the  `attacker` one could use its own profile, its follower and also the follower of its own follower. The network now contains people that one is connected to and people one doesn't know.
 
 #### Baseline 1
-- Use train dataset to query (0-hop)
+Use train dataset to query (0-hop).
+
 Use the Social Network Graph, the Target Model was trained on to also train the Attacker Model (<span style="color:red">Knowledge of the dataset needed</span>). Remove all edges but keep in mind, which nodes have been connected. Sample `pos` with nodes that have been connected. Sample `neg` with nodes that haven't. Query the GNN with the modified Social Network Graph to get posteriors to sample features. Train `attacker` on the sampled dataset.
 
 Predict whether one knows people or not.
@@ -149,75 +151,76 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
-            <td>0.6151</td>
-            <td>0.5115</td>
-            <td>0.7715</td>
-            <td>0.6732</td>
+            <td>0.6688</td>
+            <td>0.5892</td>
+            <td>0.7732</td>
+            <td>0.7023</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7759</td>
-            <td>0.9637</td>
-            <td>0.6494</td>
-            <td>0.7186</td>
+            <td>0.7992</td>
+            <td>0.9338</td>
+            <td>0.6985</td>
+            <td>0.7645</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7417</td>
-            <td>0.8018</td>
-            <td>0.6900</td>
-            <td>0.7200</td>
+            <td>0.7678</td>
+            <td>0.9248</td>
+            <td>0.6564</td>
+            <td>0.7178</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
-            <td>0.7431</td>
-            <td>0.7544</td>
-            <td>0.7321</td>
-            <td>0.7488</td>
+            <td>0.7411</td>
+            <td>0.9666</td>
+            <td>0.6010</td>
+            <td>0.6656</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7640</td>
-            <td>0.8135</td>
-            <td>0.7201</td>
-            <td>0.7532</td>
+            <td>0.6896</td>
+            <td>0.6231</td>
+            <td>0.7719</td>
+            <td>0.7243</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7513</td>
-            <td>0.9524</td>
-            <td>0.6204</td>
-            <td>0.6857</td>
+            <td>0.7524</td>
+            <td>0.9503</td>
+            <td>0.6227</td>
+            <td>0.6859</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
-            <td>0.7522</td>
-            <td>0.8786</td>
-            <td>0.6577</td>
-            <td>0.7140</td>
+            <td>0.7315</td>
+            <td>0.9318</td>
+            <td>0.6021</td>
+            <td>0.6568</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7519</td>
-            <td>0.9153</td>
-            <td>0.6380</td>
-            <td>0.7013</td>
+            <td>0.7454</td>
+            <td>0.9299</td>
+            <td>0.6220</td>
+            <td>0.6844</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7528</td>
-            <td>0.9376</td>
-            <td>0.6288</td>
-            <td>0.6951</td>
+            <td>0.7556</td>
+            <td>0.9382</td>
+            <td>0.6324</td>
+            <td>0.6938</td>
         </tr>
     </tbody>
     </table>
 <img src="plots/baseline_1.jpg" alt="drawing" width="520"/>
 
 #### Baseline 2
-- Use test dataset to query (0-hop)
+Use test dataset to query (0-hop).
+
 Unfollow everybody but keep in mind, that one know them. Sample `pos` with one self and its former follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
 
 Predict whether one knows people or not.
@@ -238,68 +241,68 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
-            <td>0.7100</td>
-            <td>0.8494</td>
-            <td>0.6098</td>
-            <td>0.6579</td>
+            <td>0.6487</td>
+            <td>0.5678</td>
+            <td>0.7566</td>
+            <td>0.6893</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7562</td>
-            <td>0.8496</td>
-            <td>0.6813</td>
+            <td>0.7286</td>
+            <td>0.7445</td>
+            <td>0.7133</td>
             <td>0.7219</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7562</td>
-            <td>0.9510</td>
-            <td>0.6276</td>
-            <td>0.6903</td>
+            <td>0.7587</td>
+            <td>0.9375</td>
+            <td>0.6372</td>
+            <td>0.7005</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
-            <td>0.5962</td>
-            <td>0.5244</td>
-            <td>0.6906</td>
-            <td>0.6427</td>
+            <td>0.5732</td>
+            <td>0.4639</td>
+            <td>0.7500</td>
+            <td>0.6517</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7277</td>
-            <td>0.7421</td>
-            <td>0.7138</td>
-            <td>0.7204</td>
+            <td>0.6790</td>
+            <td>0.6322</td>
+            <td>0.7332</td>
+            <td>0.6936</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7316</td>
-            <td>0.8201</td>
-            <td>0.6602</td>
-            <td>0.6975</td>
+            <td>0.7538</td>
+            <td>0.9557</td>
+            <td>0.6223</td>
+            <td>0.6857</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
-            <td>0.6695</td>
-            <td>0.7512</td>
-            <td>0.6038</td>
-            <td>0.6364</td>
+            <td>0.5651</td>
+            <td>0.4703</td>
+            <td>0.7078</td>
+            <td>0.6411</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7544</td>
-            <td>0.8825</td>
-            <td>0.6588</td>
-            <td>0.7081</td>
+            <td>0.7715</td>
+            <td>0.8822</td>
+            <td>0.6855</td>
+            <td>0.7302</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7325</td>
-            <td>0.8055</td>
-            <td>0.6716</td>
-            <td>0.7043</td>
+            <td>0.7255</td>
+            <td>0.7580</td>
+            <td>0.6956</td>
+            <td>0.7125</td>
         </tr>
     </tbody>
     </table>
@@ -326,68 +329,68 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
-            <td>0.7653</td>
-            <td>0.9326</td>
-            <td>0.6488</td>
-            <td>0.7133</td>
+            <td>0.7586</td>
+            <td>0.9213</td>
+            <td>0.6447</td>
+            <td>0.7095</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.8047</td>
-            <td>0.9543</td>
-            <td>0.6956</td>
-            <td>0.7721</td>
+            <td>0.7925</td>
+            <td>0.9359</td>
+            <td>0.6873</td>
+            <td>0.7564</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7713</td>
-            <td>0.9656</td>
-            <td>0.6420</td>
-            <td>0.7140</td>
+            <td>0.7451</td>
+            <td>0.8311</td>
+            <td>0.6752</td>
+            <td>0.7159</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
-            <td>0.7715</td>
-            <td>0.8899</td>
-            <td>0.6809</td>
-            <td>0.7329</td>
+            <td>0.7411</td>
+            <td>0.9635</td>
+            <td>0.6022</td>
+            <td>0.6690</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7660</td>
-            <td>0.9453</td>
-            <td>0.6439</td>
-            <td>0.7174</td>
+            <td>0.7520</td>
+            <td>0.7789</td>
+            <td>0.7268</td>
+            <td>0.7470</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7171</td>
-            <td>0.7856</td>
-            <td>0.6596</td>
-            <td>0.6922</td>
+            <td>0.7351</td>
+            <td>0.9849</td>
+            <td>0.5864</td>
+            <td>0.6459</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
-            <td>0.7040</td>
-            <td>0.7516</td>
-            <td>0.6620</td>
-            <td>0.6835</td>
+            <td>0.7202</td>
+            <td>0.8919</td>
+            <td>0.6040</td>
+            <td>0.6615</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7469</td>
-            <td>0.9100</td>
-            <td>0.6334</td>
-            <td>0.6932</td>
+            <td>0.7372</td>
+            <td>0.9536</td>
+            <td>0.6008</td>
+            <td>0.6595</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7470</td>
-            <td>0.9779</td>
-            <td>0.6043</td>
-            <td>0.6683</td>
+            <td>0.7605</td>
+            <td>0.9569</td>
+            <td>0.6311</td>
+            <td>0.6973</td>
         </tr>
     </tbody>
     </table>
@@ -414,68 +417,68 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
-            <td>0.7749</td>
-            <td>0.9388</td>
-            <td>0.6597</td>
-            <td>0.7290</td>
+            <td>0.7955</td>
+            <td>0.9475</td>
+            <td>0.6856</td>
+            <td>0.7575</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.8557</td>
-            <td>0.9639</td>
-            <td>0.7694</td>
-            <td>0.8353</td>
+            <td>0.8257</td>
+            <td>0.9684</td>
+            <td>0.7197</td>
+            <td>0.7904</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7682</td>
-            <td>0.9839</td>
-            <td>0.6300</td>
-            <td>0.7040</td>
+            <td>0.7643</td>
+            <td>0.9851</td>
+            <td>0.6244</td>
+            <td>0.6958</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
-            <td>0.7889</td>
-            <td>0.9767</td>
-            <td>0.6616</td>
-            <td>0.7343</td>
+            <td>0.7607</td>
+            <td>0.9602</td>
+            <td>0.6298</td>
+            <td>0.6983</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.8061</td>
-            <td>0.9724</td>
-            <td>0.6884</td>
-            <td>0.7681</td>
+            <td>0.8104</td>
+            <td>0.9695</td>
+            <td>0.6961</td>
+            <td>0.7709</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7394</td>
-            <td>0.9946</td>
-            <td>0.5884</td>
-            <td>0.6497</td>
+            <td>0.7242</td>
+            <td>0.9945</td>
+            <td>0.5694</td>
+            <td>0.6238</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
-            <td>0.7606</td>
-            <td>0.7719</td>
-            <td>0.7495</td>
-            <td>0.7560</td>
+            <td>0.5572</td>
+            <td>0.4350</td>
+            <td>0.7750</td>
+            <td>0.6545</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7625</td>
-            <td>0.8931</td>
-            <td>0.6652</td>
-            <td>0.7324</td>
+            <td>0.7836</td>
+            <td>0.9172</td>
+            <td>0.6839</td>
+            <td>0.7496</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7828</td>
-            <td>0.9449</td>
-            <td>0.6682</td>
-            <td>0.7381</td>
+            <td>0.7505</td>
+            <td>0.8341</td>
+            <td>0.6821</td>
+            <td>0.7223</td>
         </tr>
     </tbody>
     </table>
@@ -502,68 +505,68 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
-            <td>0.8063</td>
-            <td>0.9579</td>
-            <td>0.6961</td>
-            <td>0.7660</td>
+            <td>0.8000</td>
+            <td>0.9568</td>
+            <td>0.6874</td>
+            <td>0.7580</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.8426</td>
-            <td>0.9817</td>
-            <td>0.7380</td>
-            <td>0.8223</td>
+            <td>0.8409</td>
+            <td>0.9784</td>
+            <td>0.7374</td>
+            <td>0.8123</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7761</td>
-            <td>0.9915</td>
-            <td>0.6376</td>
-            <td>0.7164</td>
+            <td>0.7965</td>
+            <td>0.9890</td>
+            <td>0.6667</td>
+            <td>0.7463</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
-            <td>0.7753</td>
-            <td>0.9706</td>
-            <td>0.6454</td>
-            <td>0.7196</td>
+            <td>0.7830</td>
+            <td>0.9816</td>
+            <td>0.6512</td>
+            <td>0.7348</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7892</td>
-            <td>0.8924</td>
-            <td>0.7074</td>
-            <td>0.7601</td>
+            <td>0.8116</td>
+            <td>0.9721</td>
+            <td>0.6966</td>
+            <td>0.7698</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7842</td>
-            <td>0.9904</td>
-            <td>0.6491</td>
-            <td>0.7253</td>
+            <td>0.7500</td>
+            <td>0.9943</td>
+            <td>0.6021</td>
+            <td>0.6649</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
-            <td>0.7623</td>
-            <td>0.8323</td>
-            <td>0.7032</td>
-            <td>0.7382</td>
+            <td>0.7833</td>
+            <td>0.8723</td>
+            <td>0.7109</td>
+            <td>0.7616</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7870</td>
-            <td>0.9482</td>
-            <td>0.6727</td>
-            <td>0.7424</td>
+            <td>0.8223</td>
+            <td>0.9163</td>
+            <td>0.7459</td>
+            <td>0.7960</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7152</td>
-            <td>0.6562</td>
-            <td>0.7859</td>
-            <td>0.7384</td>
+            <td>0.5904</td>
+            <td>0.4508</td>
+            <td>0.8552</td>
+            <td>0.6859</td>
         </tr>
     </tbody>
     </table>
@@ -590,70 +593,196 @@ Predict whether one knows people or not.
         <tr>
             <td rowspan=3>graphsage</td>
             <td>cora</td>
-            <td>0.8285</td>
-            <td>0.9849</td>
-            <td>0.7150</td>
-            <td>0.7951</td>
+            <td>0.7995</td>
+            <td>0.9921</td>
+            <td>0.6696</td>
+            <td>0.7613</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.8221</td>
-            <td>0.9947</td>
-            <td>0.7005</td>
-            <td>0.7892</td>
+            <td>0.8376</td>
+            <td>0.9917</td>
+            <td>0.7249</td>
+            <td>0.8054</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7813</td>
-            <td>0.9972</td>
-            <td>0.6422</td>
-            <td>0.7177</td>
+            <td>0.7823</td>
+            <td>0.9954</td>
+            <td>0.6443</td>
+            <td>0.7254</td>
         </tr>
         <tr>
             <td rowspan=3>gat</td>
             <td>cora</td>
-            <td>0.7940</td>
-            <td>0.9934</td>
-            <td>0.6613</td>
-            <td>0.7400</td>
+            <td>0.8041</td>
+            <td>0.9822</td>
+            <td>0.6807</td>
+            <td>0.7584</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.8056</td>
-            <td>0.8541</td>
-            <td>0.7623</td>
-            <td>0.7875</td>
+            <td>0.8133</td>
+            <td>0.9978</td>
+            <td>0.6864</td>
+            <td>0.7670</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.7567</td>
-            <td>0.9961</td>
-            <td>0.6101</td>
-            <td>0.6801</td>
+            <td>0.7800</td>
+            <td>0.9962</td>
+            <td>0.6409</td>
+            <td>0.7216</td>
         </tr>
         <tr>
             <td rowspan=3>gcn</td>
             <td>cora</td>
-            <td>0.7039</td>
-            <td>0.6400</td>
-            <td>0.7819</td>
-            <td>0.7321</td>
+            <td>0.7506</td>
+            <td>0.7474</td>
+            <td>0.7538</td>
+            <td>0.7536</td>
         </tr>
         <tr>
             <td>citeseer</td>
-            <td>0.7917</td>
-            <td>0.9807</td>
-            <td>0.6638</td>
-            <td>0.7489</td>
+            <td>0.8279</td>
+            <td>0.9607</td>
+            <td>0.7273</td>
+            <td>0.8031</td>
         </tr>
         <tr>
             <td>pubmed</td>
-            <td>0.4049</td>
-            <td>0.2590</td>
-            <td>0.9270</td>
-            <td>0.6214</td>
+            <td>0.3810</td>
+            <td>0.2396</td>
+            <td>0.9298</td>
+            <td>0.6105</td>
         </tr>
     </tbody>
     </table>
 <img src="plots/surviving_edges_80p.jpg" alt="drawing" width="520"/>
 
+### Target and Attacker trained on different dataset-distribution
+
+| Attack (target_ds, attacker_ds) |  GNN |  Target Acc | Attacker Acc | Attacker F1-Score
+|--- |--- |--- |--- |--- |
+| baseline_1_cora_citeseer | graphsage |  69.40 |  82.69 |  84.24
+| baseline_2_cora_citeseer | graphsage |  56.72 |  72.71 |  78.09
+| surviving_edges_20p_cora_citeseer |  graphsage |  56.72 |  80.40 |  82.90
+| surviving_edges_40p_cora_citeseer |  graphsage |  56.72 |  86.41 |  87.29
+| surviving_edges_60p_cora_citeseer |  graphsage |  56.72 |  90.75 |  90.69
+| surviving_edges_80p_cora_citeseer |  graphsage |  56.72 |  90.69 |  91.31
+| baseline_1_cora_pubmed | graphsage |  89.49 |  68.26 |  74.58
+| baseline_2_cora_pubmed | graphsage |  89.38 |  70.65 |  75.90
+| surviving_edges_20p_cora_pubmed |  graphsage |  89.38 |  75.55 |  79.09
+| surviving_edges_40p_cora_pubmed |  graphsage |  89.38 |  79.09 |  81.81
+| surviving_edges_60p_cora_pubmed |  graphsage |  89.38 |  80.41 |  83.25
+| surviving_edges_80p_cora_pubmed |  graphsage |  89.38 |  82.99 |  85.12
+| baseline_1_citeseer_cora | graphsage |  89.61 |  74.26 |  75.24
+| baseline_2_citeseer_cora | graphsage |  83.04 |  69.93 |  71.12
+| surviving_edges_20p_citeseer_cora |  graphsage |  83.04 |  77.27 |  79.00
+| surviving_edges_40p_citeseer_cora |  graphsage |  83.04 |  79.08 |  81.64
+| surviving_edges_60p_citeseer_cora |  graphsage |  83.04 |  87.21 |  87.90
+| surviving_edges_80p_citeseer_cora |  graphsage |  83.04 |  86.92 |  87.94
+| baseline_1_citeseer_pubmed | graphsage |  89.49 |  70.35 |  75.98
+| baseline_2_citeseer_pubmed | graphsage |  89.38 |  72.83 |  76.49
+| surviving_edges_20p_citeseer_pubmed |  graphsage |  89.38 |  76.71 |  79.59
+| surviving_edges_40p_citeseer_pubmed |  graphsage |  89.38 |  77.00 |  80.60
+| surviving_edges_60p_citeseer_pubmed |  graphsage |  89.38 |  81.71 |  84.10
+| surviving_edges_80p_citeseer_pubmed |  graphsage |  89.38 |  84.29 |  85.97
+| baseline_1_pubmed_cora | graphsage |  89.61 |  72.71 |  67.49
+| baseline_2_pubmed_cora | graphsage |  83.04 |  60.37 |  70.45
+| surviving_edges_20p_pubmed_cora |  graphsage |  83.04 |  76.03 |  78.73
+| surviving_edges_40p_pubmed_cora |  graphsage |  83.04 |  82.74 |  82.76
+| surviving_edges_60p_pubmed_cora |  graphsage |  83.04 |  86.88 |  87.23
+| surviving_edges_80p_pubmed_cora |  graphsage |  83.04 |  87.30 |  88.17
+| baseline_1_pubmed_citeseer | graphsage |  69.40 |  80.46 |  82.10
+| baseline_2_pubmed_citeseer | graphsage |  56.72 |  70.52 |  76.94
+| surviving_edges_20p_pubmed_citeseer |  graphsage |  56.72 |  78.83 |  81.96
+| surviving_edges_40p_pubmed_citeseer |  graphsage |  56.72 |  88.08 |  88.54
+| surviving_edges_60p_pubmed_citeseer |  graphsage |  56.72 |  89.07 |  89.45
+| surviving_edges_80p_pubmed_citeseer |  graphsage |  56.72 |  92.68 |  93.09
+
+| Attack (target_ds, attacker_ds) |  GNN |  Target Acc | Attacker Acc | Attacker F1-Score
+|--- |--- |--- |--- |--- |
+| baseline_1_cora_citeseer | gat |  77.75 |  79.93 |  83.10
+| baseline_2_cora_citeseer | gat |  60.88 |  73.97 |  78.77
+| surviving_edges_20p_cora_citeseer |  gat |  60.88 |  80.91 |  82.97
+| surviving_edges_40p_cora_citeseer |  gat |  60.88 |  86.44 |  86.70
+| surviving_edges_60p_cora_citeseer |  gat |  60.88 |  88.77 |  89.58
+| surviving_edges_80p_cora_citeseer |  gat |  60.88 |  89.52 |  90.58
+| baseline_1_cora_pubmed | gat |  89.10 |  69.41 |  75.15
+| baseline_2_cora_pubmed | gat |  89.13 |  73.39 |  77.26
+| surviving_edges_20p_cora_pubmed |  gat |  89.13 |  71.90 |  77.37
+| surviving_edges_40p_cora_pubmed |  gat |  89.13 |  79.64 |  82.30
+| surviving_edges_60p_cora_pubmed |  gat |  89.13 |  80.11 |  83.01
+| surviving_edges_80p_cora_pubmed |  gat |  89.13 |  83.65 |  85.32
+| baseline_1_citeseer_cora | gat |  85.71 |  74.69 |  77.15
+| baseline_2_citeseer_cora | gat |  77.78 |  63.89 |  71.21
+| surviving_edges_20p_citeseer_cora |  gat |  77.78 |  73.66 |  77.96
+| surviving_edges_40p_citeseer_cora |  gat |  77.78 |  80.61 |  82.66
+| surviving_edges_60p_citeseer_cora |  gat |  77.78 |  80.09 |  82.82
+| surviving_edges_80p_citeseer_cora |  gat |  77.78 |  85.91 |  87.30
+| baseline_1_citeseer_pubmed | gat |  89.10 |  69.04 |  75.01
+| baseline_2_citeseer_pubmed | gat |  89.13 |  73.87 |  77.22
+| surviving_edges_20p_citeseer_pubmed |  gat |  89.13 |  75.63 |  79.19
+| surviving_edges_40p_citeseer_pubmed |  gat |  89.13 |  79.89 |  82.30
+| surviving_edges_60p_citeseer_pubmed |  gat |  89.13 |  78.64 |  82.13
+| surviving_edges_80p_citeseer_pubmed |  gat |  89.13 |  83.50 |  85.46
+| baseline_1_pubmed_cora | gat |  85.71 |  70.72 |  64.65
+| baseline_2_pubmed_cora | gat |  77.78 |  68.67 |  74.17
+| surviving_edges_20p_pubmed_cora |  gat |  77.78 |  69.74 |  75.17
+| surviving_edges_40p_pubmed_cora |  gat |  77.78 |  78.53 |  81.51
+| surviving_edges_60p_pubmed_cora |  gat |  77.78 |  80.99 |  83.29
+| surviving_edges_80p_pubmed_cora |  gat |  77.78 |  89.08 |  89.96
+| baseline_1_pubmed_citeseer | gat |  77.75 |  81.16 |  82.81
+| baseline_2_pubmed_citeseer | gat |  60.88 |  70.44 |  76.07
+| surviving_edges_20p_pubmed_citeseer |  gat |  60.88 |  76.01 |  79.47
+| surviving_edges_40p_pubmed_citeseer |  gat |  60.88 |  79.54 |  83.07
+| surviving_edges_60p_pubmed_citeseer |  gat |  60.88 |  90.48 |  90.80
+| surviving_edges_80p_pubmed_citeseer |  gat |  60.88 |  90.66 |  91.09
+
+| Attack (target_ds, attacker_ds) |  GNN |  Target Acc | Attacker Acc | Attacker F1-Score
+|--- |--- |--- |--- |--- |
+| baseline_1_cora_citeseer | gcn |  71.11 |  71.98 |  76.77
+| baseline_2_cora_citeseer | gcn |  57.24 |  72.08 |  75.96
+| surviving_edges_20p_cora_citeseer |  gcn |  57.24 |  70.15 |  75.81
+| surviving_edges_40p_cora_citeseer |  gcn |  57.24 |  73.02 |  77.61
+| surviving_edges_60p_cora_citeseer |  gcn |  57.24 |  75.29 |  78.81
+| surviving_edges_80p_cora_citeseer |  gcn |  57.24 |  84.62 |  85.41
+| baseline_1_cora_pubmed | gcn |  90.35 |  50.60 |  66.83
+| baseline_2_cora_pubmed | gcn |  87.74 |  72.19 |  76.57
+| surviving_edges_20p_cora_pubmed |  gcn |  87.74 |  73.83 |  77.97
+| surviving_edges_40p_cora_pubmed |  gcn |  87.74 |  78.61 |  80.92
+| surviving_edges_60p_cora_pubmed |  gcn |  87.74 |  79.91 |  82.28
+| surviving_edges_80p_cora_pubmed |  gcn |  87.74 |  82.40 |  84.38
+| baseline_1_citeseer_cora | gcn |  89.83 |  69.71 |  74.04
+| baseline_2_citeseer_cora | gcn |  75.46 |  54.91 |  67.10
+| surviving_edges_20p_citeseer_cora |  gcn |  75.46 |  51.57 |  65.30
+| surviving_edges_40p_citeseer_cora |  gcn |  75.46 |  73.31 |  76.20
+| surviving_edges_60p_citeseer_cora |  gcn |  75.46 |  76.25 |  75.17
+| surviving_edges_80p_citeseer_cora |  gcn |  75.46 |  85.04 |  85.60
+| baseline_1_citeseer_pubmed | gcn |  90.35 |  53.16 |  67.91
+| baseline_2_citeseer_pubmed | gcn |  87.74 |  65.02 |  73.65
+| surviving_edges_20p_citeseer_pubmed |  gcn |  87.74 |  73.92 |  77.78
+| surviving_edges_40p_citeseer_pubmed |  gcn |  87.74 |  76.92 |  79.78
+| surviving_edges_60p_citeseer_pubmed |  gcn |  87.74 |  79.40 |  81.70
+| surviving_edges_80p_citeseer_pubmed |  gcn |  87.74 |  80.32 |  82.61
+| baseline_1_pubmed_cora | gcn |  89.83 |  70.70 |  64.75
+| baseline_2_pubmed_cora | gcn |  75.46 |  53.83 |  68.05
+| surviving_edges_20p_pubmed_cora |  gcn |  75.46 |  67.70 |  72.76
+| surviving_edges_40p_pubmed_cora |  gcn |  75.46 |  72.65 |  74.24
+| surviving_edges_60p_pubmed_cora |  gcn |  75.46 |  76.25 |  73.98
+| surviving_edges_80p_pubmed_cora |  gcn |  75.46 |  78.68 |  81.86
+| baseline_1_pubmed_citeseer | gcn |  71.11 |  77.04 |  78.62
+| baseline_2_pubmed_citeseer | gcn |  57.24 |  59.92 |  71.29
+| surviving_edges_20p_pubmed_citeseer |  gcn |  57.24 |  70.54 |  76.15
+| surviving_edges_40p_pubmed_citeseer |  gcn |  57.24 |  72.42 |  76.87
+| surviving_edges_60p_pubmed_citeseer |  gcn |  57.24 |  74.63 |  77.40
+| surviving_edges_80p_pubmed_citeseer |  gcn |  57.24 |  81.31 |  83.42
+
+#### Plot of GraphSAGE Baseline 2
+
+<img src="plots/graphsage_baseline_2_diff.jpg" alt="drawing" width="520"/>
+
+#### Plot of GraphSAGE Surviving Edges 80%
+
+<img src="plots/graphsage_survining_edges_80p_diff.jpg" alt="drawing" width="520"/>
