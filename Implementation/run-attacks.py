@@ -237,36 +237,36 @@ def main(args):
             experiments.append(exp)
 
     # run attacks
-    for experiment in experiments:
-        print(f'\n\n  [+] Run Attacks on {experiment.gnn_name} trained with {experiment.dataset_name}\n')
-        experiment.baseline_1()
-        experiment.baseline_2()
-        experiment.surviving_edges(0.20)
-        experiment.surviving_edges(0.40)
-        experiment.surviving_edges(0.60)
-        experiment.surviving_edges(0.80)
+    if args.domain == 'same' or args.domain == 'all':
+        for experiment in experiments:
+            print(f'\n\n  [+] Run Attacks on {experiment.gnn_name} trained with {experiment.dataset_name}\n')
+            experiment.baseline_1()
+            experiment.baseline_2()
+            experiment.surviving_edges(0.20)
+            experiment.surviving_edges(0.40)
+            experiment.surviving_edges(0.60)
+            experiment.surviving_edges(0.80)
+        final_evaluation(experiments, log=args.log, clear=args.clear)
 
     # target trained on different domain than attacker uses for queries
-    distance_experiments = []
-    if len(datasets) > 1:
-        for gnn in gnns:
-            for d1 in datasets:
-                for d2 in datasets:
-                    if d1 != d2:
-                        print(f'\n\n  [+] Run Attacks on {gnn} trained on {d1} while attacker was trained on {d2}\n')
-                        exp = Experiment(gnn, d1, args.verbose)
-                        exp.initialize()
-                        exp.baseline_1_d1_d2(d1, d2)
-                        exp.baseline_2_d1_d2(d1, d2)
-                        exp.surviving_edges_d1_d2(0.20, d1, d2)
-                        exp.surviving_edges_d1_d2(0.40, d1, d2)
-                        exp.surviving_edges_d1_d2(0.60, d1, d2)
-                        exp.surviving_edges_d1_d2(0.80, d1, d2)
-                        distance_experiments.append(exp)
-
-    # Conclude all results
-    final_evaluation(experiments, log=args.log, clear=args.clear)
-    final_evaluation_distances(distance_experiments, log=args.log)
+    if args.domain == 'diff' or args.domain == 'all':
+        distance_experiments = []
+        if len(datasets) > 1:
+            for gnn in gnns:
+                for d1 in datasets:
+                    for d2 in datasets:
+                        if d1 != d2:
+                            print(f'\n\n  [+] Run Attacks on {gnn} trained on {d1} while attacker was trained on {d2}\n')
+                            exp = Experiment(gnn, d1, args.verbose)
+                            exp.initialize()
+                            exp.baseline_1_d1_d2(d1, d2)
+                            exp.baseline_2_d1_d2(d1, d2)
+                            exp.surviving_edges_d1_d2(0.20, d1, d2)
+                            exp.surviving_edges_d1_d2(0.40, d1, d2)
+                            exp.surviving_edges_d1_d2(0.60, d1, d2)
+                            exp.surviving_edges_d1_d2(0.80, d1, d2)
+                            distance_experiments.append(exp)
+        final_evaluation_distances(distance_experiments, log=args.log)
 
 
 if __name__ == '__main__':
@@ -295,6 +295,11 @@ if __name__ == '__main__':
                         type=str,
                         default='all',
                         help="Type of GNN [all, graphsage, gcn, gat]")
+
+    parser.add_argument("--domain",
+                        type=str,
+                        default='all',
+                        help="Domains [all, same, diff]")
 
 
     args = parser.parse_args()
