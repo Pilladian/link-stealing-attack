@@ -141,7 +141,7 @@ class Experiment:
         print_attack_done(attack_name)
         self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
 
-    def baseline_1_dist(self, d1, d2):
+    def baseline_1_d1_d2(self, d1, d2):
         """
         Baseline 1_dist:
         The target model in this attack is trained on the traingraph-subset of the original dataset d1.
@@ -149,7 +149,7 @@ class Experiment:
         Both models are evaluated on their traingraph-subset.
         """
         # Baseline 1_distances - Train on traingraph (d1) - Test on traingraph (d2)
-        attack_name = f'baseline_1_dist_{d1}_{d2}'
+        attack_name = f'baseline_1_{d1}_{d2}'
         print_attack_start(attack_name)
 
         # attacker
@@ -167,7 +167,7 @@ class Experiment:
         print_attack_done(attack_name)
         self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
 
-    def baseline_2_dist(self, d1, d2):
+    def baseline_2_d1_d2(self, d1, d2):
         """
         Baseline 2_dist:
         The target model in this attack is trained on the traingraph-subset of the original dataset d1.
@@ -175,7 +175,7 @@ class Experiment:
         Both models are evaluated on their testgraph-subset.
         """
         # Baseline 2_distances - Train on traingraph (d1) - Test on testgraph (d2)
-        attack_name = f'baseline_2_dist_{d1}_{d2}'
+        attack_name = f'baseline_2_{d1}_{d2}'
         print_attack_start(attack_name)
 
         # attacker
@@ -193,14 +193,14 @@ class Experiment:
         print_attack_done(attack_name)
         self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
 
-    def surviving_edges_dist(self, survivors, d1, d2):
+    def surviving_edges_d1_d2(self, survivors, d1, d2):
         """
         The target model in this attack is trained on the traingraph-subset of the original dataset.
         The attacker model samples its dataset on the testgraph-subset and removes almost all edges.
         Both models are evaluated on the testgraph-subset.
         """
         # Surviving Edges
-        attack_name = f'surviving_edges_dist_{int(survivors*100)}p'
+        attack_name = f'surviving_edges_{int(survivors*100)}p_{d1}_{d2}'
         print_attack_start(attack_name)
 
         # attacker
@@ -256,12 +256,12 @@ def main(args):
                         print(f'\n\n  [+] Run Attacks on {gnn} trained on {d1} while attacker was trained on {d2}\n')
                         exp = Experiment(gnn, d1, args.verbose)
                         exp.initialize()
-                        exp.baseline_1_dist(d1, d2)
-                        exp.baseline_2_dist(d1, d2)
-                        exp.surviving_edges_dist(0.20, d1, d2)
-                        exp.surviving_edges_dist(0.40, d1, d2)
-                        exp.surviving_edges_dist(0.60, d1, d2)
-                        exp.surviving_edges_dist(0.80, d1, d2)
+                        exp.baseline_1_d1_d2(d1, d2)
+                        exp.baseline_2_d1_d2(d1, d2)
+                        exp.surviving_edges_d1_d2(0.20, d1, d2)
+                        exp.surviving_edges_d1_d2(0.40, d1, d2)
+                        exp.surviving_edges_d1_d2(0.60, d1, d2)
+                        exp.surviving_edges_d1_d2(0.80, d1, d2)
                         distance_experiments.append(exp)
 
     # Conclude all results

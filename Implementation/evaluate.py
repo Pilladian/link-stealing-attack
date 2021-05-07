@@ -206,6 +206,8 @@ Now it is possible to predict whether two private accounts are connected to each
 
 ## Attacks
 
+### Target and Attacker trained on same dataset-distribution
+
 > Example: Social Network like Instagram or Facebook
 
 A GNN was trained on Instagram profiles to predict the salary of people. To train the  `attacker` one could use its own profile, its follower and also the follower of its own follower. The network now contains people that one is connected to and people one doesn't know.
@@ -266,6 +268,14 @@ Predict whether one knows people or not.
 {get_results(sds_data, 'surviving_edges_80p')}
 <img src=\"{get_plot(sds_data, "surviving_edges_80p")}\" alt="drawing" width="520"/>
 
+### Target and Attacker trained on different dataset-distribution
+
+#### Surviving Edges 80
+Unfollow 20% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
+
+Predict whether one knows people or not.
+
+##### Results
 """
 
     # write Evaluation

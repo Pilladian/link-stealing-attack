@@ -152,7 +152,7 @@ def final_evaluation_distances(experiments, log):
 
         for i, exp in enumerate(experiments):
             for a in list(exp.results.keys()):
-                lineup.write(f'{a}{" " * (37 - len(a))}{exp.gnn_name}{" " * (14 - len(exp.gnn_name))}{exp.results[a]["target"]["acc"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
+                lineup.write(f'{a}{" " * (47 - len(a))}{exp.gnn_name}{" " * (14 - len(exp.gnn_name))}{exp.results[a]["target"]["acc"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
             lineup.write('\n')
 
     if log:
