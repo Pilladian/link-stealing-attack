@@ -43,6 +43,7 @@
 
 #### [ 2021-04-30 ]
 
-- [ ] Train on `dataset_1` and evaluate on `dataset_2`
-  - [ ] calculate posterior features
-  - [ ] evaluate
+- [x] Train on `dataset_1` and evaluate on `dataset_2`
+  - [x] calculate posterior features
+  - [x] evaluate
+  - [x] plot results
