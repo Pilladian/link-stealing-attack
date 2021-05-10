@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def get_plot(data, name):
     plt.clf()
-    bar_width = 0.1
+    bar_width = 0.15
 
     gnns = [type for type, _ in data.items()]
     values = dict()
@@ -15,7 +15,7 @@ def get_plot(data, name):
 
     for type, cont in data.items():
         for i, (dataset, cont2) in enumerate(cont.items()):
-            values[dataset].append(cont2[name]['attacker']['f1-score'])
+            values[dataset].append(cont2[name]['attacker']['f1-score'] * 100)
 
     pos = []
     pos.append([i / 2 for i, _ in enumerate(gnns)])
@@ -25,7 +25,7 @@ def get_plot(data, name):
     plt.xlabel('Graph Neural Network Type')
     plt.ylabel('Attack F1-Score')
     plt.title(name)
-    plt.ylim([0, 1.1])
+    plt.ylim([0, 110])
 
     # GNN Type centered between 3 bars
     tick_pos = [val + (bar_width * 2) / 2 for val in pos[0]]
@@ -33,8 +33,14 @@ def get_plot(data, name):
 
     # bars
     colors = ['tab:olive', 'tab:purple', 'tab:orange']
+    fontsize = 8
+    place = 0.05
     for i, (dataset, vals) in enumerate(values.items()):
         plt.bar(pos[i], values[dataset], label=dataset, width=bar_width, color=colors[i])
+        plt.text(x=pos[i][0] - place, y=values[dataset][0] + 1, s=f'{values[dataset][0]:0.2f}', fontdict=dict(fontsize=fontsize))
+        plt.text(x=pos[i][1] - place, y=values[dataset][1] + 1, s=f'{values[dataset][1]:0.2f}', fontdict=dict(fontsize=fontsize))
+        plt.text(x=pos[i][2] - place, y=values[dataset][2] + 1, s=f'{values[dataset][2]:0.2f}', fontdict=dict(fontsize=fontsize))
+
 
 
     plt.legend()
@@ -89,10 +95,38 @@ def get_results(data, name):
 
     return content
 
+def get_results_diff():
+    content = ""
+
+    with open('./log/202105060541-diff-ds-lineup.txt', 'r') as lineup_file:
+        lines = lineup_file.readlines()
+        for line in lines:
+            if '---' in line:
+                content += '|--- |--- |--- |--- |--- |\n'
+            elif line != '\n':
+                l = [a for a in line.split('  ') if a != '']
+                ll = []
+                for a in l:
+                    if '\n' in a:
+                        ll.append(a[:-1])
+                    else:
+                        ll.append(a)
+                li = ""
+                for a in ll:
+                    li += f'| {a} '
+                content += li + '\n'
+
+    return content
+
+
 def main():
     # load json
     with open('./log/same-ds-results.json') as json_file:
         sds_data = json.load(json_file)
+
+    # load json
+    with open('./log/diff-ds-results.json') as json_file:
+        dds_data = json.load(json_file)
 
     # create markdown file
     content = """# Link Stealing Attacks - Evaluation
@@ -213,7 +247,8 @@ Now it is possible to predict whether two private accounts are connected to each
 A GNN was trained on Instagram profiles to predict the salary of people. To train the  `attacker` one could use its own profile, its follower and also the follower of its own follower. The network now contains people that one is connected to and people one doesn't know.
 
 #### Baseline 1
-- Use train dataset to query (0-hop)
+Use train dataset to query (0-hop).
+
 Use the Social Network Graph, the Target Model was trained on to also train the Attacker Model (<span style="color:red">Knowledge of the dataset needed</span>). Remove all edges but keep in mind, which nodes have been connected. Sample `pos` with nodes that have been connected. Sample `neg` with nodes that haven't. Query the GNN with the modified Social Network Graph to get posteriors to sample features. Train `attacker` on the sampled dataset.
 
 Predict whether one knows people or not.
@@ -223,7 +258,8 @@ Predict whether one knows people or not.
 <img src=\"{get_plot(sds_data, "baseline_1")}\" alt="drawing" width="520"/>
 
 #### Baseline 2
-- Use test dataset to query (0-hop)
+Use test dataset to query (0-hop).
+
 Unfollow everybody but keep in mind, that one know them. Sample `pos` with one self and its former follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
 
 Predict whether one knows people or not.
@@ -270,16 +306,11 @@ Predict whether one knows people or not.
 
 ### Target and Attacker trained on different dataset-distribution
 
-#### Surviving Edges 80
-Unfollow 20% but keep in mind, that one know them. Sample `pos` with one self, its former follower but also its remaining follower. Sample `neg` with one and accounts one doesn't know. Query the GNN with ones modified network to get posteriors to sampled features. Train `attacker` on the sampled dataset.
-
-Predict whether one knows people or not.
-
-##### Results
+{get_results_diff()}
 """
 
     # write Evaluation
-    with open('./eval/Evaluation.md', 'w') as ev:
+    with open('./eval/Evaluation_2.md', 'w') as ev:
         ev.write(content)
 
 
