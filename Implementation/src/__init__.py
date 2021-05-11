@@ -44,7 +44,9 @@ def _f1_score(precision, recall):
 
 def _accuracy(pred, labels):
     tp, tn, fp, fn = _stats(pred, labels)
-    return (tp + tn) / (tp + tn + fp + fn)
+    print((tp.item() + tn.item()) / (tp.item(), tn.item(), fp.item(), fn.item()))
+    print(torch.sum(pred == labels).item() * 1.0 / len(labels))
+    return torch.sum(pred == labels).item() * 1.0 / len(labels)
 
 
 class Target:
