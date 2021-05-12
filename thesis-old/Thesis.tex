@@ -1,0 +1,148 @@
+\documentclass{Thesis}
+
+%\hypersetup{urlcolor=black, colorlinks=false}
+\usepackage{setspace}
+\usepackage{ragged2e}
+\usepackage[pagebackref]{hyperref}
+
+
+
+\begin{document}
+	% ---------------------------------------- Set up the Title Page ----------------------------------------
+
+	\thispagestyle{empty}
+
+	\university
+		{Universität des Saarlandes}
+		{MI Fakultät für Mathematik und Informatik}
+		{Department of Computer Science}
+
+	\thesis
+		{Bachelor's Thesis}
+
+	\topic
+		{Link Stealing Attacks on Inductive Trained Graph Neural Networks}
+
+	\authors
+		{Philipp Zimmermann}
+
+	\handin
+		{15. June 2021}
+
+	\reviewers
+		{asdf}
+		{asdf}
+
+	\blankpage
+
+
+	% ---------------------------------------- Abstract ----------------------------------------------------
+
+	\thispagestyle{empty}
+	\input{src/Presections/abstract}
+	\newpage
+	\blankpage
+
+
+	% ---------------------------------------- Acknowledgements---------------------------------------------
+
+	\thispagestyle{empty}
+	\input{src/Presections/acknowledgment}
+	\newpage
+
+
+	% ---------------------------------------- Table of Content --------------------------------------------
+
+	\thispagestyle{empty}
+	\tableofcontents
+
+
+	% ---------------------------------------- Content -----------------------------------------------------
+
+	% Introduction
+	\input{src/content/introduction}
+
+	% Related Work
+	\input{src/content/related-work}
+
+	% Technical Background
+	\input{src/content/tech-background}
+
+	% Graph Neural Networks
+	%\input{src/content/gnns}
+
+	% Privacy Issues on GNNs
+	%\input{src/content/privacy}
+
+	% Experiment
+	%\input{src/content/experiment}
+
+	% Conclusion
+ 	%\input{src/content/conclusion}
+
+
+	% ---------------------------------------- References -------------------------------------------------
+
+	\newpage
+	%\thispagestyle{empty}
+	%\input{src/content/references}
+
+	{\small
+		\bibliographystyle{citation_style}
+		\bibliography{bibliography}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\UNIVERSITY {
+%	\texorpdfstring{\href{https://www.uni-saarland.de}{Universit\"at des Saarlandes}}
+%	{Universit\"at des Saarlandes}}
+%\faculty{MI Fakult\"at f\"ur Mathematik und Informatik}
+%\department{\texorpdfstring{\href{https://saarland-informatics-campus.de/}{Department of Computer Science}}
+%	{Department of Computer Science}}
+%\reviewers{Prof. Dr. Doktor Professer}{Prof. Dr. Realy Intelligent}
+%
+%\thesistype {Bachelorthesis}
+%\handin     {January 01, 1970}
+%\maketitle
+
+% ---------------------------------------- Abstract ----------------------------------------
+
+%\pagestyle{empty}
+%\input{src/Presections/abstract}
+%\newpage
+
+
+% ---------------------------------------- Acknowledgement ---------------------------------
+
+%\pagestyle{empty}
+%\input{src/Presections/acknowledgement}
+%\newpage
+
+
+% ---------------------------------------- Table of Contents -------------------------------
+
+%\tableofcontents  % Write out the Table of Contents
+
+\end{document}

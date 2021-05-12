@@ -143,7 +143,7 @@ def final_evaluation_same_domain(experiments, log, clear):
             string += '      ' + line
         print(string)
 
-def final_evaluation_distances(experiments, log):
+def final_evaluation_diff_domain(experiments, log):
     lineup_file = f'./log/{datetime.now().strftime("%Y%m%d%H%M")}-diff-ds-lineup.txt'
     with open(lineup_file, 'w') as lineup:
 
