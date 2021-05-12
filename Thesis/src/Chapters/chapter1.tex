@@ -8,17 +8,32 @@
 		% \end{figure}
 
 	\section{Motivation}
-		A graph is a datastructure which is used to model large data and the relationships between entities.
+		A graph is a datastructure which is used to model large data and the relationships between entities \TODO{cite}.
 		It consists of nodes and edges and can be used to model data in almost every domain.
 		For example in social networks, healthcare analytics or protein-protein interactions.
 		In a social network, the nodes would be the users that are registered and the edges would represent whether the users know each other or not by connecting them or not.
 		A graph itself can be deemed as intellectual property of the data owner, since she may spent lots of time and resources collecting and preparing the data.
 		In most cases the graph is also highly confidential because it contains sensitive information like private social relationships between users in a social network or medical information about specific people in healthcare-analytic datasets.
 		Since nowadays graphs are a common way to store and visualize data, Machine Learning algorithms have been improved to directly operate on them.
-		These Machine Learning Models are called Graph Neural Networks.
-		
+		These Machine Learning Models are called Graph Neural Networks (GNNs) \TODO{cite}.
+		They can be used in different ways to operate on graphs.
+		For example they can be trained to perform node classification \TODO{cite}.
+		More precisely, given a graph containing some labeled nodes the model is trained to predict the labels of the other unlabeled nodes in the graph.
+		They can also be used to perform link prediction like in social networks where the friendship between two users is guessed \TODO{cite}.
 
+		A Graph Neural Network can be trained in different ways, depending on the purpose it will be used for.
+		The most common way is to train them transductive \TODO{cite}.
+		Regarding the node classification problem that means, that test and evaluation node features are given during training.
+		Only the labels are unknown.
+		Nevertheless this training method is possible theoretically, it cannot be applied to real world problems like in social networks.
+		That's why e.g. social networks keep evolving.
+		Every day new users register and other user delete their accounts.
+		For datasets like that GNNs can also be trained inductive \TODO{cite}.
+		Specifically, now not only the labels of the test and evaluation nodes is unknown but also their features and connections.
+		That means, that the model is trained on one graph and will be evaluated on another one.
+		In that way it is now possible to update the model on new nodes without retraining it over and over again on the full graph.
 
+		In our work, we show, that inductive trained Graph Neural Networks are very likely to leak sensitive information about the underlaying graph that was used for training by performing link stealing attacks on the target models.
 
 	\section{Outline}
 		\TODO{write at the end}
