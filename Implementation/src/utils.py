@@ -98,18 +98,18 @@ def print_attack_results(tacc, aprec, arecall, af1, aacc):
           F1-Score       -         {af1:.4f}
           Accuracy     {tacc:.4f}      {aacc:.4f}\n''')
 
-def final_evaluation(experiments, log, clear):
+def final_evaluation_same_domain(experiments, log, clear):
     if clear:
         os.system('rm ./log/*')
     lineup_file = f'./log/{datetime.now().strftime("%Y%m%d%H%M")}-same-ds-lineup.txt'
     with open(lineup_file, 'w') as lineup:
 
-        lineup.write('''Attack                    GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score\n''')
-        lineup.write('''---------------------------------------------------------------------------------------------------------\n''')
+        lineup.write('''Attack                                  GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score\n''')
+        lineup.write('''-----------------------------------------------------------------------------------------------------------------------\n''')
 
         for i, exp in enumerate(experiments):
             for a in list(experiments[0].results.keys()):
-                lineup.write(f'{a}{" " * (26 - len(a))}{exp.gnn_name}{" " * (14 - len(exp.gnn_name))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]["acc"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
+                lineup.write(f'{a}{" " * (40 - len(a))}{exp.gnn_name}{" " * (14 - len(exp.gnn_name))}{exp.dataset_name}{" " * (14 - len(exp.dataset_name))}{exp.results[a]["target"]["acc"]*100:.2f}{" " * 11}{exp.results[a]["attacker"]["acc"]*100:.2f}{" " * 13}{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
             lineup.write('\n')
 
     if log:

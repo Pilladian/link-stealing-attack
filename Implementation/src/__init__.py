@@ -17,6 +17,7 @@ from src.gat import *
 from src.gcn import *
 import time
 from scipy.spatial import distance
+from src.utils import *
 
 def _stats(pred, labels):
     pos_mask = labels == 1
@@ -30,7 +31,6 @@ def _stats(pred, labels):
 
     return tp, tn, fp, fn
 
-
 def _precision(pred, labels):
     tp, tn, fp, fn = _stats(pred, labels)
     return tp / (tp + fp)
@@ -43,12 +43,11 @@ def _f1_score(precision, recall):
     return 2 * (precision * recall) / (precision + recall)
 
 def _accuracy(pred, labels):
-    tp, tn, fp, fn = _stats(pred, labels)
-    print((tp.item() + tn.item()) / (tp.item(), tn.item(), fp.item(), fn.item()))
-    print(torch.sum(pred == labels).item() * 1.0 / len(labels))
     return torch.sum(pred == labels).item() * 1.0 / len(labels)
 
+# ---------------------------------------------------------------------------------------------
 
+# Target implementation
 class Target:
 
     def __init__(self, gnn, graph, num_classes):
@@ -173,7 +172,9 @@ class Target:
             # return posteriors predicted by the model
             return logits
 
+# ---------------------------------------------------------------------------------------------
 
+# Attacker implementation
 class Attacker:
 
     def __init__(self, target, graph):
@@ -199,14 +200,14 @@ class Attacker:
             self.modified_graph.remove_edges([self.modified_graph.edge_id(src, dst)])
             pos.append(((src, dst), True))
 
-        for p in range(int(orig_num_of_edges * survivors)):
-            edge_id = random.randint(0, self.modified_graph.num_edges() - 1)
-            src, dst = self.modified_graph.find_edges([edge_id])[0].item(), self.modified_graph.find_edges([edge_id])[1].item()
-            pos.append(((src, dst), True))
+        #for p in range(int(orig_num_of_edges * survivors)):
+        #    edge_id = random.randint(0, self.modified_graph.num_edges() - 1)
+        #    src, dst = self.modified_graph.find_edges([edge_id])[0].item(), self.modified_graph.find_edges([edge_id])[1].item()
+        #    pos.append(((src, dst), True))
 
         # neg_samples - edges that do not exist in (modified_)graph
         neg = []
-        for n in range(int(orig_num_of_edges)):# * (1 - survivors))):
+        for n in range(int(orig_num_of_edges * (1 - survivors))):
             src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
             while self.graph.has_edges_between(src, dst) and (src, dst) not in neg and src != dst:
                 src, dst = random.randint(0, self.graph.num_nodes() - 1), random.randint(0, self.graph.num_nodes() - 1)
@@ -400,3 +401,245 @@ class Attacker:
             acc = _accuracy(pred, labels)
 
             return (precision, recall, f1_score, acc)
+
+# ---------------------------------------------------------------------------------------------
+
+# Experiment implementation
+class Experiment:
+
+    def __init__(self, gnn, dataset, verbose):
+        self.verbose = verbose
+        self.gnn_name = gnn
+        self.dataset_name = dataset
+        self.attacker = {}
+        self.results = {}
+
+
+    def initialize(self):
+        # load dataset
+        self.dataset = load_data(self.dataset_name)
+        self.original_graph = self.dataset[0]
+        self.num_classes = self.dataset.num_classes
+        # load subgraphs
+        self._load_dataset_subgraphs()
+        # load target model
+        self._load_target_model()
+
+    def update_parameter(self, d):
+        # original dataset d
+        self.dataset = load_data(d)
+
+        # get train / test graph
+        self.dir = f'./models/{d}/{self.gnn_name}/'
+        traingraph, labels1 = load_graphs(f'{self.dir}traingraph.bin', [0])
+        testgraph, labels2 = load_graphs(f'{self.dir}testgraph.bin', [0])
+
+        self.traingraph = traingraph[0]
+        self.testgraph = testgraph[0]
+
+        # load model
+        self.target = Target(self.gnn_name, self.traingraph, self.dataset.num_classes)
+        self.target._initialize()
+        self.target.model.load_state_dict(torch.load(f'{self.dir}model.pt'))
+
+    def _load_dataset_subgraphs(self):
+        self.dir = f'./models/{self.dataset_name}/{self.gnn_name}/'
+        traingraph, labels1 = load_graphs(f'{self.dir}traingraph.bin', [0])
+        testgraph, labels2 = load_graphs(f'{self.dir}testgraph.bin', [0])
+
+        self.traingraph = traingraph[0]
+        self.testgraph = testgraph[0]
+
+    def _load_target_model(self):
+        # train-graph not important since model is only queried
+        self.target = Target(self.gnn_name, self.traingraph, self.dataset.num_classes)
+        self.target._initialize()
+        self.target.model.load_state_dict(torch.load(f'{self.dir}model.pt'))
+
+    def evaluate_attack(self, attack_name, graph, verbose=False):
+        tacc = self.target.evaluate(graph)
+
+        attacker = self.attacker[attack_name]
+        aprec, arecall, af1, aacc = attacker.evaluate(attacker.test_nid)
+
+        self.results[attack_name] = {'target': {'acc': tacc},
+                                     'attacker': {'prec': aprec,
+                                                  'recall': arecall,
+                                                  'f1-score': af1,
+                                                  'acc': aacc}}
+        if verbose:
+            print_attack_results(tacc, aprec, arecall, af1, aacc)
+
+
+    # Same Domain Attacks
+    # Attack 1 : posteriors as features
+    def baseline_train_same_domain_post(self):
+        # Baseline Train Same Domain Posteriors : Train on traingraph - Test on traingraph
+        attack_name = f'baseline_train_same_domain_post'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.traingraph)
+        self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data_posteriors(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
+
+    def baseline_test_same_domain_post(self):
+        # Baseline Test Same Domain Posteriors : Train on traingraph - Test on testgraph
+        attack_name = 'baseline_test_same_domain_post'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data_posteriors(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
+
+    def surviving_edges_same_domain_post(self, survivors):
+        # Surviving Edges Same Domain Posteriors
+        attack_name = f'surviving_edges_{int(survivors*100)}p_same_domain_post'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name].create_modified_graph(survivors)
+        self.attacker[attack_name].sample_data_posteriors(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
+
+    # Attack 2 : distances as features
+    def baseline_train_same_domain_dist(self):
+        # Baseline Train Same Domain Distances : Train on traingraph - Test on traingraph
+        attack_name = f'baseline_train_same_domain_dist'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.traingraph)
+        self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
+
+    def baseline_test_same_domain_dist(self):
+        # Baseline Test Same Domain Distances : Train on traingraph - Test on testgraph
+        attack_name = 'baseline_test_same_domain_dist'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
+
+    def surviving_edges_same_domain_dist(self, survivors):
+        # Surviving Edges Same Domain Distances
+        attack_name = f'surviving_edges_{int(survivors*100)}p_same_domain_dist'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name].create_modified_graph(survivors)
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
+
+
+    # Different Domain Attacks
+    # Attack 3 : distances as features
+    def baseline_train_diff_domain_dist(self, d1, d2):
+        """
+        Baseline train_dist:
+        The target model in this attack is trained on the traingraph-subset of the original dataset d1.
+        The attacker model samples its dataset on the traingraph-subset of dataset d2 and removes all edges.
+        Both models are evaluated on their traingraph-subset.
+        """
+        # Baseline 1_distances - Train on traingraph (d1) - Test on traingraph (d2)
+        attack_name = f'baseline_train_{d1}_{d2}_diff_domain_dist'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.traingraph)
+        self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate baseline 1_distances
+        self.update_parameter(d2)
+        self.attacker[attack_name].target_model = self.target
+        self.attacker[attack_name].graph = self.traingraph
+        self.attacker[attack_name].create_modified_graph(0)
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
+
+    def baseline_test_diff_domain_dist(self, d1, d2):
+        """
+        Baseline test_dist:
+        The target model in this attack is trained on the traingraph-subset of the original dataset d1.
+        The attacker model samples its dataset on the testgraph-subset of dataset d2 and removes all edges.
+        Both models are evaluated on their testgraph-subset.
+        """
+        # Baseline 2_distances - Train on traingraph (d1) - Test on testgraph (d2)
+        attack_name = f'baseline_test_{d1}_{d2}_diff_domain_dist'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name].create_modified_graph(0) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate baseline 2_distances
+        self.update_parameter(d2)
+        self.attacker[attack_name].target_model = self.target
+        self.attacker[attack_name].graph = self.testgraph
+        self.attacker[attack_name].create_modified_graph(0)
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
+
+    def surviving_edges_diff_domain_dist(self, survivors, d1, d2):
+        """
+        The target model in this attack is trained on the traingraph-subset of the original dataset.
+        The attacker model samples its dataset on the testgraph-subset and removes almost all edges.
+        Both models are evaluated on the testgraph-subset.
+        """
+        # Surviving Edges
+        attack_name = f'surviving_edges_{int(survivors*100)}p_{d1}_{d2}_diff_domain_dist'
+        print_attack_start(attack_name)
+
+        # attacker
+        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name].create_modified_graph(survivors) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        self.attacker[attack_name].train()
+
+        # evaluate baseline 2_distances
+        self.update_parameter(d2)
+        self.attacker[attack_name].target_model = self.target
+        self.attacker[attack_name].graph = self.testgraph
+        self.attacker[attack_name].create_modified_graph(survivors)
+        self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
+        print_attack_done(attack_name)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)

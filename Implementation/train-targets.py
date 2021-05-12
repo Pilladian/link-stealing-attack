@@ -49,7 +49,7 @@ class Trainer:
 
     def _get_best_model(self, n):
         print()
-        best = 0#self._load_best_acc()
+        best = self._load_best_acc()
         for i in range(n):
             self._split_dataset()
             self._create_target_model()
@@ -57,7 +57,7 @@ class Trainer:
             if acc > best:
                 best = acc
                 print(f'  [+] {self.dataset_name}-{self.gnn_name}: {acc}', end='\r')
-                #self._save_model(acc)
+                self._save_model(acc)
 
     def _load_best_acc(self):
         dir = './models/'
