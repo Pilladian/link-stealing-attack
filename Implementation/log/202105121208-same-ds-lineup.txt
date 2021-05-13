@@ -1,44 +1,47 @@
 Attack                                  GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
 -----------------------------------------------------------------------------------------------------------------------
-baseline_train_same_domain_post         graphsage     cora          91.45           71.45             68.85
-baseline_test_same_domain_post          graphsage     cora          81.48           61.27             53.00
-surviving_edges_20p_same_domain_post    graphsage     cora          81.48           70.39             74.17
+baseline_train_same_domain_post         graphsage     cora          91.45           71.96             76.66
+baseline_test_same_domain_post          graphsage     cora          81.48           67.46             73.69
+surviving_edges_20p_same_domain_post    graphsage     cora          81.48           69.62             73.12
 surviving_edges_40p_same_domain_post    graphsage     cora          81.48           74.46             78.27
 surviving_edges_60p_same_domain_post    graphsage     cora          81.48           74.55             78.21
-surviving_edges_80p_same_domain_post    graphsage     cora          81.48           68.65             76.26
-baseline_train_same_domain_dist         graphsage     cora          91.45           80.22             81.18
-baseline_test_same_domain_dist          graphsage     cora          81.48           58.28             68.69
-surviving_edges_20p_same_domain_dist    graphsage     cora          81.48           70.04             74.88
-surviving_edges_40p_same_domain_dist    graphsage     cora          81.48           70.58             74.54
-surviving_edges_60p_same_domain_dist    graphsage     cora          81.48           79.55             82.05
-surviving_edges_80p_same_domain_dist    graphsage     cora          81.48           80.52             82.63
+surviving_edges_80p_same_domain_post    graphsage     cora          81.48           74.35             79.62
 
+baseline_train_same_domain_dist         graphsage     cora          91.45           80.22             81.18
+baseline_test_same_domain_dist          graphsage     cora          81.48           58.28             72.83
+surviving_edges_20p_same_domain_dist    graphsage     cora          81.48           70.04             75.32
+surviving_edges_40p_same_domain_dist    graphsage     cora          81.48           78.51             79.52
+surviving_edges_60p_same_domain_dist    graphsage     cora          81.48           79.55             82.05
+surviving_edges_80p_same_domain_dist    graphsage     cora          81.48           84.56             85.90
+-----------------------------------------------------------------------------------------------------------------------
 baseline_train_same_domain_post         graphsage     citeseer      86.53           74.33             78.67
-baseline_test_same_domain_post          graphsage     citeseer      73.38           73.18             76.94
-surviving_edges_20p_same_domain_post    graphsage     citeseer      73.38           73.40             78.81
-surviving_edges_40p_same_domain_post    graphsage     citeseer      73.38           71.25             76.83
-surviving_edges_60p_same_domain_post    graphsage     citeseer      73.38           75.56             80.00
-surviving_edges_80p_same_domain_post    graphsage     citeseer      73.38           70.42             76.60
+baseline_test_same_domain_post          graphsage     citeseer      73.38           73.18             77.29
+surviving_edges_20p_same_domain_post    graphsage     citeseer      73.38           77.45             80.27
+surviving_edges_40p_same_domain_post    graphsage     citeseer      73.38           74.56             79.95
+surviving_edges_60p_same_domain_post    graphsage     citeseer      73.38           77.12             81.04
+surviving_edges_80p_same_domain_post    graphsage     citeseer      73.38           79.84             79.58
+
 baseline_train_same_domain_dist         graphsage     citeseer      86.53           81.83             83.25
 baseline_test_same_domain_dist          graphsage     citeseer      73.38           74.65             79.65
-surviving_edges_20p_same_domain_dist    graphsage     citeseer      73.38           70.26             75.63
+surviving_edges_20p_same_domain_dist    graphsage     citeseer      73.38           77.32             82.03
 surviving_edges_40p_same_domain_dist    graphsage     citeseer      73.38           82.93             84.69
 surviving_edges_60p_same_domain_dist    graphsage     citeseer      73.38           80.65             83.95
 surviving_edges_80p_same_domain_dist    graphsage     citeseer      73.38           87.96             88.94
-
+-----------------------------------------------------------------------------------------------------------------------
 baseline_train_same_domain_post         graphsage     pubmed        86.16           70.57             75.68
 baseline_test_same_domain_post          graphsage     pubmed        85.45           71.54             73.39
 surviving_edges_20p_same_domain_post    graphsage     pubmed        85.45           69.21             75.73
 surviving_edges_40p_same_domain_post    graphsage     pubmed        85.45           68.95             76.02
 surviving_edges_60p_same_domain_post    graphsage     pubmed        85.45           68.29             75.52
 surviving_edges_80p_same_domain_post    graphsage     pubmed        85.45           74.59             77.57
+
 baseline_train_same_domain_dist         graphsage     pubmed        86.16           72.67             77.02
 baseline_test_same_domain_dist          graphsage     pubmed        85.45           69.42             75.47
-surviving_edges_20p_same_domain_dist    graphsage     pubmed        85.45           73.99             78.42
-surviving_edges_40p_same_domain_dist    graphsage     pubmed        85.45           75.19             79.31
+surviving_edges_20p_same_domain_dist    graphsage     pubmed        85.45           76.32             79.37
+surviving_edges_40p_same_domain_dist    graphsage     pubmed        85.45           78.44             80.98
 surviving_edges_60p_same_domain_dist    graphsage     pubmed        85.45           78.28             81.72
 surviving_edges_80p_same_domain_dist    graphsage     pubmed        85.45           81.51             83.21
-
+-----------------------------------------------------------------------------------------------------------------------
 baseline_train_same_domain_post         gat           cora          93.32           71.85             77.39
 baseline_test_same_domain_post          gat           cora          80.52           65.41             71.67
 surviving_edges_20p_same_domain_post    gat           cora          80.52           71.59             75.19
