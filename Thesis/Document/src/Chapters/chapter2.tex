@@ -1,1 +1,42 @@
 \chapter{Related Work}
+
+  % First Attacks
+  Ever since machine learning algorithms were developed, there have been new attacks against these models.
+  In 2004, Dalvi et al. proposed simple evasion attacks to defeat linear classifiers that are used in spam filters \cite{10.1145/1014052.1014066}.
+  Later in 2006, Barreno et al. outline a broad taxonomy of attacks against linear classifier in their paper \emph{Can Machine Learning Be Secure?}\cite{10.1145/1128817.1128824}.
+  After in 2012 Deep Neural Networks began to dominate different domains, attacks against these models were also found and further developed \cite{szegedy2014intriguing, Biggio_2018}.
+  Today it is well know, that machine learning models are vulnerable in a security and privacy manner and that there exist many attacks against Machine Learning Models.
+  % Membership Inference
+  With \emph{Membership Inference Attacks} \cite{carlini2019secret, chen2018differentially, 7958568, truex2019demystifying, hayes2018logan} an adversary aims to distinguish whether a given data sample was part of the training dataset of the target model or not.
+  Shokri et al. \cite{7958568} proposed the first Membership Inference Attack on Machine Learning Models.
+  Given a data record and black-box access to a model, they were able to determine if the record was in the target models training dataset.
+  The authors used adversarial machine learning to train an adversary model, that recognizes differences in the target models prediction.
+  They evaluated their experiments on realistic datasets like a hospital discharge, whose membership is sensitive from the privacy perspective and showed that these models can be vulnerable to membership inference attacks. To prevent this attacks, many defenses have been proposed \cite{10.1145/3319535.3363201, 7958568, salem2018mlleaks, Li_2021}.
+  % Model Inversion
+  With \emph{Model Inversion Attacks} \cite{PMID:27077138, 8476925, 10.1145/2810103.2813677, chen2020improved}, an adversary aims to learn sensitive attributes of the target models training dataset.
+  The first model inversion attack has been proposed by Fredrikson et al. \cite{PMID:27077138}.
+  They showed, that given the target model and some demographic information about a patient, it is possible to predict the patient's genetic markers.
+  The authors further investigate, that differential privacy mechanisms prevent their model inversion attacks, when the privacy budget is carefully selected.
+  % Model Extraction
+  With \emph{Model Extraction Attacks} \cite{atli2020extraction, juuti2019prada, tramer2016stealing}, an adversary aims to steal the model internals and uses this information to gradually train a substitute model that immitates the behaviour of the target.
+  Tramèr et al. \cite{tramer2016stealing} proposed simple model extraction attacks, which were able to steal target models with near-perfect fidality.
+  A similar aproach was proposed by Wang and Gong \cite{8418595}, who were able to successfully steal the hyperparameters of target models.
+  To mitigate these attacks, many defenses have been proposed \cite{juuti2019prada, hu2021model, 272262, mori2021bodame}.
+  For Example Juuti et al. \cite{juuti2019prada}, showed that they were able to detect all prior model extraction attacks with no false positives by raising an alarm when the distribution of consecutive API queries deviates from benign behavior.
+  Hu and Pang \cite{hu2021model} proposed an effective defense against model extraction attacks on Generative Adversarial Networks \cite{goodfellow2014generative}, considering a trade-off between the utility and security of GANs.
+
+  % Adversarial Attacks on Graph Neural Networks
+  Since many real world problems can be represented as graphs, it was urgent to develop machine learning algorithms to fully utilize graph data.
+  Therefor, so called Graph Neural Networks have been developed and already used in various tasks \cite{4700287, atwood2016diffusionconvolutional, kipf2017semisupervised, velickovic2018graph}.
+  Although, recent work shows, that GNNs are vulnerable to adversarial attacks as well \cite{agbcvmtgs, 10.1145/3366423.3380149, Z_gner_2018, 10.1145/3219819.3220078, jin2020adversarial}.
+  More precisely, an adversary can decrease the targets accuracy by manipulating the graph structure or node features.
+  For example, Sun et al. \cite{10.1145/3366423.3380149} proposed node injection poisoning attacks, where adversarial nodes are injected into existing graphs to reduce the performance of classifying existing nodes.
+  Zügner et al. \cite{10.1145/3219819.3220078} showed that even with only a few pertubations the accuracy of node classification significantly drops, while focusing on training and testing phase.
+  Our work is different, since we focus on stealing links from GNNs.
+
+
+
+
+  % Since GNNs new : first attacks on GNNs
+  In recent work, He et al. proposed the first attacks on Graph Neural Networks to obtain information about the underlaying graph \cite{DBLP:journals/corr/abs-2005-02131}. They call their attacks \emph{Link Stealing Attacks}.
+  Our work is different, since we focus on Link Stealing Attacks on inductive trained Graph Neural Networks, instead of transductive trained ones.

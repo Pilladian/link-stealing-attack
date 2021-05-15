@@ -1,19 +1,447 @@
-@techreport{Anderson:1972,
-  added-at = {2014-05-27T19:25:15.000+0200},
-  author = {Anderson, James P.},
-  biburl = {http://www.bibsonomy.org/bibtex/25573401b3a88058a07c519b6b6e19bde/privtec},
-  institution = {U.S. Air Force Electronic Systems Division},
-  interhash = {94dee34b1f18965d2c8b7c82bf9ab86e},
-  intrahash = {5573401b3a88058a07c519b6b6e19bde},
-  keywords = {imported},
-  month = {10},
-  number = {ESD-TR-73-51},
-  owner = {jonny},
-  timestamp = {2014-05-27T19:25:15.000+0200},
-  title = {{C}omputer {S}ecurity {T}echnology {P}lanning {S}tudy},
-  volume = 2,
-  year = 1972
+# Related Work
+# ----------------------------------------------------------------------------------------------------------------------------
+@inproceedings{10.1145/1014052.1014066,
+author = {Dalvi, Nilesh and Domingos, Pedro and Mausam and Sanghai, Sumit and Verma, Deepak},
+title = {Adversarial Classification},
+year = {2004},
+isbn = {1581138881},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1014052.1014066},
+doi = {10.1145/1014052.1014066},
+abstract = {Essentially all data mining algorithms assume that the data-generating process is independent of the data miner's activities. However, in many domains, including spam detection, intrusion detection, fraud detection, surveillance and counter-terrorism, this is far from the case: the data is actively manipulated by an adversary seeking to make the classifier produce false negatives. In these domains, the performance of a classifier can degrade rapidly after it is deployed, as the adversary learns to defeat it. Currently the only solution to this is repeated, manual, ad hoc reconstruction of the classifier. In this paper we develop a formal framework and algorithms for this problem. We view classification as a game between the classifier and the adversary, and produce a classifier that is optimal given the adversary's optimal strategy. Experiments in a spam detection domain show that this approach can greatly outperform a classifier learned in the standard way, and (within the parameters of the problem) automatically adapt the classifier to the adversary's evolving manipulations.},
+booktitle = {Proceedings of the Tenth ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+pages = {99–108},
+numpages = {10},
+keywords = {integer linear programming, naive Bayes, cost-sensitive learning, game theory, spam detection},
+location = {Seattle, WA, USA},
+series = {KDD '04}
 }
+
+@inproceedings{10.1145/1128817.1128824,
+author = {Barreno, Marco and Nelson, Blaine and Sears, Russell and Joseph, Anthony D. and Tygar, J. D.},
+title = {Can Machine Learning Be Secure?},
+year = {2006},
+isbn = {1595932720},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1128817.1128824},
+doi = {10.1145/1128817.1128824},
+abstract = {Machine learning systems offer unparalled flexibility in dealing with evolving input in a variety of applications, such as intrusion detection systems and spam e-mail filtering. However, machine learning algorithms themselves can be a target of attack by a malicious adversary. This paper provides a framework for answering the question, "Can machine learning be secure?" Novel contributions of this paper include a taxonomy of different types of attacks on machine learning techniques and systems, a variety of defenses against those attacks, a discussion of ideas that are important to security for machine learning, an analytical model giving a lower bound on attacker's work function, and a list of open problems.},
+booktitle = {Proceedings of the 2006 ACM Symposium on Information, Computer and Communications Security},
+pages = {16–25},
+numpages = {10},
+keywords = {computer networks, game theory, security metrics, intrusion detection, spam filters, computer security, statistical learning, adversarial learning, machine learning},
+location = {Taipei, Taiwan},
+series = {ASIACCS '06}
+}
+
+@misc{szegedy2014intriguing,
+      title={Intriguing properties of neural networks},
+      author={Christian Szegedy and Wojciech Zaremba and Ilya Sutskever and Joan Bruna and Dumitru Erhan and Ian Goodfellow and Rob Fergus},
+      year={2014},
+      eprint={1312.6199},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+
+@article{Biggio_2018,
+   title={Wild patterns: Ten years after the rise of adversarial machine learning},
+   volume={84},
+   ISSN={0031-3203},
+   url={http://dx.doi.org/10.1016/j.patcog.2018.07.023},
+   DOI={10.1016/j.patcog.2018.07.023},
+   journal={Pattern Recognition},
+   publisher={Elsevier BV},
+   author={Biggio, Battista and Roli, Fabio},
+   year={2018},
+   month={Dec},
+   pages={317–331}
+}
+
+% Membership Inference
+@misc{carlini2019secret,
+      title={The Secret Sharer: Evaluating and Testing Unintended Memorization in Neural Networks},
+      author={Nicholas Carlini and Chang Liu and Úlfar Erlingsson and Jernej Kos and Dawn Song},
+      year={2019},
+      eprint={1802.08232},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+
+@misc{chen2018differentially,
+      title={Differentially Private Data Generative Models},
+      author={Qingrong Chen and Chong Xiang and Minhui Xue and Bo Li and Nikita Borisov and Dali Kaarfar and Haojin Zhu},
+      year={2018},
+      eprint={1812.02274},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR}
+}
+
+@misc{7958568,
+  author={Shokri, Reza and Stronati, Marco and Song, Congzheng and Shmatikov, Vitaly},
+  booktitle={2017 IEEE Symposium on Security and Privacy (SP)},
+  title={Membership Inference Attacks Against Machine Learning Models},
+  year={2017},
+  volume={},
+  number={},
+  pages={3-18},
+  doi={10.1109/SP.2017.41}
+}
+
+@misc{truex2019demystifying,
+      title={Towards Demystifying Membership Inference Attacks},
+      author={Stacey Truex and Ling Liu and Mehmet Emre Gursoy and Lei Yu and Wenqi Wei},
+      year={2019},
+      eprint={1807.09173},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR}
+}
+
+@misc{hayes2018logan,
+      title={LOGAN: Membership Inference Attacks Against Generative Models},
+      author={Jamie Hayes and Luca Melis and George Danezis and Emiliano De Cristofaro},
+      year={2018},
+      eprint={1705.07663},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR}
+}
+
+@inproceedings{10.1145/3319535.3363201,
+author = {Jia, Jinyuan and Salem, Ahmed and Backes, Michael and Zhang, Yang and Gong, Neil Zhenqiang},
+title = {MemGuard: Defending against Black-Box Membership Inference Attacks via Adversarial Examples},
+year = {2019},
+isbn = {9781450367479},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3319535.3363201},
+doi = {10.1145/3319535.3363201},
+booktitle = {Proceedings of the 2019 ACM SIGSAC Conference on Computer and Communications Security},
+pages = {259–274},
+numpages = {16},
+keywords = {membership inference attacks, adversarial examples, privacy-preserving machine learning},
+location = {London, United Kingdom},
+series = {CCS '19}
+}
+
+@misc{salem2018mlleaks,
+      title={ML-Leaks: Model and Data Independent Membership Inference Attacks and Defenses on Machine Learning Models},
+      author={Ahmed Salem and Yang Zhang and Mathias Humbert and Pascal Berrang and Mario Fritz and Michael Backes},
+      year={2018},
+      eprint={1806.01246},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR}
+}
+
+@article{Li_2021,
+   title={Membership Inference Attacks and Defenses in Classification Models},
+   ISBN={9781450381437},
+   url={http://dx.doi.org/10.1145/3422337.3447836},
+   DOI={10.1145/3422337.3447836},
+   journal={Proceedings of the Eleventh ACM Conference on Data and Application Security and Privacy},
+   publisher={ACM},
+   author={Li, Jiacheng and Li, Ninghui and Ribeiro, Bruno},
+   year={2021},
+   month={Apr}
+}
+
+% Model Inversion
+@article {PMID:27077138,
+	Title = {Privacy in Pharmacogenetics: An End-to-End Case Study of Personalized Warfarin Dosing},
+	Author = {Fredrikson, Matthew and Lantz, Eric and Jha, Somesh and Lin, Simon and Page, David and Ristenpart, Thomas},
+	Volume = {2014},
+	Month = {August},
+	Year = {2014},
+	Journal = {Proceedings of the ... USENIX Security Symposium. UNIX Security Symposium},
+	Pages = {17—32},
+	Abstract = {We initiate the study of privacy in pharmacogenetics, wherein machine learning models are used to guide medical treatments based on a patient's genotype and background. Performing an in-depth case study on privacy in personalized warfarin dosing, we show that suggested models carry privacy risks, in particular because attackers can perform what we call &lt;i&gt;model inversion&lt;/i&gt;: an attacker, given the model and some demographic information about a patient, can predict the patient's genetic markers. As differential privacy (DP) is an oft-proposed solution for medical settings such as this, we evaluate its effectiveness for building private versions of pharmacogenetic models. We show that &lt;i&gt;DP mechanisms prevent our model inversion attacks when the privacy budget is carefully selected&lt;/i&gt;. We go on to analyze the impact on utility by performing simulated clinical trials with DP dosing models. We find that for privacy budgets effective at preventing attacks, &lt;i&gt;patients would be exposed to increased risk of stroke, bleeding events, and mortality&lt;/i&gt;. We conclude that &lt;i&gt;current&lt;/i&gt; DP mechanisms do not simultaneously improve genomic privacy while retaining desirable clinical efficacy, highlighting the need for new mechanisms that should be evaluated &lt;i&gt;in situ&lt;/i&gt; using the general methodology introduced by our work.},
+	URL = {https://europepmc.org/articles/PMC4827719},
+}
+
+@inproceedings{10.1145/2810103.2813677,
+  author = {Fredrikson, Matt and Jha, Somesh and Ristenpart, Thomas},
+  title = {Model Inversion Attacks That Exploit Confidence Information and Basic Countermeasures},
+  year = {2015},
+  isbn = {9781450338325},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/2810103.2813677},
+  doi = {10.1145/2810103.2813677},
+  abstract = {Machine-learning (ML) algorithms are increasingly utilized in privacy-sensitive applications such as predicting lifestyle choices, making medical diagnoses, and facial recognition. In a model inversion attack, recently introduced in a case study of linear classifiers in personalized medicine by Fredrikson et al., adversarial access to an ML model is abused to learn sensitive genomic information about individuals. Whether model inversion attacks apply to settings outside theirs, however, is unknown. We develop a new class of model inversion attack that exploits confidence values revealed along with predictions. Our new attacks are applicable in a variety of settings, and we explore two in depth: decision trees for lifestyle surveys as used on machine-learning-as-a-service systems and neural networks for facial recognition. In both cases confidence values are revealed to those with the ability to make prediction queries to models. We experimentally show attacks that are able to estimate whether a respondent in a lifestyle survey admitted to cheating on their significant other and, in the other context, show how to recover recognizable images of people's faces given only their name and access to the ML model. We also initiate experimental exploration of natural countermeasures, investigating a privacy-aware decision tree training algorithm that is a simple variant of CART learning, as well as revealing only rounded confidence values. The lesson that emerges is that one can avoid these kinds of MI attacks with negligible degradation to utility.},
+  booktitle = {Proceedings of the 22nd ACM SIGSAC Conference on Computer and Communications Security},
+  pages = {1322–1333},
+  numpages = {12},
+  keywords = {machine learning, privacy, attacks},
+  location = {Denver, Colorado, USA},
+  series = {CCS '15}
+}
+
+@misc{chen2020improved,
+  title={Improved Techniques for Model Inversion Attacks},
+  author={Si Chen and Ruoxi Jia and Guo-Jun Qi},
+  year={2020},
+  eprint={2010.04092},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG}
+}
+
+@misc{8476925,
+  author={Hidano, Seira and Murakami, Takao and Katsumata, Shuichi and Kiyomoto, Shinsaku and Hanaoka, Goichiro},
+  booktitle={2017 15th Annual Conference on Privacy, Security and Trust (PST)},
+  title={Model Inversion Attacks for Prediction Systems: Without Knowledge of Non-Sensitive Attributes},
+  year={2017},
+  volume={},
+  number={},
+  pages={115-11509},
+  doi={10.1109/PST.2017.00023}}
+
+% Model Extraction
+@misc{atli2020extraction,
+  title={Extraction of Complex DNN Models: Real Threat or Boogeyman?},
+  author={Buse Gul Atli and Sebastian Szyller and Mika Juuti and Samuel Marchal and N. Asokan},
+  year={2020},
+  eprint={1910.05429},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG}
+}
+
+@misc{tramer2016stealing,
+  title={Stealing Machine Learning Models via Prediction APIs},
+  author={Florian Tramèr and Fan Zhang and Ari Juels and Michael K. Reiter and Thomas Ristenpart},
+  year={2016},
+  eprint={1609.02943},
+  archivePrefix={arXiv},
+  primaryClass={cs.CR}
+}
+
+@misc{8418595,
+  author={Wang, Binghui and Gong, Neil Zhenqiang},
+  booktitle={2018 IEEE Symposium on Security and Privacy (SP)},
+  title={Stealing Hyperparameters in Machine Learning},
+  year={2018},
+  volume={},
+  number={},
+  pages={36-52},
+  doi={10.1109/SP.2018.00038}
+}
+
+@misc{juuti2019prada,
+  title={PRADA: Protecting against DNN Model Stealing Attacks},
+  author={Mika Juuti and Sebastian Szyller and Samuel Marchal and N. Asokan},
+  year={2019},
+  eprint={1805.02628},
+  archivePrefix={arXiv},
+  primaryClass={cs.CR}
+}
+
+@misc{hu2021model,
+  title={Model Extraction and Defenses on Generative Adversarial Networks},
+  author={Hailong Hu and Jun Pang},
+  year={2021},
+  eprint={2101.02069},
+  archivePrefix={arXiv},
+  primaryClass={cs.CR}
+}
+
+@misc{goodfellow2014generative,
+  title={Generative Adversarial Networks},
+  author={Ian J. Goodfellow and Jean Pouget-Abadie and Mehdi Mirza and Bing Xu and David Warde-Farley and Sherjil Ozair and Aaron Courville and Yoshua Bengio},
+  year={2014},
+  eprint={1406.2661},
+  archivePrefix={arXiv},
+  primaryClass={stat.ML}
+}
+
+@inproceedings {272262,
+  author = {Hengrui Jia and Christopher A. Choquette-Choo and Varun Chandrasekaran and Nicolas Papernot},
+  title = {Entangled Watermarks as a Defense against Model Extraction},
+  booktitle = {30th {USENIX} Security Symposium ({USENIX} Security 21)},
+  year = {2021},
+  url = {https://www.usenix.org/conference/usenixsecurity21/presentation/jia},
+  publisher = {{USENIX} Association},
+  month = aug,
+}
+
+@misc{mori2021bodame,
+  title={BODAME: Bilevel Optimization for Defense Against Model Extraction},
+  author={Yuto Mori and Atsushi Nitanda and Akiko Takeda},
+  year={2021},
+  eprint={2103.06797},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG}
+}
+
+% Graph Neural Networks
+@misc{atwood2016diffusionconvolutional,
+      title={Diffusion-Convolutional Neural Networks},
+      author={James Atwood and Don Towsley},
+      year={2016},
+      eprint={1511.02136},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+
+@article{4700287,
+  author={Scarselli, Franco and Gori, Marco and Tsoi, Ah Chung and Hagenbuchner, Markus and Monfardini, Gabriele},
+  journal={IEEE Transactions on Neural Networks},
+  title={The Graph Neural Network Model},
+  year={2009},
+  volume={20},
+  number={1},
+  pages={61-80},
+  doi={10.1109/TNN.2008.2005605}
+}
+
+@misc{kipf2017semisupervised,
+      title={Semi-Supervised Classification with Graph Convolutional Networks},
+      author={Thomas N. Kipf and Max Welling},
+      year={2017},
+      eprint={1609.02907},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+
+@article{velickovic2018graph,
+  title="{Graph Attention Networks}",
+  author={Veli{\v{c}}kovi{\'{c}}, Petar and Cucurull, Guillem and Casanova, Arantxa and Romero, Adriana and Li{\`{o}}, Pietro and Bengio, Yoshua},
+  journal={International Conference on Learning Representations},
+  year={2018},
+  url={https://openreview.net/forum?id=rJXMpikCZ},
+  note={accepted as poster},
+}
+
+@misc{agbcvmtgs,
+  author = {Wang, Binghui and Gong, Neil},
+  year = {2019},
+  month = {03},
+  pages = {},
+  title = {Attacking Graph-based Classification via Manipulating the Graph Structure},
+  doi = {10.13140/RG.2.2.29010.61124}
+}
+
+@article{Z_gner_2018,
+  title={Adversarial Attacks on Neural Networks for Graph Data},
+  ISBN={9781450355520},
+  url={http://dx.doi.org/10.1145/3219819.3220078},
+  DOI={10.1145/3219819.3220078},
+  journal={Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining},
+  publisher={ACM},
+  author={Zügner, Daniel and Akbarnejad, Amir and Günnemann, Stephan},
+  year={2018},
+  month={Jul}
+}
+
+@inproceedings{10.1145/3219819.3220078,
+author = {Z\"{u}gner, Daniel and Akbarnejad, Amir and G\"{u}nnemann, Stephan},
+title = {Adversarial Attacks on Neural Networks for Graph Data},
+year = {2018},
+isbn = {9781450355520},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3219819.3220078},
+doi = {10.1145/3219819.3220078},
+abstract = {Deep learning models for graphs have achieved strong performance for the task of node classification. Despite their proliferation, currently there is no study of their robustness to adversarial attacks. Yet, in domains where they are likely to be used, e.g. the web, adversaries are common. Can deep learning models for graphs be easily fooled? In this work, we introduce the first study of adversarial attacks on attributed graphs, specifically focusing on models exploiting ideas of graph convolutions. In addition to attacks at test time, we tackle the more challenging class of poisoning/causative attacks, which focus on the training phase of a machine learning model.We generate adversarial perturbations targeting the node's features and the graph structure, thus, taking the dependencies between instances in account. Moreover, we ensure that the perturbations remain unnoticeable by preserving important data characteristics. To cope with the underlying discrete domain we propose an efficient algorithm Nettack exploiting incremental computations. Our experimental study shows that accuracy of node classification significantly drops even when performing only few perturbations. Even more, our attacks are transferable: the learned attacks generalize to other state-of-the-art node classification models and unsupervised approaches, and likewise are successful even when only limited knowledge about the graph is given.},
+booktitle = {Proceedings of the 24th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining},
+pages = {2847–2856},
+numpages = {10},
+keywords = {graph convolutional networks, adversarial machine learning, graph mining, semi-supervised learning, network mining},
+location = {London, United Kingdom},
+series = {KDD '18}
+}
+
+@misc{10.1145/3366423.3380149,
+  author = {Sun, Yiwei and Wang, Suhang and Tang, Xianfeng and Hsieh, Tsung-Yu and Honavar, Vasant},
+  title = {Adversarial Attacks on Graph Neural Networks via Node Injections: A Hierarchical Reinforcement Learning Approach},
+  year = {2020},
+  isbn = {9781450370233},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/3366423.3380149},
+  doi = {10.1145/3366423.3380149},
+  abstract = {Graph Neural Networks (GNN) offer the powerful approach to node classification in complex networks across many domains including social media, E-commerce, and FinTech. However, recent studies show that GNNs are vulnerable to attacks aimed at adversely impacting their node classification performance. Existing studies of adversarial attacks on GNN focus primarily on manipulating the connectivity between existing nodes, a task that requires greater effort on the part of the attacker in real-world applications. In contrast, it is much more expedient on the part of the attacker to inject adversarial nodes, e.g., fake profiles with forged links, into existing graphs so as to reduce the performance of the GNN in classifying existing nodes. Hence, we consider a novel form of node injection poisoning attacks on graph data. We model the key steps of a node injection attack, e.g., establishing links between the injected adversarial nodes and other nodes, choosing the label of an injected node, etc. by a Markov Decision Process. We propose a novel reinforcement learning method for Node Injection Poisoning Attacks (NIPA), to sequentially modify the labels and links of the injected nodes, without changing the connectivity between existing nodes. Specifically, we introduce a hierarchical Q-learning network to manipulate the labels of the adversarial nodes and their links with other nodes in the graph, and design an appropriate reward function to guide the reinforcement learning agent to reduce the node classification performance of GNN. The results of the experiments show that NIPA is consistently more effective than the baseline node injection attack methods for poisoning graph data on three benchmark datasets. },
+  booktitle = {Proceedings of The Web Conference 2020},
+  pages = {673–683},
+  numpages = {11},
+  keywords = {Adversarial Attack, Reinforcement learning;, Graph Poisoning},
+  location = {Taipei, Taiwan},
+  series = {WWW '20}
+}
+
+@misc{jin2020adversarial,
+      title={Adversarial Attacks and Defenses on Graphs: A Review, A Tool and Empirical Studies},
+      author={Wei Jin and Yaxin Li and Han Xu and Yiqi Wang and Shuiwang Ji and Charu Aggarwal and Jiliang Tang},
+      year={2020},
+      eprint={2003.00653},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Link Stealing Attacks
+@article{DBLP:journals/corr/abs-2005-02131,
+  author    = {Xinlei He and
+               Jinyuan Jia and
+               Michael Backes and
+               Neil Zhenqiang Gong and
+               Yang Zhang},
+  title     = {Stealing Links from Graph Neural Networks},
+  journal   = {CoRR},
+  volume    = {abs/2005.02131},
+  year      = {2020},
+  url       = {https://arxiv.org/abs/2005.02131},
+  archivePrefix = {arXiv},
+  eprint    = {2005.02131},
+  timestamp = {Fri, 08 May 2020 15:04:04 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-2005-02131.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @misc{simeone2018brief,
 	title={A Brief Introduction to Machine Learning for Engineers},

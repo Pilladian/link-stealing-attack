@@ -1,4 +1,4 @@
-PWD /home/us3r/Documents/Projekte/link-stealing-attack/Thesis
+PWD /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/Document
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
@@ -322,6 +322,7 @@ INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmssbx10.tfm
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmssbx10.tfm
 INPUT src/Chapters/chapter2.tex
 INPUT src/Chapters/chapter2.tex
+INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmri10.tfm
 INPUT src/Chapters/chapter3.tex
 INPUT src/Chapters/chapter3.tex
 INPUT Thesis.lof
@@ -345,5 +346,6 @@ INPUT /usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmr17.pfb
+INPUT /usr/share/texmf/fonts/type1/public/lm/lmri10.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmri12.pfb
 INPUT /usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb
