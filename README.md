@@ -1,5 +1,5 @@
 # Bachelor-Thesis
-> Philipp Zimmermann
+> Philipp Zimmermann - 6th Semester B.Sc. Cybersecurity
 
 ## Timeline
 
@@ -7,7 +7,7 @@
 
 | Design State                         | Time in weeks | Start
 |---                                   |---            |---
-| Familiarisation Phase                | 2             | 01/04
+| Familiarization Phase                | 2             | 01/04
 | Design Experiment                    | 4             | 08/04
 | Writing ( Research, Evaluation, ... )| -             | 30/04
 | Intro Talk Preparation               | -             | 14/05
