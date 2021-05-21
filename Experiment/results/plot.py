@@ -17,7 +17,7 @@ def a1_cora():
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -52,7 +52,7 @@ def a1_citeseer():
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -80,14 +80,14 @@ def a1_pubmed():
 
     graphsage = [73.39, 75.73, 76.02, 75.52, 77.57]
     gat = [73.42, 73.40, 73.49, 74.94, 74.96]
-    gcn = [10, 20, 30, 40, 50]
+    gcn = [0, 0, 0, 0, 0]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -129,7 +129,7 @@ def a2_cora():
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -164,7 +164,7 @@ def a2_citeseer():
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -192,14 +192,14 @@ def a2_pubmed():
 
     graphsage = [75.47, 79.37, 80.98, 81.72, 83.21]
     gat = [77.30, 79.63, 80.35, 82.73, 82.37]
-    gcn = [10, 20, 30, 40, 50]
+    gcn = [0, 0, 0, 0, 0]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -232,16 +232,16 @@ def a3_cora_citeseer():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [10, 20, 30, 40, 50]
-    gat = [10, 20, 30, 40, 50]
-    gcn = [10, 20, 30, 40, 50]
+    graphsage = [0, 0, 0, 0, 0]
+    gat = [0, 0, 0, 0, 0]
+    gcn = [0, 0, 0, 0, 0]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -267,16 +267,16 @@ def a3_cora_pubmed():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [10, 20, 30, 40, 50]
-    gat = [10, 20, 30, 40, 50]
-    gcn = [10, 20, 30, 40, 50]
+    graphsage = [0, 0, 0, 0, 0]
+    gat = [0, 0, 0, 0, 0]
+    gcn = [0, 0, 0, 0, 0]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -302,16 +302,16 @@ def a3_citeseer_cora():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [10, 20, 30, 40, 50]
-    gat = [10, 20, 30, 40, 50]
-    gcn = [10, 20, 30, 40, 50]
+    graphsage = [0, 0, 0, 0, 0]
+    gat = [0, 0, 0, 0, 0]
+    gcn = [0, 0, 0, 0, 0]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -337,16 +337,16 @@ def a3_citeseer_pubmed():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [10, 20, 30, 40, 50]
-    gat = [10, 20, 30, 40, 50]
-    gcn = [10, 20, 30, 40, 50]
+    graphsage = [0, 0, 0, 0, 0]
+    gat = [0, 0, 0, 0, 0]
+    gcn = [0, 0, 0, 0, 0]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -372,16 +372,16 @@ def a3_pubmed_cora():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [10, 20, 30, 40, 50]
-    gat = [10, 20, 30, 40, 50]
-    gcn = [10, 20, 30, 40, 50]
+    graphsage = [0, 0, 0, 0, 0]
+    gat = [0, 0, 0, 0, 0]
+    gcn = [0, 0, 0, 0, 0]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
@@ -407,16 +407,16 @@ def a3_pubmed_citeseer():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [10, 20, 30, 40, 50]
-    gat = [10, 20, 30, 40, 50]
-    gcn = [10, 20, 30, 40, 50]
+    graphsage = [0, 0, 0, 0, 0]
+    gat = [0, 0, 0, 0, 0]
+    gcn = [0, 0, 0, 0, 0]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE')
+    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
