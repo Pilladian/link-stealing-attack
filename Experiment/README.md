@@ -106,6 +106,7 @@ We want to show that it is possible for an attacker to steal links from graphs g
   - **Output :** Prediction whether both nodes have been connected or not
 
 ### Attack 2
+> Same Source Dataset -- 8 Distances
 
 #### Thread Model
 - **Model :** Black Box Access (Querry Access) to target
@@ -142,6 +143,7 @@ We want to show that it is possible for an attacker to steal links from graphs g
   - **Output :** Prediction whether both nodes have been connected or not
 
 ### Attack 3
+> Different Source Dataset -- 8 Distances
 
 #### Thread Model
 - **Model :** Black Box Access (Querry Access) to target
