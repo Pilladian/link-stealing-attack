@@ -179,4 +179,22 @@ We want to show that it is possible for an attacker to steal links from graphs g
   - **Output :** Prediction whether both nodes have been connected or not
 
 ## Results
-`TODO`
+We consider no edges known (graph only contains nodes and no edges) as our baseline.
+
+### Attack 1
+<img src="results/attack-1-cora.png" alt="drawing"/>
+<img src="results/attack-1-citeseer.png" alt="drawing"/>
+<img src="results/attack-1-pubmed.png" alt="drawing"/>
+
+### Attack 2
+<img src="results/attack-2-cora.png" alt="drawing"/>
+<img src="results/attack-2-citeseer.png" alt="drawing"/>
+<img src="results/attack-2-pubmed.png" alt="drawing"/>
+
+### Attack 3
+<img src="results/attack-3-cora-citeseer.png" alt="drawing"/>
+<img src="results/attack-3-cora-pubmed.png" alt="drawing"/>
+<img src="results/attack-3-citeseer-cora.png" alt="drawing"/>
+<img src="results/attack-3-citeseer-pubmed.png" alt="drawing"/>
+<img src="results/attack-3-pubmed-cora.png" alt="drawing"/>
+<img src="results/attack-3-pubmed-citeseer.png" alt="drawing"/>
