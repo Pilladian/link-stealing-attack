@@ -1,0 +1,15 @@
+Attack                                  GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
+-----------------------------------------------------------------------------------------------------------------------
+baseline_train_same_domain_post         gat           pubmed        86.20           69.12             72.02
+baseline_test_same_domain_post          gat           pubmed        85.62           69.98             73.42
+surviving_edges_20p_same_domain_post    gat           pubmed        85.62           64.70             73.40
+surviving_edges_40p_same_domain_post    gat           pubmed        85.62           64.26             73.49
+surviving_edges_60p_same_domain_post    gat           pubmed        85.62           66.89             74.94
+surviving_edges_80p_same_domain_post    gat           pubmed        85.62           67.01             74.96
+baseline_train_same_domain_dist         gat           pubmed        86.20           71.42             76.58
+baseline_test_same_domain_dist          gat           pubmed        85.62           73.64             77.30
+surviving_edges_20p_same_domain_dist    gat           pubmed        85.62           77.02             79.63
+surviving_edges_40p_same_domain_dist    gat           pubmed        85.62           77.37             80.35
+surviving_edges_60p_same_domain_dist    gat           pubmed        85.62           80.36             82.73
+surviving_edges_80p_same_domain_dist    gat           pubmed        85.62           79.74             82.37
+
