@@ -12,6 +12,8 @@ import os
 from src.utils import *
 from src import *
 
+
+# Attack 1 & 2 : Same Distribution Attacks
 def main(args):
     # Init
     print_init(args)

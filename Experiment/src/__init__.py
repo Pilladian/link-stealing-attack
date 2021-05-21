@@ -19,6 +19,9 @@ import time
 from scipy.spatial import distance
 from src.utils import *
 
+# ---------------------------------------------------------------------------------------------
+
+# Metrics implementation
 def _stats(pred, labels):
     pos_mask = labels == 1
     neg_mask = labels == 0
@@ -62,7 +65,7 @@ class Target:
             self.parameter = json.load(json_file)
             self.gpu = True if self.parameter['gpu'] > 0 else False
 
-    def train(self, verbose=False):
+    def train(self):
         # initialize model
         self._initialize()
 
@@ -80,9 +83,6 @@ class Target:
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
-
-            if verbose:
-                print(f'Target Training: {epoch + 1} / {self.parameter["n_epochs"]}')
 
     def _initialize(self):
         # GPU
@@ -193,17 +193,13 @@ class Attacker:
         self.modified_graph = dgl.remove_self_loop(copy.deepcopy(self.graph))
         orig_num_of_edges = self.modified_graph.number_of_edges()
 
+        # pos_samples - edges that existed in graph
         pos = []
         for p in range(int(orig_num_of_edges * (1 - survivors))):
             edge_id = random.randint(0, self.modified_graph.num_edges() - 1)
             src, dst = self.modified_graph.find_edges([edge_id])[0].item(), self.modified_graph.find_edges([edge_id])[1].item()
             self.modified_graph.remove_edges([self.modified_graph.edge_id(src, dst)])
             pos.append(((src, dst), True))
-
-        #for p in range(int(orig_num_of_edges * survivors)):
-        #    edge_id = random.randint(0, self.modified_graph.num_edges() - 1)
-        #    src, dst = self.modified_graph.find_edges([edge_id])[0].item(), self.modified_graph.find_edges([edge_id])[1].item()
-        #    pos.append(((src, dst), True))
 
         # neg_samples - edges that do not exist in (modified_)graph
         neg = []
@@ -339,8 +335,7 @@ class Attacker:
         self.val_nid = self.val_mask.nonzero().squeeze()
         self.test_nid = self.test_mask.nonzero().squeeze()
 
-
-    def train(self, verbose=False):
+    def train(self):
         # initialize model
         self._initialize()
 
@@ -362,8 +357,6 @@ class Attacker:
 
             # evaluate
             acc = self.evaluate(self.val_nid)
-            if verbose:
-                print("Epoch {:05d} | Time(s) {:.4f} | Loss {:.4f} | Accuracy {:.4f}".format(epoch, np.mean(dur), loss.item(), acc))
 
     def _initialize(self):
         # create model
@@ -413,7 +406,6 @@ class Experiment:
         self.dataset_name = dataset
         self.attacker = {}
         self.results = {}
-
 
     def initialize(self):
         # load dataset
@@ -469,7 +461,6 @@ class Experiment:
                                                   'acc': aacc}}
         if verbose:
             print_attack_results(tacc, aprec, arecall, af1, aacc)
-
 
     # Same Domain Attacks
     # Attack 1 : posteriors as features
@@ -564,7 +555,6 @@ class Experiment:
         print_attack_done(attack_name)
         self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
 
-
     # Different Domain Attacks
     # Attack 3 : distances as features
     def baseline_train_diff_domain_dist(self, d1, d2):
@@ -631,7 +621,7 @@ class Experiment:
 
         # attacker
         self.attacker[attack_name] = Attacker(self.target, self.testgraph)
-        self.attacker[attack_name].create_modified_graph(survivors) # delete all edges -> 0 percent survivors
+        self.attacker[attack_name].create_modified_graph(survivors)
         self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
         self.attacker[attack_name].train()
 

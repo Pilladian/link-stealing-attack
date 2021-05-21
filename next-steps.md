@@ -47,3 +47,7 @@
   - [x] calculate posterior features
   - [x] evaluate
   - [x] plot results
+
+#### [ 2021-05-07 ]
+- [x] Sample attacker dataset from non-surviving edges
+- [x] Sample same domain attacks with distances between two posteriors

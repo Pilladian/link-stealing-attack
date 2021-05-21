@@ -1,19 +1,6 @@
 # Bachelor-Thesis
 > Philipp Zimmermann - 6th Semester B.Sc. Cybersecurity
 
-## Timeline
-
-**Start** : 1. April 2021
-
-| Design State                         | Time in weeks | Start
-|---                                   |---            |---
-| Familiarization Phase                | 2             | 01/04
-| Design Experiment                    | 4             | 08/04
-| Writing ( Research, Evaluation, ... )| -             | 30/04
-| Intro Talk Preparation               | -             | 14/05
-| Final Talk Preparation               | -             | -
-
-**End** : in progress
 
 ## Topic Description
 
@@ -44,3 +31,17 @@ These references have been used for initial research / getting familiar with the
 - [1] Basic GNN - Transductive: https://arxiv.org/abs/1609.02907
 - [2] Basic GNN - Inductive: https://arxiv.org/abs/1706.02216
 - [3] Link stealing attacks: https://arxiv.org/abs/2005.02131
+
+## Timeline
+
+**Start** : 1. April 2021
+
+| Design State                         | Time in weeks | Start
+|---                                   |---            |---
+| Familiarization Phase                | 2             | 01/04
+| Design Experiment                    | 4             | 08/04
+| Writing ( Research, Evaluation, ... )| -             | 30/04
+| Intro Talk Preparation               | -             | 14/05
+| Final Talk Preparation               | -             | -
+
+**End** : in progress

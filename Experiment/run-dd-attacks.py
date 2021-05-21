@@ -13,6 +13,7 @@ from src.utils import *
 from src import *
 
 
+# Attack 3 : Different Distribution Attacks
 def main(args):
     # Init
     print_init(args)

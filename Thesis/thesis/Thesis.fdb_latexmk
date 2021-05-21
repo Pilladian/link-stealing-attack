@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex Thesis"] 1621087607 "Thesis.aux" "Thesis.bbl" "Thesis" 1621087848
+["bibtex Thesis"] 1621087607 "Thesis.aux" "Thesis.bbl" "Thesis" 1621585377
   "/usr/share/texlive/texmf-dist/bibtex/bst/IEEEtran/IEEEtran.bst" 1440712899 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
   "Thesis.aux" 1621087800 5376 9239239a874153db768daed0157e3733 "pdflatex"
   "src/Bibliography.bib" 1621086512 22409 c082992932c8d21e35aca704dc0b0cab ""
   (generated)
-  "Thesis.blg"
   "Thesis.bbl"
-["pdflatex"] 1621087800 "Thesis.tex" "Thesis.pdf" "Thesis" 1621087848
+  "Thesis.blg"
+["pdflatex"] 1621087800 "Thesis.tex" "Thesis.pdf" "Thesis" 1621585377
   "/etc/texmf/web2c/texmf.cnf" 1618758775 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm" 1136768653 3584 929cdff2b7a8c11bd4d49fd68cb0ae70 ""
@@ -192,9 +192,9 @@
   "vmargin.sty" 1620848695 6845 5eae49c3f07fead60d92def0a4f5c30f ""
   (generated)
   "Thesis.aux"
-  "Thesis.lot"
-  "Thesis.toc"
-  "Thesis.out"
   "Thesis.lof"
+  "Thesis.lot"
   "Thesis.log"
   "Thesis.pdf"
+  "Thesis.toc"
+  "Thesis.out"
