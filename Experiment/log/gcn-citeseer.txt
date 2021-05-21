@@ -1,0 +1,14 @@
+Attack                                  GNN           Dataset       Target Acc      Attacker Acc      Attacker F1-Score
+-----------------------------------------------------------------------------------------------------------------------
+baseline_train_same_domain_post         gcn           citeseer      86.66           71.27             74.49
+baseline_test_same_domain_post          gcn           citeseer      71.12           67.61             73.27
+surviving_edges_20p_same_domain_post    gcn           citeseer      71.12           72.13             74.45
+surviving_edges_40p_same_domain_post    gcn           citeseer      71.12           70.60             75.29
+surviving_edges_60p_same_domain_post    gcn           citeseer      71.12           69.75             75.20
+surviving_edges_80p_same_domain_post    gcn           citeseer      71.12           68.98             63.87
+baseline_train_same_domain_dist         gcn           citeseer      86.66           62.73             72.57
+baseline_test_same_domain_dist          gcn           citeseer      71.12           60.48             71.27
+surviving_edges_20p_same_domain_dist    gcn           citeseer      71.12           69.50             75.62
+surviving_edges_40p_same_domain_dist    gcn           citeseer      71.12           69.77             74.45
+surviving_edges_60p_same_domain_dist    gcn           citeseer      71.12           70.86             74.49
+surviving_edges_80p_same_domain_dist    gcn           citeseer      71.12           76.73             80.00
