@@ -28,15 +28,19 @@
   % Adversarial Attacks on Graph Neural Networks
   Since many real world problems can be represented as graphs, it was urgent to develop machine learning algorithms to fully utilize graph data.
   Therefor, so called Graph Neural Networks have been developed and already used in various tasks \cite{4700287, atwood2016diffusionconvolutional, kipf2017semisupervised, velickovic2018graph}.
-  Although, recent work shows, that GNNs are vulnerable to adversarial attacks as well \cite{agbcvmtgs, 10.1145/3366423.3380149, Z_gner_2018, 10.1145/3219819.3220078, jin2020adversarial}.
+  Although, recent work shows, that graph neural networks are vulnerable to adversarial attacks as well \cite{agbcvmtgs, 10.1145/3366423.3380149, Z_gner_2018, Z_gner_2018, jin2020adversarial}.
   More precisely, an adversary can decrease the targets accuracy by manipulating the graph structure or node features.
   For example, Sun et al. \cite{10.1145/3366423.3380149} proposed node injection poisoning attacks, where adversarial nodes are injected into existing graphs to reduce the performance of classifying existing nodes.
-  Zügner et al. \cite{10.1145/3219819.3220078} showed that even with only a few pertubations the accuracy of node classification significantly drops, while focusing on training and testing phase.
-  Our work is different, since we focus on stealing links from GNNs.
+  Zügner et al. \cite{Z_gner_2018} showed that even with only a few pertubations the accuracy of node classification significantly drops, while focusing on training and testing phase.
+  Wang et al. \cite{agbcvmtgs} focused on adversarial collective classification.
+  They formulate their attack as a graph-based optimization problem, solving which produces the edges that an attacker needs to manipulate to achieve its attack goal and als propose several techniques to solve the optimization problem.
+  Lastly Jin et al. \cite{jin2020adversarial} categorized existing attacks and defenses, and reviewed the corresponding state-of-the-art methods. They also have developed a repository with representative algorithms.
+  Our work is different, since we focus on stealing links from graph neural networks.
 
-
-
-
-  % Since GNNs new : first attacks on GNNs
-  In recent work, He et al. proposed the first attacks on Graph Neural Networks to obtain information about the underlaying graph \cite{DBLP:journals/corr/abs-2005-02131}. They call their attacks \emph{Link Stealing Attacks}.
-  Our work is different, since we focus on Link Stealing Attacks on inductive trained Graph Neural Networks, instead of transductive trained ones.
+  % First Link Stealing Attacks on graph neural networks
+  In recent work, He et al. proposed the first attacks on Graph Neural Networks to obtain information about the underlaying graph \cite{DBLP:journals/corr/abs-2005-02131}.
+  They call their attacks \emph{Link Stealing Attacks}.
+  Given a black box access to a graph neural network, they showed that an adversary is able to predict whether any two nodes of a graph, that was used for training, are linked or not.
+  The attacks reveal serious concerns on the intellectual property, confidentiality and privacy of graphs, when they are used for training.
+  Our work is different, since we focus on \emph{Link Stealing Attacks} on inductive trained Graph Neural Networks.
+  Specifically, given a black box access to a graph neural network, we aim to predict whether there exists a link between any two nodes of any graph, not only the one, the graph neural network was trained on.

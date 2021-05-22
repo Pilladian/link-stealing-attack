@@ -8,8 +8,13 @@
 
   Since nowadays graphs are a common way to store and visualize data, Machine Learning algorithms have been improved to directly operate on them.
 	In most cases the graph itself can be deemed confidential, since the owner of the data often spends much time and resources collecting and preparing the data.
-	In our work, we show, that so called Graph Neural Networks can reveal sensitive information about their training graph.
-	We focused on extracting information about the edges of the underlaying graph by observing the predictions of the target model in so called link stealing attacks. \TODO{present results}
+	In our work, we show, that so called graph neural networks can reveal sensitive information about their training graph.
+	We focused on extracting information about the edges of the underlaying graph by observing the predictions of the target model in so called link stealing attacks.
+  In prior work, He et al. proposed the first link stealing attacks on graph neural networks, focusing on the transductive learning.
+  More precisely, given a black box access to a graph neural network, they were able to predict, whether two nodes of a graph that was used for training, are linked or not.
+  We now focus on the inductive setting.
+  Specifically, given a black box access to a graph neural network, we aim to predict whether there exists a link between any two nodes of any graph, not only the one, the graph neural network was trained on.
+  \TODO{present results}
 
 \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 
