@@ -6,11 +6,8 @@ warnings.filterwarnings('ignore')
 
 # Imports
 import argparse
-import random
-import json
-import os
-from src.utils import *
-from src import *
+from src.utils import print_init, print_datasets, print_gnns, final_evaluation_diff_domain
+from src import Experiment
 
 
 # Attack 3 : Different Distribution Attacks

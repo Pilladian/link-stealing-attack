@@ -1,98 +1,69 @@
 \chapter{Attacks}
 
   In recent work He et al. \cite{DBLP:journals/corr/abs-2005-02131} proposed the first link stealing attacks on graph neural networks.
-  They focused on stealing links of the graph that was used for training the given target model.
+  They focused on stealing links of the graph, that was used for training the given target model.
   Like described in Section 3.3.1 this is an attack on transductive trained graph neural networks.
-  In our work, we want to show, that it is possible for an attacker to steal links from graphs, given an inductive trained graph neural network.
-  Therefor we assume the attacker has a graph, but is not sure about the completeness of the edges. Especially, maybe there are some edges between nodes missing in the graph.
-  For two given nodes $i$ and $j$, we want to infer whether they are connected or not. More precisely, whether the edge is missing or really isn't existent in the attackers graph.
-  To do so, we propose three attacks with two different thread models and two ways of training the attacker model.
+  In our work, we want to show, that it is possible for an adversary to steal links from any graphs, given black-box access to an inductive trained target graph neural network model.
 
-  \section{Attack 1}
+  \section{Adversary's Goal}
 
-    In this section, we propose our first attack. Given a target graph neural network and a graph of the same dataset, that wasn't used for training the target model, an adversary aims to steal missing edges of its graph.
-    Therefor it uses the posterior output of the two nodes, it queries the network on and concatenates them to get the feature, the attacker is then trained on.
+    Let $f$ be the target graph neural network model and $G_{adv} = (V_{adv}, E_{adv})$ a graph with $|V_{adv}|$ nodes and $|E_{adv}|$ edges. 
+    We assume, that some of $G_{adv}$'s links/edges are missing.
+    The goal of an adversary $a$ is, to infer whether two nodes $i$ and $j$ are connected to each other or not.
+    More precisely, whether the link $(i,j)$ between the nodes $i$ and $j$ is missing or does not exist.
+  
+  \section{Threat Model}
 
-    \subsection{Thread Model}
+    To perform any of our attacks, we assume, \emph{Black-Box Access} (Query Access) to the target graph neural network model $f$, that was trained on a graph $G_{target} = (V_{target}, E_{target})$.
+    Furthermore, the adversary $a$ has access to a graph $G_{adv} = (V_{adv}, E_{adv})$, of which it want's to steal links from. 
+    In \emph{Attack 1} described in Section \TODO{number} and \emph{Attack 2} discussed in Section \TODO{number} the adversary's graph $G_{adv}$ is from the same dataset distribution like $G_{target}$. 
+    That's why, we can train $a$ using $f$.
+    In \emph{Attack 3} covered in Section \TODO{number}, we assume a different dataset distribution for $G_{adv}$.
+    Considering this, we need to train a shadow model $f'$, which then can be used to train $a$.
 
-      In this attack the adversary has \emph{Black-Box Access} (Query-Access) to the target model and uses a subgraph of the same dataset distribution, the target model also was trained on.
-      However, the adversary's graph wasn't used for training the target model.
+  \section{Attack Methodology}
 
-    \subsection{Attack Methodology}
+    Let $f$ be the target graph neural network model and $G_{adv} = (V_{adv}, E_{adv})$ a graph with $|V_{adv}|$ nodes and $|E_{adv}|$ edges.
+    We assume that $E_{adv}$ is not complete. 
+    More precisely, there exists an edge $(i,j)$ between the nodes $i,j \in V_{adv}$, but $(i,j) \not\in E_{adv}$.
+    The adversary $a$ queries $f$ on both nodes, obtaining $post_i = f(G_{adv}, i)$ and $post_j = f(G_{adv}, j)$.
 
-      To perform this attack, we split one of our used datasets, which will be covered in Section \TODO{update section}, into one traingraph and one testgraph. Given our dataset $G = (V, E)$ we calculate the traingraph  $G\textsubscript{train} = (V\textsubscript{train}, E\textsubscript{train})$ and the testgraph
-      $G\textsubscript{test} = (V\textsubscript{test}, E\textsubscript{test})$ in the following way. $V\textsubscript{train} = \{i | \forall i \in V: random(0, 1) == 1\}$, where $random(0, 1)$ returns the values $0$ or $1$ at random, leading to a random split of the nodes.
-      $E\textsubscript{train} = \{(i, j) | \forall (i,j) \in E: i, j \in V\textsubscript{train}\}$ now contains the edge $(i,j)$ if both nodes $i$ and $j$ are in $V\textsubscript{train}$.
-      The testgraph is now calculated similary.
-      $V\textsubscript{test} = \{j | \forall j \in V: j \not\in V\textsubscript{train}\}$ and $E\textsubscript{test} = \{(i, j) | \forall (i,j) \in E: i, j \in V\textsubscript{test}\}$
+    In \emph{Attack 1} we consider $G_{adv}$ and $G_{target}$ from the same dataset distribution.
+    That's why $a$ can directly be trained on the posteriors. 
+    Therefor we concatenate $post_i$ and $post_j$ obtaining the input $post_{ij} = cat(post_i, post_j)$, with $cat(A,B) = [a_0,...,a_n,b_0,...,b_n]$, where $A = [a_0,...,a_n]$ and $B = [b_0,...,b_n]$.
+    Given $post_{ij}$, $a$ now can infer, whether $i$ and $j$ have been connected and the edge is missing in $G_{adv}$ or not.
 
-      \subsubsection{Target Model}
+    In \emph{Attack 3} we consider $G_{adv}$ and $G_{target}$ from different dataset distributions.
+    The target graph neural network model $f$ has been trained on $G_{target}$, having $|f(G_{target},u)|$ classes, where $u \in V_{target}$.
+    The size of the concatenation of two posteriors obtained from $f$ will be $|cat_{f}| = |cat(f(G_{target},u), f(G_{target},v))|$, where $u,v \in V_{target}$. 
+    The shadow model $f'$ however, has been trained on $G_{adv}$, having $|f'(G_{adv},u)|$ classes, where $u \in V_{adv}$.
+    The size of the concatenation of two posteriors obtained from $f'$ will be $|cat_{f'}| = |cat(f'(G_{adv},u), f'(G_{adv},v))|$, where $u,v \in V_{adv}$. 
+    Since we must assume $|cat_{f}| \neq |cat_{f'}$, we need to sample the input for $a$, creating features based on the posteriors, instead of using them directly.
+    As features we use eight common distance metrics, to measure the distance between $post_i$ and $post_j$.
+    We have in total experimented with Cosine distance, Euclidean distance, Correlation distance, Chebyshev distance, Braycurtis distance, Canberra distance, Manhattan distance, and Square-euclidean distance.
 
-        The target model is now trained on $G\textsubscript{train}$ to perform node classification.
-        Especially, given a node's features, its neighbors' and the edges between them, the model outputs a prediction posterior of the class.
+    \begin{table}[!h]
+      \centering
+      \label{table:distance}
+      \footnotesize
+      \begin{tabular}{l|c}
+        \toprule
+        Metrics & Definition \\
+        \midrule
+        Cosine & $1 - \dfrac{f(u)\cdot f(v)}{\left|f(u)\right|2\left|f(v)\right|_2}$ \\
+        Euclidean & $\left|f(u) - f(v)\right|_2$ \\
+        Correlation & $1-\dfrac{(f(u)-\overline{f(u)}) \cdot(f(v)-\overline{f(v)})}{|(f(u)-\overline{f(u)})|{2}|(f(v)-\overline{f(v)})|{2}}$ \\
+        Chebyshev & $\max _{i}\left|f_i(u)-f_i(v)\right|$ \\
+        Braycurtis & $\dfrac{\sum\left|f_i(u)-f_i(v)\right|} {\sum\left|f_i(u)+f_i(v)\right|}$ \\
+        Manhattan & $\sum{i}\left|f_i(u)-f_i(v)\right|$ \\
+        Canberra & $\sum_{i} \dfrac{\left|f_i(u)-f_i(v)\right|}{\left|f_i(u)\right|+\left|f_i(v)\right|}$ \\
+        Sqeuclidean & $\left|f(u) - f(v)\right|_2^2$ \\
+        \bottomrule
+      \end{tabular}
+      \caption{Distance metrics: $f_i(u)$ represents the $i$-th component of $f(u)$.}
+    \end{table}
 
-      \subsubsection{Attacker Model}
+    
 
-        We first create a raw dataset \emph{da-raw} for the attacker model based on $G\textsubscript{test}$ of our dataset.
-        To do so, we create a clone of the testgraph $G\textsubscript{adv} = G\textsubscript{test}$, which will represent the adversary's graph.
-        We now collect a set of positive samples $pos = \{(i,j, 1) | \forall i,j \in V\textsubscript{test}: (i,j) \in E\textsubscript{test} \wedge |pos| < ((1 - \alpha) * |E\textsubscript{test}|))\}$, containing pairs of nodes, that are connected in the testgraph, where $\alpha$ denotes the percentage of known edges.
-        We then delete all edges we sampled, in our graph clone $E\textsubscript{adv} = \{(i,j) | \forall (i,j) \in E\textsubscript{adv}: (i,j) \not\in pos\}$, to represent the missing edges, we want to steal.
-        Now, we collect a set of negative samples $neg = \{(i,j, 0) | \forall i,j \in V\textsubscript{test}: (i,j) \not\in E\textsubscript{test} \wedge |neg| < ((1 - \alpha) * |E\textsubscript{test}|))\}$, containing pairs of nodes, that are not connected in $G\textsubscript{test}$.
-        Our raw dataset \emph{da-raw} = $pos \cup neg$, now contains positive and negative samples obtained from $G\textsubscript{test}$.
-        As the next step, we create the adversary's dataset $da = \{(post_i_j, l) | \forall (i,j,l)\in\emph{da-raw}: post_i_j = concat(target(G\textsubscript{adv}, i), target(G\textsubscript{adv}, j))\}$.
-        $target(G\textsubscript{adv}, i)$ returns the node classification output posterior of the target model, when it is queried on $i$ given the adversary's graph $G\textsubscript{adv}$.
-        $concat(a, b)$ concatenates the output posteriors $a$ and $b$ with each other returning the feature we will train the attacker model on.
-        $l$ denotes the label either being 1 (positive sample) or 0 (negative sample).
-        With our adversary's dataset $da$ we can now continue training our attacker model using $post_i_j$ as input features and $l$ as class.
-
-  \section{Attack 2}
-
-    In this section, we propose our second attack. Given a target graph neural network and a graph of the same dataset, that wasn't used for training the target model, an adversary aims to steal missing edges of its graph.
-    Therefor it uses the posterior output of the two nodes, it queries the network on and calculates the distance between these two vectors in eight different ways and uses these values as input features for training the attacker model.
-
-    \subsection{Thread Model}
-
-      The Thread Model for this attack is the same one described in Section 4.1.1.
-
-    \subsection{Attack Methodology}
-
-      Most of the Attack Methodology is the same as the one described in Section 4.1.2.
-      There is one difference however.
-      Instead of using the concatenation of the two output posteriors, we now use them as vectors, to calculate their distances in eight different ways.
-      We have in total experimented with 8 common distance metrics: Cosine distance, Euclidean distance, Correlation distance, Chebyshev distance, Braycurtis distance, Canberra distance, Manhattan distance, and Square-euclidean distance.
-
-      \subsubsection{Attacker}
-
-        We first create \emph{da-raw} like described in Section 4.1.2.2.
-        Our adversary's dataset can now be desribed as the following.
-        $da = \{(dist_i_j, l) | \forall (i,j,l)\in\emph{da-raw}: dist_i_j = d(target(G\textsubscript{adv}, i), target(G\textsubscript{adv}, j))\}$, where $d(a,b) = concat(dist_1(a,b), ..., dist_8(a,b))$ and $l$ again denotes the label.
-        With our adversary's dataset $da$ we can now continue training our attacker model using $dist_i_j$ as input features and $l$ as class.
-
-  \section{Attack 3}
-
-    In this section, we propose our last attack. Given a target graph neural network and a graph of a different dataset, that wasn't used for training the target model, an adversary aims to steal missing edges of its graph.
-    Therefor it uses the posterior output of the two nodes, it queries the network on and calculates the distance between these two vectors in eight different ways and uses these values as input features for training the attacker model.
-
-    \subsection{Thread Model}
-
-      In this attack the adversary has \emph{Black-Box Access} (Query-Access) to the target model and uses a different source dataset than the target.
-
-    \subsection{Attack Methodology}
-
-      As mentioned before, we now have two different datasets $G\textsubscript{target} = (V\textsubscript{target}, E\textsubscript{target})$ and $G\textsubscript{attacker\_model} = (V\textsubscript{attacker\_model}, E\textsubscript{attacker\_model})$.
-
-      \subsubsection{Target}
-
-        The target model is now trained on $G\textsubscript{target}$ to perform node classification.
-        Especially,given a node’s features, its neighbors’ and the edges between them, the model outputs aprediction posterior of the class.
-
-      \subsubsection{Attacker Model}
-
-        We first create the raw dataset \emph{da-raw} the same way, we did before but this time with $G\textsubscript{attacker\_model}$.
-        To do so, we again create a clone $G\textsubscript{adv} = G\textsubscript{attacker\_model}$.
-        We now collect a set of positive samples $pos = \{(i,j, 1) | \forall i,j \in V\textsubscript{attacker\_model}: (i,j) \in E\textsubscript{attacker\_model} \wedge |pos| < ((1 - \alpha) * |E\textsubscript{attacker\_model}|))\}$.
-        We then delete all edges we sampled, in our graph clone $E\textsubscript{attacker\_model} = \{(i,j) | \forall (i,j) \in E\textsubscript{adv}: (i,j) \not\in pos\}$, to represent the missing edges, we want to steal.
-        Now, we collect a set of negative samples $neg = \{(i,j, 0) | \forall i,j \in V\textsubscript{attacker\_model}: (i,j) \not\in E\textsubscript{test} \wedge |neg| < ((1 - \alpha) * |E\textsubscript{attacker\_model}|))\}$, containing pairs of nodes, that are not connected in $G\textsubscript{attacker\_model}$.
-        Our raw dataset \emph{da-raw} = $pos \cup neg$, now contains positive and negative samples obtained from $G\textsubscript{attacker\_model}$.
-        As the next step, we create the adversary's dataset $da = \{(dist_i_j, l) | \forall (i,j,l)\in\emph{da-raw}: dist_i_j = d(target(G\textsubscript{adv}, i), target(G\textsubscript{adv}, j))\}$, where $d(a,b) = concat(dist_1(a,b), ..., dist_8(a,b))$ and $l$ again denotes the label.
-        With our adversary's dataset $da$ we can now continue training our attacker model using $dist_i_j$ as input features and $l$ as class.
+    
+  
