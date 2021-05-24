@@ -36,7 +36,6 @@ def a1_cora():
     plt.ylim([0, 100])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-cora.png')
-
 def a1_citeseer():
 
     plt.figure(figsize=(12,6))
@@ -71,7 +70,6 @@ def a1_citeseer():
     plt.ylim([0, 100])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-citeseer.png')
-
 def a1_pubmed():
 
     plt.figure(figsize=(12,6))
@@ -107,9 +105,9 @@ def a1_pubmed():
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-pubmed.png')
 
-a1_cora()
-a1_citeseer()
-a1_pubmed()
+# a1_cora()
+# a1_citeseer()
+# a1_pubmed()
 
 # ------------------------------------------------------------------------------
 
@@ -148,7 +146,6 @@ def a2_cora():
     plt.ylim([0, 100])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-cora.png')
-
 def a2_citeseer():
 
     plt.figure(figsize=(12,6))
@@ -183,7 +180,6 @@ def a2_citeseer():
     plt.ylim([0, 100])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-citeseer.png')
-
 def a2_pubmed():
 
     plt.figure(figsize=(12,6))
@@ -219,9 +215,9 @@ def a2_pubmed():
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-pubmed.png')
 
-a2_cora()
-a2_citeseer()
-a2_pubmed()
+# a2_cora()
+# a2_citeseer()
+# a2_pubmed()
 
 # ------------------------------------------------------------------------------
 
@@ -232,9 +228,9 @@ def a3_cora_citeseer():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [77.69, 82.58, 83.17, 86.67, 89.00]
+    gat = [76.89, 81.67, 80.57, 83.03, 83.99]
+    gcn = [74.49, 72.44, 76.10, 77.30, 77.80]
 
     X_axis = np.arange(len(bartypes))
 
@@ -260,16 +256,15 @@ def a3_cora_citeseer():
     plt.ylim([0, 100])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-cora-citeseer.png')
-
 def a3_cora_pubmed():
 
     plt.figure(figsize=(12,6))
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [76.00, 76.62, 80.48, 79.92, 83.39]
+    gat = [76.76, 76.02, 81.26, 81.59, 84.51]
+    gcn = [76.37, 78.13, 78.85, 80.03, 81.14]
 
     X_axis = np.arange(len(bartypes))
 
@@ -295,16 +290,15 @@ def a3_cora_pubmed():
     plt.ylim([0, 100])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-cora-pubmed.png')
-
 def a3_citeseer_cora():
 
     plt.figure(figsize=(12,6))
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [69.04, 72.37, 80.56, 82.29, 79.22]
+    gat = [73.46, 78.49, 77.99, 84.36, 83.49]
+    gcn = [70.03, 68.78, 73.18, 70.24, 67.43]
 
     X_axis = np.arange(len(bartypes))
 
@@ -330,16 +324,15 @@ def a3_citeseer_cora():
     plt.ylim([0, 100])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-citeseer-cora.png')
-
 def a3_citeseer_pubmed():
 
     plt.figure(figsize=(12,6))
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [75.90, 76.25, 79.37, 81.92, 81.48]
+    gat = [77.69, 79.59, 79.21, 80.80, 80.34]
+    gcn = [74.91, 77.10, 77.83, 80.32, 80.44]
 
     X_axis = np.arange(len(bartypes))
 
@@ -365,16 +358,15 @@ def a3_citeseer_pubmed():
     plt.ylim([0, 100])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-citeseer-pubmed.png')
-
 def a3_pubmed_cora():
 
     plt.figure(figsize=(12,6))
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [73.00, 71.44, 81.17, 81.41, 84.50]
+    gat = [71.43, 75.09, 81.00, 81.70, 81.87]
+    gcn = [69.79, 69.83, 71.02, 67.36, 75.05]
 
     X_axis = np.arange(len(bartypes))
 
@@ -407,9 +399,9 @@ def a3_pubmed_citeseer():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [79.76, 77.65, 84.24, 84.62, 82.63]
+    gat = [78.50, 80.05, 84.79, 83.29, 83.62]
+    gcn = [72.85, 71.84, 74.92, 77.73, 77.03]
 
     X_axis = np.arange(len(bartypes))
 
