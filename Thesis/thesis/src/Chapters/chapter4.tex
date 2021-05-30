@@ -7,60 +7,90 @@
 
   \section{Adversary's Goal}
 
-    Let $f$ be the target graph neural network model and $G_{adv} = (V_{adv}, E_{adv})$ a graph with $|V_{adv}|$ nodes and $|E_{adv}|$ edges. 
-    We assume, that some of $G_{adv}$'s links/edges are missing.
-    The goal of an adversary $a$ is, to infer whether two nodes $i$ and $j$ are connected to each other or not.
-    More precisely, whether the link $(i,j)$ between the nodes $i$ and $j$ is missing or does not exist.
+    Let $f$ be the target graph neural network model and $G_s = (V_s, E_s)$ a graph with $|V_s|$ nodes and $|E_s|$ edges. 
+    We assume, that some of $G_s$'s links/edges are missing.
+    The goal of an adversary $A$ is, to infer whether two nodes $i,j \in V_s$ are connected to each other or not.
+    More precisely, whether the link $(i,j)$ between the nodes $i$ and $j$ is missing, or does not exist.
   
   \section{Threat Model}
 
-    To perform any of our attacks, we assume, \emph{Black-Box Access} (Query Access) to the target graph neural network model $f$, that was trained on a graph $G_{target} = (V_{target}, E_{target})$.
-    Furthermore, the adversary $a$ has access to a graph $G_{adv} = (V_{adv}, E_{adv})$, of which it want's to steal links from. 
-    In \emph{Attack 1} described in Section \TODO{number} and \emph{Attack 2} discussed in Section \TODO{number} the adversary's graph $G_{adv}$ is from the same dataset distribution like $G_{target}$. 
-    That's why, we can train $a$ using $f$.
-    In \emph{Attack 3} covered in Section \TODO{number}, we assume a different dataset distribution for $G_{adv}$.
-    Considering this, we need to train a shadow model $f'$, which then can be used to train $a$.
-
-  \section{Attack Methodology}
-
-    Let $f$ be the target graph neural network model and $G_{adv} = (V_{adv}, E_{adv})$ a graph with $|V_{adv}|$ nodes and $|E_{adv}|$ edges.
-    We assume that $E_{adv}$ is not complete. 
-    More precisely, there exists an edge $(i,j)$ between the nodes $i,j \in V_{adv}$, but $(i,j) \not\in E_{adv}$.
-    The adversary $a$ queries $f$ on both nodes, obtaining $post_i = f(G_{adv}, i)$ and $post_j = f(G_{adv}, j)$.
-
-    In \emph{Attack 1} we consider $G_{adv}$ and $G_{target}$ from the same dataset distribution.
-    That's why $a$ can directly be trained on the posteriors. 
-    Therefor we concatenate $post_i$ and $post_j$ obtaining the input $post_{ij} = cat(post_i, post_j)$, with $cat(A,B) = [a_0,...,a_n,b_0,...,b_n]$, where $A = [a_0,...,a_n]$ and $B = [b_0,...,b_n]$.
-    Given $post_{ij}$, $a$ now can infer, whether $i$ and $j$ have been connected and the edge is missing in $G_{adv}$ or not.
-
-    In \emph{Attack 3} we consider $G_{adv}$ and $G_{target}$ from different dataset distributions.
-    The target graph neural network model $f$ has been trained on $G_{target}$, having $|f(G_{target},u)|$ classes, where $u \in V_{target}$.
-    The size of the concatenation of two posteriors obtained from $f$ will be $|cat_{f}| = |cat(f(G_{target},u), f(G_{target},v))|$, where $u,v \in V_{target}$. 
-    The shadow model $f'$ however, has been trained on $G_{adv}$, having $|f'(G_{adv},u)|$ classes, where $u \in V_{adv}$.
-    The size of the concatenation of two posteriors obtained from $f'$ will be $|cat_{f'}| = |cat(f'(G_{adv},u), f'(G_{adv},v))|$, where $u,v \in V_{adv}$. 
-    Since we must assume $|cat_{f}| \neq |cat_{f'}$, we need to sample the input for $a$, creating features based on the posteriors, instead of using them directly.
-    As features we use eight common distance metrics, to measure the distance between $post_i$ and $post_j$.
-    We have in total experimented with Cosine distance, Euclidean distance, Correlation distance, Chebyshev distance, Braycurtis distance, Canberra distance, Manhattan distance, and Square-euclidean distance.
+    For any of our attacks, we assume, \emph{Black-Box Access} (Query Access) to the target graph neural network model $f$, that was trained on a graph dataset $D_t$.
+    We consider $f_A$ another graph neural network model, which was trained on a graph dataset $D_{f_A}$.
+    The adversary $A$ was trained on a dataset $D_A$ to perform link stealing attacks.
+    We assume, that in any attack $D_t$ and $G_s$ are from the same dataset distribution.
+    However, $D_{f_A}$ must not be from the same dataset distribution as $D_t$.
 
     \begin{table}[!h]
       \centering
-      \label{table:distance}
       \footnotesize
-      \begin{tabular}{l|c}
+      \begin{tabular}{l|l|}
         \toprule
-        Metrics & Definition \\
+        Notation & Description \\
         \midrule
-        Cosine & $1 - \dfrac{f(u)\cdot f(v)}{\left|f(u)\right|2\left|f(v)\right|_2}$ \\
-        Euclidean & $\left|f(u) - f(v)\right|_2$ \\
-        Correlation & $1-\dfrac{(f(u)-\overline{f(u)}) \cdot(f(v)-\overline{f(v)})}{|(f(u)-\overline{f(u)})|{2}|(f(v)-\overline{f(v)})|{2}}$ \\
-        Chebyshev & $\max _{i}\left|f_i(u)-f_i(v)\right|$ \\
-        Braycurtis & $\dfrac{\sum\left|f_i(u)-f_i(v)\right|} {\sum\left|f_i(u)+f_i(v)\right|}$ \\
-        Manhattan & $\sum{i}\left|f_i(u)-f_i(v)\right|$ \\
-        Canberra & $\sum_{i} \dfrac{\left|f_i(u)-f_i(v)\right|}{\left|f_i(u)\right|+\left|f_i(v)\right|}$ \\
-        Sqeuclidean & $\left|f(u) - f(v)\right|_2^2$ \\
+        $f$ & Target GNN Model \\
+        $D_t$ & Dataset used to train $f$ \\
+        $A$ & Adversary \\
+        $D_A$ & Dataset used to train $A$ \\
+        $f_A$ & GNN Model, that is involved in training $A$ \\
+        $D_{f_A}$ & Dataset used to train $f_A$ \\
+        $G_s$ & Incomplete Graph, $A$ performs link stealing attacks on\\
         \bottomrule
       \end{tabular}
-      \caption{Distance metrics: $f_i(u)$ represents the $i$-th component of $f(u)$.}
+      \caption{Attack Notations}
+      \label{table:notations}
+    \end{table}
+
+  \section{Attack Methodology}
+
+    % TODO
+
+    % Let $f$ be the target graph neural network model and $G_s = (V_s, E_s)$ a graph with $|V_s|$ nodes and $|E_s|$ edges.
+    % We assume that $E_s$ is not complete. 
+    % More precisely, there exists an edge $(i,j)$ between the nodes $i,j \in V_s$, but $(i,j) \not\in E_s$.
+    % The adversary $A$ queries $f$ on both nodes $i$ and $j$, obtaining $post_i = f(G_s, i)$ and $post_j = f(G_s, j)$.
+
+    % In \emph{Attack 1} we consider $D_A$ and $D_t$ from the same dataset distribution.
+    % Meaning, that both datasets share parameters like feature amount and more important number of classes. 
+    % This leads to the same sized output posteriors when querying $f$ and $f_a$.
+    % Based on this assumption, $A$ can directly be trained on the posteriors generated by $f_a$, since $|f_a(D_A, u)| = |f(G_s, v)|$, with $u \in V_{a}$ and $v \in V_s$. 
+    % Therefor we concatenate $post_i$ and $post_j$ obtaining the input $post_{ij} = cat(post_i, post_j)$, with $cat(A,B) = [a_0,...,a_n,b_0,...,b_n]$, where $A = [a_0,...,a_n]$ and $B = [b_0,...,b_n]$.
+    % Given $post_{ij}$, $A$ now can infer, whether $i$ and $j$ have been connected and the edge is missing in $G_s$ or not.
+
+    % In \emph{Attack 3} we consider $D_A$ and $D_t$ from different dataset distributions.
+    % That means, that the target graph neural network model $f$ and the graph neural network model $f_a$, that was used to train the adversary, must not share parameters like the numbers of classes.
+    % Therefore, we must assume that they are different.
+    % So it is not possible anymore to train the adversary directly on the posterior output of $f$, since $|f_a(D_A, u)| \neq |f(G_s, v)|$, with $u \in V_{a}$ and $v \in V_s$.
+    % Based on this assumption, we need to sample the input for $A$, by creating features based on the posteriors, instead of using them directly.
+    % As features we use eight common distance metrics, to measure the distance between $post_i$ and $post_j$.
+    % We have in total experimented with Cosine distance, Euclidean distance, Correlation distance, Chebyshev distance, Braycurtis distance, Canberra distance, Manhattan distance, and Square-euclidean distance.
+    % The formal definition of each distance metrics is listed in table \refeq{table:distance}.
+    % So we construct the input $dist_{ij}$ for $A$ as follows: $dist_{ij} = dist(post_i, post_j)$, where $dist(post_i, post_j) = [Cosine(post_i,post_j), ..., Sqeuclidean(post_i,post_j)]$ 
+
+    However, for \emph{Attack 2}, we sample the input for $A$, like it was done in \emph{Attack 3}, to better compare the impact of the dataset distribution on our attacks. 
+
+    Furthermore, for each Attack we assume different amounts of edges given in $D_A$. 
+    The amount of known edges is denoted as $\alpha$ and has an impact on the prediction (posteriors) of the target models $f$ and $f_a$.
+    Therefor we construct new adversary graphs: $D_A^\alpha = (V_{a}^\alpha, E_{a}^\alpha)$ with $|E_{a}^\alpha| = \alpha * |E_{a}|$. 
+    As different stages we define $\alpha = 0.0, 0.2, 0.4, 0.6, 0.8$. 
+    The first case, $\alpha = 0.0$ represents an adversary graph $D_A^{0.0} = (V_{a}^{0.0}, E_{a}^{0.0})$ without any edges / no knowledge of the relationships between the nodes.
+    $\alpha = 0.8$ leads to an adversary graph $D_A^{0.8} = (V_{a}^{0.8}, E_{a}^{0.8})$ with almost every edge considered to be known.
+
+    The following table shows all three attacks with the dataset distribution, the input for the adversary $A$ and the feature amount.
+
+    \begin{table}[!h]
+      \centering
+      \footnotesize
+      \begin{tabular}{l|c|c|c}
+        \toprule
+        Attacks & Dataset Distribution & Input for $A$ & $A$'s Feature Amount\\
+        \midrule
+        Attack 1 & Same & $inp_{ij} = cat(post_i, post_j)$ & $|inp_{ij}| = |post_i| + |post_j| = 2 * |post_i|$ \\
+        Attack 2 & Same & $inp_{ij} = dist(post_i, post_j)$ & $|inp_{ij}| = 8$ \\
+        Attack 3 & Different & $inp_{ij} = dist(post_i, post_j)$ & $|inp_{ij}| = 8$ \\
+        \bottomrule
+      \end{tabular}
+      \caption{Attack Methodology}
+      \label{table:attack-methodology}
     \end{table}
 
     
