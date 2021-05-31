@@ -71,7 +71,7 @@ We want to show that it is possible for an attacker to steal links from graphs g
 ### Attack 1
 > Same Source Dataset -- Posterior Concatenation
 
-#### Thread Model
+#### Threat Model
 - **Model :** Black Box Access (Querry Access) to target
 - **Dataset :** Same distribution dataset (training or testing)
 - **Node Topology :** No edges, 20%, 40%, 60%, 80% known edges
@@ -108,7 +108,7 @@ We want to show that it is possible for an attacker to steal links from graphs g
 ### Attack 2
 > Same Source Dataset -- 8 Distances
 
-#### Thread Model
+#### Threat Model
 - **Model :** Black Box Access (Querry Access) to target
 - **Dataset :** Same distribution dataset (training or testing)
 - **Node Topology :** No edges, 20%, 40%, 60%, 80% known edges
@@ -145,7 +145,7 @@ We want to show that it is possible for an attacker to steal links from graphs g
 ### Attack 3
 > Different Source Dataset -- 8 Distances
 
-#### Thread Model
+#### Threat Model
 - **Model :** Black Box Access (Querry Access) to target
 - **Dataset :** Same distribution dataset (training or testing)
 - **Node Topology :** No edges, 20%, 40%, 60%, 80% known edges

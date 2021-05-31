@@ -2,10 +2,10 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Attack Notations\relax }}{8}{table.caption.18}%
-\contentsline {table}{\numberline {4.2}{\ignorespaces Attack Methodology\relax }}{8}{table.caption.20}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Attack Methodology\relax }}{10}{table.caption.27}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {8.1}{\ignorespaces Distance metrics: $f_i(u)$ represents the $i$-th component of $f(u)$.\relax }}{25}{table.caption.50}%
+\contentsline {table}{\numberline {8.1}{\ignorespaces Distance metrics: $f_{t_i}(u)$ represents the $i$-th component of $f_t(u)$.\relax }}{27}{table.caption.57}%
+\contentsline {table}{\numberline {8.2}{\ignorespaces Notations\relax }}{27}{table.caption.58}%
