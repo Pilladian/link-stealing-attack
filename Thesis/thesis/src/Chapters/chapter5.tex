@@ -1,5 +1,54 @@
 \chapter{Implementation}
 
+  In order to analyze how effective our attacks can steal links from inductive trained graph neural networks, we performed several experiments.
+  In this chapter we want to go through their implementation.
+  We covered multiple datasets and types of graph neural network models, leading to an amount of \textasciitilde200 experiments.
+  Due computational and time constraints, most of the parameters to optimize the attacks remain unexplored.
+
+  \section{Datasets}
+
+    For all our experiments, we used 3 datasets in total.
+    In the table below, they are listed with their most interesting attributes.
+
+    \vspace{0.48cm}
+    \begin{table}[!h]
+      \centering
+      \footnotesize
+      \begin{tabular}{l|l|l|l|l}
+        \toprule
+        Name & Number of Nodes & Number of Edges & Number of Classes & Feature Amount \\
+        \midrule
+        Cora & 2708            & 5429            & 7                 & 1433 \\
+        CiteSeer & 3327        & 4732            & 6                 & 3703 \\
+        Pubmed & 19717         & 44338           & 3                 & 500 \\
+        \bottomrule
+      \end{tabular}
+      \caption{Dataset Information}
+      \label{table:datasets}
+    \end{table}
+
+  \section{Target Models}
+
+    As our target models, we used three different types of graph neural network models.
+
+    \subsection{Types}
+      \subsubsection{GraphSAGE}
+        pass
+
+      \subsubsection{Graph Attention Networks}
+        pass
+
+      \subsubsection{Graph Convolutional Networks}
+        pass
+
+    For each   
+
+
+  \section{Attacker Model}
+
+
+  \newpage
+
   In recent work He et al. \cite{DBLP:journals/corr/abs-2005-02131} proposed the first link stealing attacks on graph neural networks.
   They focused on stealing links of the graph, that was used for training the given target model.
   Like described in Section 3.3.1 this is an attack on transductive trained graph neural networks.
@@ -132,14 +181,3 @@
 
 
 
-  \section{Datasets}
-
-  \section{Target Models}
-
-    \subsection{GraphSAGE}
-
-    \subsection{Graph Attention Networks}
-
-    \subsection{Graph Convolutional Networks}
-
-  \section{Attacker Model}
