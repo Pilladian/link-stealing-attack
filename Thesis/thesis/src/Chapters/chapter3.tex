@@ -9,17 +9,146 @@
 
     A neural network consists of multiple layers.
     An input layer, one or many more hidden layers and an output layer.
-    Each of these layers contain multiple neurons.
+    Each of these layers contain multiple neurons, which are represented as mathematical functions, that take multiple inputs and use them to calculate one output.
+    Such neuron is also called perceptron, while fully connected neural networks are called multilayer perceptron (MLP).
 
-    % \begin{figure}
-    %     \includegraphics[scale=0.5]{res/Figures/attack-1-citeseer}
-    %     \caption{This is an attacker}
-    %     This is something else
-    % \end{figure}
+    \vspace{0.48cm}
+    \begin{figure}[!h]
+      \begin{center}
+        \begin{tikzpicture} [node distance = 2cm,
+          on grid,
+          %auto,
+          %every state/.style = {draw = blue, fill = blue!30},
+          every initial by arrow/.style = {font = \large,
+              thick,-stealth
+          }
+          ]
+          
+          % Input Layer
+          \node (i1) [state, initial, initial text= $input_1$] at (0,1) {};
+          \node (i2) [state, initial, initial text= $input_2$] at (0,-1){};
+
+          % Hidden Layer 1
+          \node (h11) [state] at (2,2) {};
+          \node (h12) [state] at (2,0) {};
+          \node (h13) [state] at (2,-2) {};
+
+          % Hidden Layer 2
+          \node (h21) [state] at (4,2) {};
+          \node (h22) [state] at (4,0) {};
+          \node (h23) [state] at (4,-2) {};
+
+          % Hidden Layer 2
+          \node (h31) [state] at (6,2) {};
+          \node (h32) [state] at (6,0) {};
+          \node (h33) [state] at (6,-2) {};
+          
+          % Output Layer
+          \node (o1) [state, accepting right, accepting text = {$output_1$}] at (8,1) {};
+          \node (o2) [state, accepting right, accepting text = {$output_2$}] at (8,-1){};
+
+          % Links
+          \path [-stealth, thick]
+            (i1) edge node {}   (h11)
+            (i1) edge node {}   (h12)
+            (i1) edge node {}   (h13)
+            (i2) edge node {}   (h11)
+            (i2) edge node {}   (h12)
+            (i2) edge node {}   (h13)
+            
+            (h11) edge node {}   (h21)
+            (h11) edge node {}   (h22)
+            (h11) edge node {}   (h23)
+            (h12) edge node {}   (h21)
+            (h12) edge node {}   (h22)
+            (h12) edge node {}   (h23)
+            (h13) edge node {}   (h21)
+            (h13) edge node {}   (h22)
+            (h13) edge node {}   (h23)
+            
+            (h21) edge node {}   (h31)
+            (h21) edge node {}   (h32)
+            (h21) edge node {}   (h33)
+            (h22) edge node {}   (h31)
+            (h22) edge node {}   (h32)
+            (h22) edge node {}   (h33)
+            (h23) edge node {}   (h31)
+            (h23) edge node {}   (h32)
+            (h23) edge node {}   (h33)
+
+            (h31) edge node {}   (o1)
+            (h31) edge node {}   (o2)
+            (h32) edge node {}   (o1)
+            (h32) edge node {}   (o2)
+            (h33) edge node {}   (o1)
+            (h33) edge node {}   (o2);
+        
+        \end{tikzpicture}
+      \end{center}
+
+      \caption{Multilayer Perceptron}
+      \label{figure:neural-network}
+    \end{figure}
+
+    \subsection{Train a Neural Network}
+
+      When we are confronted to a new task, we try to gain as much information as possible and based on them, we learn how to solve the problem.
+      Neural networks behave similar.
+      Before we can apply a neural network on classifying whether the object we provide is a spoon or fork, we need to tell the network, based on which information it should make its decision.
+      That could be images of spoons and forks or their weight, length and width.
+      We call this data \emph{Training Data}.
+      To train the model in our example, we provide an image of a spoon and let the network make its decision.
+      If the decision is correct, we wont change anything.
+      But if the decision is incorrect, we need to slightly modify the weights - the connections between the perceptrons - to let the model behave different in the future.
+      We do this for each image in our training set and repeat this process $n$ times (for $n$ epochs).
+      After the training, we hopefully have a good trained neural network, which performs well on the provided task.
 
 	\section{Graphs}
 
-		As Graph we denote a data structure that contains nodes and edges. A node can have multiple attributes describing it and an edge describes the relationship between them. The most popular example where graphs are used, are social networks. The nodes represent the users that have multiple attributes like location, gender, work place etc. In a directed graph user $A$ will have an outgoing edge and user $B$ an ingoing edge if $A$ follows $B$ and vice versa. In an undirected graph the edge won't have a direction. Which means that either $A$ follows $B$, $B$ follows $A$ or both will lead to the same result, namely only one edge that is drawn, describing their relationship to each other.
+		As Graph we denote a data structure that contains nodes and edges. 
+    A node can have multiple attributes describing it and an edge describes the relationship between them. 
+    The most popular example where graphs are used, are social networks. The nodes represent the users that have multiple attributes like location, gender, work place etc. 
+    In a directed graph user $A$ will have an outgoing edge and user $B$ an ingoing edge if $A$ follows $B$ and vice versa. In an undirected graph the edge won't have a direction. 
+    Which means that either $A$ follows $B$, $B$ follows $A$ or both will lead to the same result, namely only one edge that is drawn, describing their relationship to each other.
+
+    \vspace{0.48cm}
+    \begin{figure}[!h]
+      \begin{center}
+        \begin{tikzpicture} [node distance = 2cm,
+          on grid,
+          %auto,
+          %every state/.style = {draw = orange, fill = orange!30},
+          every initial by arrow/.style = {font = \large,
+              thick,-stealth
+          }
+          ]
+          
+          \node (a) [state] at (-1,2) {$A$};
+          \node (b) [state] at (0,-1){$B$};
+          \node (c) [state] at (3,1){$C$};
+          \node (d) [state] at (5,-1){$D$};
+          \node (e) [state] at (1,3){$E$};
+          \node (f) [state] at (3,-2){$F$};
+          \node (g) [state] at (7,3){$G$};
+
+          % Links
+          \draw (a) -- (b);
+          \draw (d) -- (c);
+          \draw (f) -- (a);
+          \draw (a) -- (e);
+          \draw (b) -- (f);
+          \draw (c) -- (f);
+          \draw (c) -- (g);
+          \draw (d) -- (g);
+          \draw (a) -- (c);
+          \draw (e) -- (g);
+        
+        \end{tikzpicture}
+      \end{center}
+
+      \caption{Undirected Graph}
+      \label{figure:undirected-graph}
+    \end{figure}
 
 	\section{Graph Neural Networks}
       
