@@ -90,7 +90,7 @@
       \label{figure:neural-network}
     \end{figure}
 
-    \subsection{Train a Neural Network}
+    \textbf{Train a Neural Network}
 
       When we are confronted to a new task, we try to gain as much information as possible and based on them, we learn how to solve the problem.
       Neural networks behave similar.
@@ -106,10 +106,22 @@
 	\section{Graphs}
 
 		As Graph we denote a data structure that contains nodes and edges. 
-    A node can have multiple attributes describing it and an edge describes the relationship between them. 
-    The most popular example where graphs are used, are social networks. The nodes represent the users that have multiple attributes like location, gender, work place etc. 
-    In a directed graph user $A$ will have an outgoing edge and user $B$ an ingoing edge if $A$ follows $B$ and vice versa. In an undirected graph the edge won't have a direction. 
-    Which means that either $A$ follows $B$, $B$ follows $A$ or both will lead to the same result, namely only one edge that is drawn, describing their relationship to each other.
+    Let $G = (V, E)$ be a graph with $V$ being the set of nodes and $E$ being the set of edges.
+    We denote $\overrightarrow{a}$ as the feature vector of node $a$, representing the attributes of $a$.
+    An edge $e = (i,j)$ contains the source node $i$ and the destination node $j$.
+    In that way, links describe the relationship between the source and destination node. 
+    The most popular example where graphs are used to model data, are social networks. 
+    The nodes represent the users that have multiple attributes like location, gender, work place etc., while the edges state which relationship the users have.
+    Lets consider a directed graph $G = (V,E)$ with $V$ representing the users and $E$ their relationships.
+    If user $a$ follows user $b$, the edge $e_{ab} = (a,b)$ would be an element in $E$.
+    If user $b$ follows user $a$, the edge $e_{ba} = (b,a)$ would be an element in $E$.
+    Lets consider an undirected graph $G' = (V',E')$ with $V'$ representing the users and $E'$ their relationships.
+    In $G'$ it doesn't matter whether user $a'$ follows $b'$ or the other way around. 
+    Both results in $e'_{a'b'}, e'_{b'a'} \in E'$.
+    Figure \refeq{figure:undirected-graph} shows an undirected graph.
+    Since there is a link drawn between node $A$ and node $B$, we know, that there exists some relationship between them, but we don't know who follows whom ($e_{AB}, e_{BA} \in E$).
+    The same holds for $e_{CF}, e_{FC} \in E$ or $e_{EG}, e_{GE} \in E$.
+    Since there isn't a link drawn between node $E$ and node $C$, there doesn't exists a known relationship between them ($e_{EC}, e_{CE} \not\in E$).
 
     \vspace{0.48cm}
     \begin{figure}[!h]
@@ -153,6 +165,18 @@
 	\section{Graph Neural Networks}
       
     % Describe how to query a graph neural network (f(Graph, node))
+    In the last decades, social networks have become a huge part of life for many people all around the world.
+    The companies behind these networks collect tons of data of each user every day.
+    Let $G = (V, E)$ be a graph that models such a social network. 
+    The set of all users is given as $V$ and $E$ represents their relationships.
+    The feature vector $\overrightarrow{a}$ of user $a$ contains all information the company already has regarding this user.
+    That could be name, relationship status, workplace, address, amount of children and so on.
+    Lets consider one attribute (\emph{workplace}) as non mandatory for the registration.
+    This leads to some users $v_{workplace} = \{v $ | $ \forall v \in V: v$ has $workplace$ given$\}$, the company knows the workplace from and some users $v_{unknown} = \{v $ | $ \forall v \in V: v$ has $workplace$ not given$\}$, where the attribute is unknown.
+    Based on the information $v_{workplace}$ provides, a graph neural network model $f$ can be trained to predict the missing attribute of all users in $v_{unknown}$.
+    This is a simple node classification task, where the label is the missing attribute $worplace$.
+    There exist two major ideas of training a graph neural network - transductive or inductive.
+    In our experiments introduced and described in Chapter \refeq{chapter:attacks} we focus on attacks on inductive trained graph neural networks. 
 
     \subsection{Transductive Learning}
 
