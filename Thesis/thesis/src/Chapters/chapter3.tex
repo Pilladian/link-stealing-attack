@@ -90,7 +90,7 @@
       \label{figure:neural-network}
     \end{figure}
 
-    \textbf{Train a Neural Network}
+    \subsubsection*{Train a Neural Network}
 
       When we are confronted to a new task, we try to gain as much information as possible and based on them, we learn how to solve the problem.
       Neural networks behave similar.
@@ -178,6 +178,21 @@
     There exist two major ideas of training a graph neural network - transductive or inductive.
     In our experiments introduced and described in Chapter \refeq{chapter:attacks} we focus on attacks on inductive trained graph neural networks. 
 
-    \subsection{Transductive Learning}
+    \subsection*{Train a Graph Neural Network}
 
-    \subsection{Inductive Learning}
+      To describe the process of training a graph neural network, we will stick to the example above.
+      Let $f$ be the GNN we want to train on an undirected graph $G = (V,E)$ to perform some node classification task.
+      We denote $workplace$ as label, we want to predict and $V = v_{workplace} \cup v_{unknown}$ as set of nodes, containing every node, no matter whether the label is given or not.
+      As our training dataset we define $d_{train} = \{(v, v_n)$ | $ \forall v \in v_{workplace}: v_n = neighborhood(v)\}$, where $neighborhood(n)$ is a function defined to collect the $k$-hop neighborhood of $n$ and aggregates their feature vectors.
+      Depending on the type of GNN, this aggregation function $neighborhood()$ can be different.
+      
+
+
+      \subsubsection*{Transductive Learning}
+
+        For transductive learning we consider all information as given, especially while training the graph neural network.
+        More precisely, let $G = (V, E)$ be a graph we want to train our GNN on.
+        $V = v_{workplace} \cup v_{unknown}$ contains every node, no matter whether the label is given or not.
+
+
+    \subsubsection*{Inductive Learning}
