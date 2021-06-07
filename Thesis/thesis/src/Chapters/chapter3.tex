@@ -182,17 +182,31 @@
 
       To describe the process of training a graph neural network, we will stick to the example above.
       Let $f$ be the GNN we want to train on an undirected graph $G = (V,E)$ to perform some node classification task.
-      We denote $workplace$ as label, we want to predict and $V = v_{workplace} \cup v_{unknown}$ as set of nodes, containing every node, no matter whether the label is given or not.
-      As our training dataset we define $d_{train} = \{(v, v_n)$ | $ \forall v \in v_{workplace}: v_n = neighborhood(v)\}$, where $neighborhood(n)$ is a function defined to collect the $k$-hop neighborhood of $n$ and aggregates their feature vectors.
-      Depending on the type of GNN, this aggregation function $neighborhood()$ can be different.
-      
-
+      We denote $workplace$ as label, that we want to predict and $V = v_{workplace} \cup v_{unknown}$ as set of nodes, containing every node, no matter whether the label is given or not.
+      As our training dataset we define $d_{train} = \{(v, v_n)$ | $ \forall v \in v_{workplace}: v_n = neighborhood(v)\}$, where $neighborhood(n)$ is a function defined to collect the $k$-hop neighborhood of $n$ and aggregates their feature vectors. 
+      $k = 0$ only considers $n$ and no neighbors of $n$.
+      $k = 1$ also includes the neighbors of $n$, while $k = 2$ also aggregates the neighbors of the neighbors of $n$. 
+      Depending on the type of GNN, this aggregation function $neighborhood()$ can differ in the algorithm collecting the neighborhood vectors.
 
       \subsubsection*{Transductive Learning}
 
         For transductive learning we consider all information as given, especially while training the graph neural network.
-        More precisely, let $G = (V, E)$ be a graph we want to train our GNN on.
-        $V = v_{workplace} \cup v_{unknown}$ contains every node, no matter whether the label is given or not.
+        More precisely, we denote, as mentioned before, $V = v_{workplace} \cup v_{unknown}$.
+        This means, that for training the model on $d_{train}$, which contains all labeled nodes, the feature vectors of nodes, that are not labeled are included as well.
+        Later when the model will be evaluated and tested, it already has seen the feature vectors of the nodes it should predict the labels of.
+        So, the information of the nodes, the model needs to classify, is already known during the training phase.
+
+      \subsubsection*{Inductive Learning}
+
+        For inductive learning, we only consider the information of nodes that are labeled given while training the graph neural network.
+        More precisely, we denote $V = v_{workplace}$ and $d_{train} = \{(v, v_n)$ | $ \forall v \in V: v_n = neighborhood(v)\}$.
+        This means, that for training the model on $d_{train}$ only labeled nodes are used.
+        Lets assume that three new users register to the social network, nobody setting his / her workplace.
+        Since some other mandatory information and maybe some links are given, the graph neural network can be used to predict the workplace of the new users nevertheless they haven't been included in the training process.
+        So, it is possible to train the graph neural network on some graph and apply it on others, since it is easy adjustable.
+        
+      Since the most real world problems like friendship prediction in social networks or protein-protein interactions in chemical networks cannot be modeled with a static graph, the inductive learning method is commonly used, while the transductive one isn't.
+      In our work, we show that given an inductive trained graph neural network, that was trained on a graph $G_1$, we are able to extract information of another graph $G_2$ that is completely unknown to the model.
+      More precisely, we steal links from $G_2$ using the prediction posteriors of the model while querying it on $G_2$.
 
 
-    \subsubsection*{Inductive Learning}

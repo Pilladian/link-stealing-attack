@@ -33,7 +33,8 @@
 		That means, that the model is trained on one graph and will be evaluated on another one.
 		In that way it is now possible to update the model on new nodes without retraining it over and over again on the full graph.
 
-		In our work, we show, that inductive trained Graph Neural Networks are very likely to leak sensitive information about the underlaying graph that was used for training by performing link stealing attacks on the target models.
+		In our work, we show, that inductive trained Graph Neural Networks are very likely to leak sensitive information about any target graph it is queried on. 
+		Meaning that even if the target graph is unknown by the target model, it is still possible to extract sensitive link-information.
 
 	\section{Outline}
 		\TODO{write at the end}
