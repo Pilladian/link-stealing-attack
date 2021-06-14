@@ -9,15 +9,15 @@ import copy
 import json
 import torch
 import random
-import numpy as np
+import dgl
 import torch.nn.functional as F
-from src.graphsage import *
-from src.mlp import *
-from src.gat import *
-from src.gcn import *
+from src.graphsage import GraphSAGE
+from src.mlp import MLP
+from src.gat import GAT
+from src.gcn import GCN
 import time
 from scipy.spatial import distance
-from src.utils import *
+from src.utils import load_data, load_graphs, print_attack_results, print_attack_start, print_attack_done
 
 # ---------------------------------------------------------------------------------------------
 
@@ -217,7 +217,7 @@ class Attacker:
         """
         [1] Query target on two nodes
         [2] Get their posteriors for node classification
-        [3] Concatinate posteriors to form the input feature vector for the attacker model
+        [3] Concatenate posteriors to form the input feature vector for the attacker model
         """
         size = len(self.raw_dataset) - 1
         self.feature_amount = self.target_model.get_posteriors(self.modified_graph, 0).shape[0] * 2
