@@ -75,7 +75,7 @@
     More precisely, there exists an edge $(i,j)$ between the nodes $i,j \in V_s$, but $(i,j) \not\in E_s$.
     The adversary $A$ queries $f_t$ on both nodes $i$ and $j$, obtaining $post_i = f_t(G_s, i)$ and $post_j = f_t(G_s, j)$.
 
-    \subsection{Attack 1}
+    \subsection*{Attack 1}
       In \emph{Attack 1} we consider $G_A$ and $D_{f_t}$ from the same dataset distribution and denote $f_t = f_A$.
       Meaning, that $A$ samples its training dataset $D_A$ by querying $f_t$.
       That can be done, because $|post_u| = |f_t(G_A,u)|$ (training phase) and $|post_v| = |f_t(G_s,v)|$ (attack phase), with $u \in V_A$ and $v \in V_s$, have the same dimension.
@@ -111,7 +111,7 @@
         \label{figure:flow-chart-attack-1}
       \end{figure}
 
-    \subsection{Attack 3}
+    \subsection*{Attack 3}
       In \emph{Attack 3} we consider $G_A$ and $D_{f_t}$ from different dataset distributions.
       So the adversary trains another graph neural network model $f_A$ with a dataset $D_{f_A}$.
       Since $f_t$ and $f_A$ are trained on different dataset distributions, we must assume that they have different parameters like feature amount or number of classes. 
@@ -152,7 +152,7 @@
       \end{figure}
 
     \newpage
-    \subsection{Attack 2}
+    \subsection*{Attack 2}
       In \emph{Attack 2} we consider $G_A$ and $D_{f_t}$ from the same dataset distribution and denote $f_t = f_A$ like it was done in \emph{Attack 1}.
       However, for better comparison of the impact of the dataset distribution, we sample the input for $A$, like it was done in \emph{Attack 3}.
 
