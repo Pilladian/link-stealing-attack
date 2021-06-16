@@ -180,18 +180,28 @@
 
     \subsection*{Transductive Setting}
 
-      In the transductive setting \cite{kipf2017semisupervised} the complete graph is provided as input to $f$.
-      This includes all nodes, labeled and unlabeled ones, their links and their feature vectors.
+      In the transductive setting \cite{kipf2017semisupervised} the complete graph is provided as input to a graph neural network model $f$.
+      This includes all nodes, their links and their feature vectors.
       The model learns hidden layer representations that encode both local graph structure and features of nodes to perform its task.
+      In the example given above, we want to predict the $workplace$ of unlabeled users.
+      Since this setting operates on the full graph, we include the feature vectors of the unlabeled users during the training phase as well.
+      This means, that if new users join the network, $f$ needs to be retrained because the graph changed, making it really hard to apply this setting to real world problems.
+      Datasets like social networks change every day, such that a model which is trained transductive, must be retrained every time, the graph changes.
+      This leads to high computational costs and time constraints and thus is not very practical for very large, constant changing datasets.
+      Based on this problem another learning method can be used, which does not use the full graph for training but uses small subgraphs instead.
 
     \subsection*{Inductive Setting}
 
-      \TODO{TOODOO}
-
-      For inductive learning, we only consider the information of nodes that are labeled given while training the graph neural network.
-      This means, that for training the model only labeled nodes are used.
+      For inductive learning, we don't use the whole graph as input for $f$ but instead use a neighborhood function $neighborhood(n)$ which aggregates the feature vectors of the $k$-hop neighborhood of the node $n$. 
+      We can set $k$ to any number.
+      $k = 0$ does only consider $n$'s feature vector as input and no aggregated neighbor embeddings.
+      $k = 1$ aggregates the neighbor vectors of $n$ with $n$'s feature vector, while $k = 2$ also considers the neighbors of the neighbors of $n$.
+      Thanks to this algorithms, it's no longer necessary to train $f$ on the whole graph but instead only use the neighborhood of a specific node.
+      This approach can be used to train $f$ on one graph, where all information are known and apply it on other graphs, where we want to perform node classification on.
+      This is possible since the model does not learn a graph representation but feature vector embeddings instead.
+      To better understand the process, we continue with the example given above.
       Lets assume that three new users register to the social network, nobody setting his / her workplace.
-      Since some other mandatory information and maybe some links are given, the graph neural network can be used to predict the workplace of the new users nevertheless they haven't been included in the training process.
+      Since some other mandatory information and maybe some links are given, the graph neural network can be used to predict the workplace of the new users nevertheless they haven't been included in the training process, by aggregating their neighborhood feature vectors with the own one.
       So, it is possible to train the graph neural network on some graph and apply it on others, since it is easy adjustable.
         
       Since the most real world problems like friendship prediction in social networks or protein-protein interactions in chemical networks cannot be modeled with a static graph, the inductive learning method is commonly used, while the transductive one isn't.
