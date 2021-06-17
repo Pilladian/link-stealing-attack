@@ -9,8 +9,8 @@ import argparse
 import random
 import json
 import os
-from src.utils import *
-from src import *
+from src.utils import print_init, print_datasets, print_gnns, final_evaluation_same_domain
+from src import Experiment
 
 
 # Attack 1 & 2 : Same Distribution Attacks
@@ -34,7 +34,7 @@ def main(args):
     # run attacks
     for experiment in experiments:
         print(f'\n\n  [+] Same Domain - Posteriors - {experiment.gnn_name} : {experiment.dataset_name}\n')
-        # Attack 1 : concatination of posteriors as features
+        # Attack 1 : concatenation of posteriors as features
         experiment.baseline_train_same_domain_post()
         experiment.baseline_test_same_domain_post()
         experiment.surviving_edges_same_domain_post(0.20)

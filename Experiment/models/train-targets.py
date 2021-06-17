@@ -7,10 +7,11 @@ warnings.filterwarnings('ignore')
 # Imports
 import argparse
 import random
-import json
 import os
-from src.utils import *
-from src import *
+import dgl
+import torch
+from src.utils import load_data, print_datasets, print_gnns
+from src import Target
 from dgl.data.utils import save_graphs
 
 
