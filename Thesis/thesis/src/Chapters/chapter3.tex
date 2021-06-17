@@ -184,7 +184,7 @@
 
       In the transductive setting \cite{kipf2017semisupervised} the complete graph is provided as input to a graph neural network model $f$.
       This includes all nodes, their links and their feature vectors.
-      The model learns hidden layer representations that encode both local graph structure and features of nodes to perform its task.
+      The model learns hidden layer representations that encode both local graph structure and features of nodes to perform its task, by aggregating information throughout the graph.
       In the example given above, we want to predict the $workplace$ of unlabeled users.
       Since this setting operates on the full graph, we consider the information the graph provides as known all the time, especially during the training phase.
       This implies, that all feature vectors are visible for $f$ during training.
@@ -211,12 +211,18 @@
       So, it is possible to train the graph neural network on some graph and apply it on others, since it is easy adjustable.
         
       Since the most real world problems like friendship prediction in social networks or protein-protein interactions in chemical networks cannot be modeled with a static graph, the inductive learning method is commonly used, while the transductive one isn't.
-      In our work, we show that given an inductive trained graph neural network, that was trained on a graph $G_1$, we are able to extract information of another graph $G_2$ that is completely unknown to the model.
-      More precisely, we steal links from $G_2$ using the prediction posteriors of the model while querying it on $G_2$.
-
+      
   \section{Link Stealing Attacks}
+    
+    Link Stealing Attacks are introduced the first time by He et al. \cite{DBLP:journals/corr/abs-2005-02131}.
+    Given a graph neural network, they performed different attacks with different attack methodologies to steal links from the graph that was used for training.
+    Todo so, the authors queried their target model $f$ on two nodes $u, v$ obtaining two posterior outputs $f(u)$ and $f(v)$.
+    Since graph neural networks in general aggregate their information for one node based on the other nodes surrounding it, connected nodes should have more similar vectors, than nodes, that are not linked.
+    So they calculated eight different distances between the two output posteriors $f(u)$ and $f(v)$ and use them as input for the attacker model, which then predicts whether the two nodes are connected to each other or not.
 
-    In recent work He et al. \cite{DBLP:journals/corr/abs-2005-02131} proposed the first link stealing attacks on graph neural networks.
-    They focused on stealing links of the graph, that was used for training the given target model.
-    Like described in Section 3.3.1 this is an attack on transductive trained graph neural networks.
-    In our work, we want to show, that it is possible for an adversary to steal links from any graphs, given black-box access to an inductive trained target graph neural network model.
+    
+    
+
+
+  In our work, we show that given an inductive trained graph neural network, that was trained on a graph $G_1$, we are able to extract information of another graph $G_2$ that is completely unknown to the model.
+  More precisely, we steal links from $G_2$ using the prediction posteriors of the model while querying it on $G_2$.
