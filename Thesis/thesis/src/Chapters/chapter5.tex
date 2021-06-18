@@ -1,7 +1,7 @@
 \chapter{Implementation}
 
-  In order to analyze how effective our attacks can steal links from graphs that are used to query inductive trained graph neural networks, we performed several experiments by attacking GNNs that have been trained to perform node classification.
-  In this chapter we want to go through their implementation.
+  In order to analyze how effective our attacks can steal links from the training graph of an inductive trained graph neural network, we performed several experiments by attacking GNNs that have been trained to perform node classification.
+  In this chapter we want to go through the implementation of our attacks.
   We covered multiple datasets and types of graph neural network models, leading to an amount of \textasciitilde200 experiments.
   Due computational and time constraints, most of the parameters to optimize the attacks remain unexplored.
 
@@ -9,6 +9,9 @@
 
     For all our experiments, we used 3 datasets in total.
     In the table below, they are listed with their most interesting attributes.
+    All of the datasets we used are from the same domain - Citation Networks.
+    This is because these networks are open source and similar to social networks in their structure.
+    Due to computational constraints we didn't use social network datasets like reddit.
 
     \vspace{0.48cm}
     \begin{table}[!h]
@@ -29,12 +32,12 @@
 
     \subsection*{Sample Datasets for Experiments}
 
-      In order to fulfill the criteria that $G_s$ and $D_{f_t}$ are from the same dataset distribution like described in Section \refeq{section:threat-model}, we split our datasets and sample new ones based on our original three datasets \emph{Cora, CiteSeer} and \emph{Pubmed}.
+      In total we train target models on all three datasets - \emph{Cora}, \emph{CiteSeer} and \emph{Pubmed} .
+      To train the attacker models, we sample an adversary dataset based on the incomplete subgraph.
 
       \subsubsection*{Same Dataset Distributions - Attack 1-2}
-        Let $D = (V, E)$ be one of our three original datasets with $|V|$ nodes and $|E|$ edges.
-        We can obtain two subgraphs by splitting $D$ into $D_{f_t} = (V_{f_t}, E_{f_t})$ and $D' = (V', E')$.
-        We define $V_{f_t} = \{i$ | $\forall i \in V: random(0, 1) == 1\}$, where $random(0, 1)$ returns the values $0$ or $1$ at random, leading to a random split of the nodes, and $V' = \{j$ | $\forall j \in V: j \not\in V_{f_t}\}$.
+        Let $D_{f_t} = (V_{f_t}, E_{f_t})$ be one of our three original datasets with $|V_{f_t}|$ nodes and $|E_{f_t}|$ edges.
+        We denote $D' = (V',E')$ as subgraph of $D_{f_t}$.
         $D_{f_t}$ is used to train our target model $f_t$, while $D'$ is used to sample $G_{A}$, which is a graph, that was modified by deleting some known edges to simulate an incomplete graph.
         $D_A$ is obtained by querying $f_t$ on a subgraph of $G_A$. 
 
@@ -47,15 +50,13 @@
               \tikzstyle{Dataset} = [rectangle, rounded corners,minimum width=2cm, minimum height=1cm, text centered, draw=black]
               \tikzstyle{arrow} = [thick,->,>=stealth]
 
-              \node (D) [Dataset] {$D$};
-              \node (Dft) [Dataset, above right of=D, xshift=2.5cm] {$D_{f_t}$};
-              \node (D') [Dataset, below right of=D, xshift=2.5cm] {$D'$};
+              \node (Dft) [Dataset] {$D_{f_t}$};
+              \node (D') [Dataset, right of=Dft, xshift=3cm] {$D'$};
               \node (GA) [Dataset, right of=D', xshift=2.5cm] {$G_A$};
               \node (DA) [Dataset, above right of=GA, xshift=2.5cm] {$D_A$};
               \node (Gs) [Dataset, below right of=GA, xshift=2.5cm] {$G_s$};
 
-              \draw [arrow] (D) -- node[anchor=south] {} (Dft);
-              \draw [arrow] (D) -- node[anchor=south] {} (D');
+              \draw [arrow] (Dft) -- node[anchor=south] {subgraph} (D');
               \draw [arrow] (D') -- node[anchor=south] {modify} (GA);
               \draw [arrow] (GA) -- node[anchor=south] {} (Gs);
               \draw [arrow] (GA) -- node[anchor=south] {} (DA);
@@ -68,8 +69,8 @@
           \label{figure:sample-datasets-attack1-2}
         \end{figure}
 
-        After $D$ has been split, we obtain $D' = (V', E')$ and define $G_A = (V_A, E_A)$ with $V_A = V'$ and $E_A = E'$.
-        To sample $D_A$, we collect a set of positive samples $pos = \{(i,j, 1)$ | $\forall i,j \in V': (i,j) \in E' \wedge |pos| < ((1 - \alpha) * |E'|))\}$, containing pairs of nodes, that are connected in $D'$, where $\alpha$ denotes the percentage of known edges.
+        We define $G_A = (V_A, E_A)$ with $V_A = V'$ and $E_A = E'$, which is now an exact copy of $D'$.
+        To sample $D_A$, we first collect a set of positive samples $pos = \{(i,j, 1)$ | $\forall i,j \in V': (i,j) \in E' \wedge |pos| < ((1 - \alpha) * |E'|))\}$, containing pairs of nodes, that are connected in $D'$, where $\alpha$ denotes the percentage of known edges.
         Now, we collect a set of negative samples $neg = \{(i,j, 0)$ | $\forall i,j \in V': (i,j) \not\in E' \wedge |neg| < ((1 - \alpha) * |E'|))\}$, containing pairs of nodes, that are not connected in $D'$.
         We then delete all edges we sampled for $pos$, in our graph clone $G_A$, to simulate the missing edges, we want to steal.
         This leads to $E_A = \{(i,j)$ | $\forall (i,j) \in E': (i,j) \not\in pos\}$.
@@ -80,14 +81,18 @@
         $l$ denotes the label either being 1 (positive sample) or 0 (negative sample).
         $dist(a,b) = [Cosine(a,b), ..., Sqeuclidean(a,b)]$, return the vector containing 8 different distance values like described in Section \refeq{section:threat-model}.
         With our adversary's dataset $D_A$ we can now continue training our attacker model using either $post_{ij}$ or $dist_{ij}$ as input features and $l$ as class.
-        $G_s$, which is a subgraph of $G_A$ is unknown by the adversary while training. Neither the edges nor the nodes are used to train the attacker model.
+        $G_s$ represents the incomplete subgraph of $D_{f_t}$, which will be used to test the adversary performance on $f_f$.
+        More precisely, how well does the adversary can predict correctly whether a link between two nodes in $G_s$ is missing or not.
 
       \subsubsection*{Different Dataset Distributions - Attack 3}
-        Let $D_1$ and $D_2$ be two of our three original datasets.
-        $D_1$ is used to sample $D_{f_A}$ and $G_A$.
-        $D_{f_A}$ is used to train the adversary GNN $f_A$, while $G_A$ is used to query $f_A$ to obtain $D_A$, which will be used to train our attacker model $A$.
-        $D_2$ is used to sample $D_{f_t}$ and $G_s$.
-        $D_{f_t}$ is used to train our target model $f_t$, while $G_s$ is the incomplete graph, the adversary wants to steal links from.
+
+        Let $D_{f_A}$ and $D_{f_t}$ be two of our three original datasets.
+        We use $D_{f_A}$ to train the shadow model $f_A$ and $D_{f_t}$ to train our target model $f_t$.
+        We denote $D_1'$ as subgraph of $D_{f_A}$ and $D_2'$ as subgraph of $D_{f_t}$.
+        To sample $D_A$ we follow the same steps as described in \emph{Attack 1}.
+        Firstly we create an incomplete graph $G_A$ by randomly deleting some edges.
+        We then sample $D_A$ by querying $f_A$ on $G_A$.
+        To obtain $G_s$ we modify $D_2'$ by randomly deleting some edges and use it to test the adversary performance on $f_t$.
 
         \vspace{0.48cm}
         \begin{figure}[h!]
@@ -98,25 +103,21 @@
               \tikzstyle{Dataset} = [rectangle, rounded corners,minimum width=2cm, minimum height=1cm, text centered, draw=black]
               \tikzstyle{arrow} = [thick,->,>=stealth]
 
-              \node (D1) [Dataset] {$D_1$};
-              \node (DfA) [Dataset, above right of= D1, xshift=2.5cm] {$D_{f_A}$};
-              \node (D1') [Dataset, below right of= D1, xshift=2.5cm] {$D_1'$};
+              \node (Dfa) [Dataset] {$D_{f_A}$};
+              \node (D1') [Dataset, right of= Dfa, xshift=3cm] {$D_1'$};
               \node (GA) [Dataset, right of= D1', xshift=2.5cm] {$G_A$};
               \node (DA) [Dataset, right of= GA, xshift=2.5cm] {$D_A$};
 
 
-              \node (D2) [Dataset, below of =D1, yshift=-2.5cm] {$D_2$};
-              \node (Dft) [Dataset, above right of= D2, xshift=2.5cm] {$D_{f_t}$};
-              \node (D2') [Dataset, below right of= D2, xshift=2.5cm] {$D_2'$};
+              \node (Dft) [Dataset, below of =Dfa, yshift=-2.5cm] {$D_{f_t}$};
+              \node (D2') [Dataset, right of= Dft, xshift=3cm] {$D_2'$};
               \node (Gs) [Dataset, right of= D2', xshift=2.5cm] {$G_s$};
               
-              \draw [arrow] (D1) -- node[anchor=south] {} (DfA);
-              \draw [arrow] (D1) -- node[anchor=south] {} (D1');
+              \draw [arrow] (Dfa) -- node[anchor=south] {subgraph} (D1');
               \draw [arrow] (D1') -- node[anchor=south] {modify} (GA);
               \draw [arrow] (GA) -- node[anchor=south] {} (DA);
 
-              \draw [arrow] (D2) -- node[anchor=south] {} (Dft);
-              \draw [arrow] (D2) -- node[anchor=south] {} (D2');
+              \draw [arrow] (Dft) -- node[anchor=south] {subgraph} (D2');
               \draw [arrow] (D2') -- node[anchor=south] {modify} (Gs);
               
 
@@ -126,10 +127,10 @@
           \label{figure:sample-datasets-attack3}
         \end{figure}
 
-        After $D_1$ has been split, we sample $D_A$ based on $D_1'$ the same way we did in \emph{Attack 1-2}.
-        However, $G_s$ is considered to be from a different dataset distribution.
-        That means, that we modify $D_2'$ the same way we modified $D_1'$, leading to a graph $G_s$ that contains less edges then the original one, simulating the links the adversary wants to steal. 
-        Furthermore, like it was done in \emph{Attack 2}, we use $dist_{ij}$ as input for the attacker model instead of the posterior concatenation.
+        However, this time the adversary was trained on another dataset distribution than the target model.
+        E.g. the adversary was trained with the \emph{Cora} dataset.
+        We then use $A$ to steal links from the training graph of a target model that was trained on the \emph{CiteSeer} dataset, considering an incomplete subgraph of the \emph{CiteSeer} dataset as $G_s$.
+        Because of that we use $dist_{ij}$ as input for the attacker model instead of the posterior concatenation, like it was done in \emph{Attack 2}.
 
 
   \section{Target Models}
