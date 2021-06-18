@@ -30,11 +30,11 @@
 		Every day new users register and other user delete their accounts.
 		For datasets like that GNNs can also be trained inductive \cite{zeng2020graphsaint, 8519335, zhang2020document}.
 		Specifically, now not only the labels of the test and evaluation nodes is unknown but also their features and connections.
-		That means, that the model is trained on one graph and will be evaluated on another one.
+		That means, that the model can be trained on one graph and evaluated on another one.
 		In that way it is now possible to update the model on new nodes without retraining it over and over again on the full graph.
 
-		In our work, we show, that inductive trained Graph Neural Networks are very likely to leak sensitive information about any target graph it is queried on. 
-		Meaning that even if the target graph is unknown by the target model, it is still possible to extract sensitive link-information.
+		In our work, we show, that inductive trained Graph Neural Networks are very likely to leak sensitive information about their training graph. 
+		Meaning that queries on a subgraph of the training graph can reveal links, that are deemed confidential and thus become big privacy concerns.
 
 	\section{Outline}
 		\TODO{write at the end}

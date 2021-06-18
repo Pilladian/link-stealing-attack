@@ -220,9 +220,5 @@
     Since graph neural networks in general aggregate their information for one node based on the other nodes surrounding it, connected nodes should have more similar vectors, than nodes, that are not linked.
     So they calculated eight different distances between the two output posteriors $f(u)$ and $f(v)$ and use them as input for the attacker model, which then predicts whether the two nodes are connected to each other or not.
 
-    
-    
-
-
   In our work, we show that given an inductive trained graph neural network, that was trained on a graph $G_1$, we are able to extract information of another graph $G_2$ that is completely unknown to the model.
   More precisely, we steal links from $G_2$ using the prediction posteriors of the model while querying it on $G_2$.
