@@ -8,33 +8,36 @@
 		% \end{figure}
 
 	\section{Motivation}
-		A graph is a datastructure which is used to model large data and the relationships between entities \cite{DBLP:journals/corr/abs-2005-00687, cook2006mining}.
+		A graph is a data structure which is used to model large data and the relationships between entities \cite{DBLP:journals/corr/abs-2005-00687, cook2006mining}.
 		It consists of nodes and edges and can be used to model data in almost every domain.
 		For example in social networks, healthcare analytics or protein-protein interactions.
 		In a social network, the nodes would be the users that are registered and the edges would represent whether the users know each other or not by connecting them or not.
-		A graph itself can be deemed as intellectual property of the data owner, since she may spent lots of time and resources collecting and preparing the data.
+		A graph itself can be deemed as intellectual property of the data owner, since one may spent lots of time and resources collecting and preparing the data.
 		In most cases the graph is also highly confidential because it contains sensitive information like private social relationships between users in a social network or medical information about specific people in healthcare-analytic datasets.
 		Since nowadays graphs are a common way to store and visualize data, Machine Learning algorithms have been improved to directly operate on them.
 		These Machine Learning Models are called Graph Neural Networks (GNNs) \cite{atwood2016diffusionconvolutional, defferrard2017convolutional}.
-		They can be used in different ways to operate on graphs.
+		They can be used in different ways to directly operate on graphs.
 		For example they can be trained to perform node classification \cite{kipf2017semisupervised}.
 		More precisely, given a graph containing some labeled nodes the model is trained to predict the labels of the other unlabeled nodes in the graph.
 		They can also be used to perform link prediction like in social networks where the friendship between two users is guessed \cite{zhang2018link}.
 
-		A Graph Neural Network can be trained in different ways, depending on the purpose it will be used for.
+		A Graph Neural Network can be trained in different ways, depending on the purpose it will be used later.
 		One way is to train them transductive \cite{5206871, ZHA2010187, WANG2017218, 10.1007/978-3-642-04174-7_29}.
-		Regarding the node classification problem that means, that test and evaluation node features are given during training.
-		Only the labels are unknown.
-		Nevertheless this training method is possible theoretically, it cannot be applied to real world problems like in social networks.
-		That's why e.g. social networks keep evolving.
-		Every day new users register and other user delete their accounts.
+		In the transductive setting, we consider the graph to be fixed.
+		Meaning that neither the edges nor the feature vectors of the nodes change during the lifetime of the trained model.
+		Regarding the node classification problem that means, that we have some labeled nodes, we use for training, and many unlabeled nodes, we want to classify correctly.
+		Nevertheless this training method is possible theoretically, it hardly can be applied to real world problems like training on social networks.
+		That's why graphs in most cases keep evolving.
+		E.g. in social networks, every day new users register and others delete their accounts.
 		For datasets like that GNNs can also be trained inductive \cite{zeng2020graphsaint, 8519335, zhang2020document}.
-		Specifically, now not only the labels of the test and evaluation nodes is unknown but also their features and connections.
-		That means, that the model can be trained on one graph and evaluated on another one.
-		In that way it is now possible to update the model on new nodes without retraining it over and over again on the full graph.
+		Specifically, instead of providing the complete graph as input and train the model to learn the local graph structure, we now want the model to learn an aggregation and update function.
+		These functions are used to update a nodes feature vector with the aggregation of its neighborhood.
+		In that way, only a partial graph is used for training the model instead of using the full graph.
+		With the inductive setting, the model can generalize to unseen nodes, by aggregating their neighborhood, updating the nodes feature vector and querying the model on the updated result.
+		In that way it is now possible to update the model on new nodes without retraining it over and over again.
 
 		In our work, we show, that inductive trained Graph Neural Networks are very likely to leak sensitive information about their training graph. 
-		Meaning that queries on a subgraph of the training graph can reveal links, that are deemed confidential and thus become big privacy concerns.
+		Meaning that queries on a partial graph of the training graph can reveal links, that are deemed confidential and thus become big privacy concerns.
 
 	\section{Outline}
 		\TODO{write at the end}
