@@ -215,13 +215,26 @@
       
   \section{Link Stealing Attacks}
     
-    Link Stealing Attacks are introduced the first time by He et al. \cite{DBLP:journals/corr/abs-2005-02131}.
+    Link Stealing Attacks have been introduced the first time by He et al. \cite{DBLP:journals/corr/abs-2005-02131}.
     Given a graph neural network, they performed different attacks with different attack methodologies to steal links from the graph that was used for training.
-    \TODO{Describe LSA}
-    
-    Todo so, the authors queried their target model $f$ on two nodes $u, v$ obtaining two posterior outputs $f(u)$ and $f(v)$.
-    Since graph neural networks in general aggregate their information for one node based on the other nodes surrounding it, connected nodes should have more similar vectors, than nodes, that are not linked.
-    So they calculated eight different distances between the two output posteriors $f(u)$ and $f(v)$ and use them as input for the attacker model, which then predicts whether the two nodes are connected to each other or not.
 
-  In our work, we show that given an inductive trained graph neural network, that was trained on a graph $G_1$, we are able to extract information of another graph $G_2$ that is completely unknown to the model.
-  More precisely, we steal links from $G_2$ using the prediction posteriors of the model while querying it on $G_2$.
+    Let $f$ be the target graph neural network model, that was trained on some graph dataset $G = (V, E)$.
+    We assume the adversary was able to obtain some partial graph of $G$ and define it as $G_s = (V_s, E_s)$.
+    Furthermore, we assume that $E_s$ is incomplete.
+    This means, that some links that originally have been in $E_s$ are missing.
+    The goal of link stealing attacks is to recover these missing edges.
+    To achieve the reconstruction, the target model will be queried on two nodes $i,j \in V_s$.
+    Since $f$ was trained to perform some task, the outputs $f(i)$ and $f(j)$ will be some posterior representing $f$'s prediction.
+    Based on those posteriors, an adversary will train an attack model $A$, that infers, whether the two nodes $i$ and $j$ have originally been connected in $G$, and therefor the edge $e_{ij}$ is missing in $E_s$, or if they haven't been linked in the first place.
+    To train the attack model, one need some positive and some negative samples.
+    We define the positive samples $pos = \{ (i,j)$ | $i,j \in V_A: e_{ij} \in E \wedge e_{ij} \not\in E_s\}$ as set of node pairs, that have been connected in $G$ but aren't connected in $G_s$. 
+    The negative samples $neg = \{ (i,j)$ | $i,j \in V_s: e_{ij} \not\in E \wedge e_{ij} \not\in E_s\}$ are defined as set of node pairs, that haven't been connected in neither of the two graphs.
+    As input for $A$ the authors used the concatenation of the two posteriors or a vector containing the results of eight common distance functions, to describe the similarity of the two posteriors $f(i)$ and $f(j)$.
+    The basic intuition is the following: 
+    The posterior outputs $f(i)$ and $f(j)$ should be more similar, if the two nodes $i$ and $j$ have been connected in $G$.
+    If they haven't been connected in $G$, then $f$ would output two posteriors, that are less similar.
+
+    By completing $G_s$, an adversary steals sensitive information about the training graph of the target model $f$, since $G_s$ is a partial graph of $f$'s training graph $G$.
+
+    He et al. performed their attacks on transductive trained graph neural networks and achieved high accuracy in recovering the links of $G_s$. 
+    In our work, we focus on link stealing attacks on inductive trained graph neural networks and we hope to show, that they are very likely to reveal sensitive information about their training graph as well.
