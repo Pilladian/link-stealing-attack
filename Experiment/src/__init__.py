@@ -87,7 +87,7 @@ class Target:
     def _initialize(self):
         # GPU
         if self.gpu:
-            torch.cuda.set_device(gpu)
+            torch.cuda.set_device(self.gpu)
             self.traingraph.cuda()
 
         # create model

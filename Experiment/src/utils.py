@@ -187,9 +187,8 @@ def final_evaluation_diff_domain(experiments, log):
         print(string)
 
 
-def eval_one_attack(experiments):
-    lineup_file = "./attack.txt"
-    with open(lineup_file, 'a') as lineup:
+def eval_one_attack(experiments, f):
+    with open(f, 'a') as lineup:
         for i, exp in enumerate(experiments):
             for a in list(experiments[0].results.keys()):
-                lineup.write(f'{exp.results[a]["attacker"]["acc"]*100:.2f}, {exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
+                lineup.write(f'{exp.results[a]["attacker"]["acc"]*100:.2f},{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
