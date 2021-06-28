@@ -6,10 +6,7 @@ warnings.filterwarnings('ignore')
 
 # Imports
 import argparse
-import random
-import json
-import os
-from src.utils import print_init, print_datasets, print_gnns, final_evaluation_same_domain
+from src.utils import print_init, print_datasets, print_gnns, final_evaluation_same_domain, eval_one_attack
 from src import Experiment
 
 
@@ -20,7 +17,7 @@ def main(args):
 
     # Datasets
     datasets = print_datasets(args.dataset)
-    # GNNs
+    # Graph Neural Networks
     gnns = print_gnns(args.gnn)
 
     # create Experiments
@@ -36,22 +33,23 @@ def main(args):
         print(f'\n\n  [+] Same Domain - Posteriors - {experiment.gnn_name} : {experiment.dataset_name}\n')
         # Attack 1 : concatenation of posteriors as features
         experiment.baseline_train_same_domain_post()
-        experiment.baseline_test_same_domain_post()
+        #experiment.baseline_test_same_domain_post()
         experiment.surviving_edges_same_domain_post(0.20)
         experiment.surviving_edges_same_domain_post(0.40)
         experiment.surviving_edges_same_domain_post(0.60)
         experiment.surviving_edges_same_domain_post(0.80)
 
         print(f'\n\n  [+] Same Domain - Distances - {experiment.gnn_name} : {experiment.dataset_name}\n')
-        # Attack 2 : concatination of 8 distance values as features
+        # Attack 2 : concatenation of 8 distance values as features
         experiment.baseline_train_same_domain_dist()
-        experiment.baseline_test_same_domain_dist()
+        #experiment.baseline_test_same_domain_dist()
         experiment.surviving_edges_same_domain_dist(0.20)
         experiment.surviving_edges_same_domain_dist(0.40)
         experiment.surviving_edges_same_domain_dist(0.60)
         experiment.surviving_edges_same_domain_dist(0.80)
 
     final_evaluation_same_domain(experiments, log=args.log, clear=args.clear)
+    #eval_one_attack(experiments)
 
 
 if __name__ == '__main__':
@@ -61,7 +59,7 @@ if __name__ == '__main__':
 
     parser.add_argument("--log",
                         action="store_true",
-                        help="Log Ouput in ./log/lineup.txt and ./log/results.json")
+                        help="Log Output in ./log/lineup.txt and ./log/results.json")
 
     parser.add_argument("--clear",
                         action="store_true",

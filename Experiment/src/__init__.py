@@ -258,7 +258,7 @@ class Attacker:
         [2] Get their posteriors for node classification
         [3] Create input feature vector for attacker model
             [3.1] Calculate distances between posterior vectors
-            [3.2] Concatinate results to form a 8-dim input feature vector
+            [3.2] Concatenate results to form a 8-dim input feature vector
         """
         size = len(self.raw_dataset) - 1
         self.feature_amount = 8
@@ -273,35 +273,35 @@ class Attacker:
             dst_list = [x.item() for x in post_dst]
 
             # cosine distance
-            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cosine.html
+            # definition: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cosine.html
             cosine_distance = distance.cosine(src_list, dst_list)
 
             # euclidean distance
-            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.euclidean.html?highlight=euclidean#scipy.spatial.distance.euclidean
+            # definition: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.euclidean.html?highlight=euclidean#scipy.spatial.distance.euclidean
             euclidean_distance = distance.euclidean(src_list, dst_list)
 
             # correlation distance
-            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.correlation.html?highlight=correlation#scipy.spatial.distance.correlation
+            # definition: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.correlation.html?highlight=correlation#scipy.spatial.distance.correlation
             correlation_distance = distance.correlation(src_list, dst_list)
 
             # chebyshev distance
-            # formular https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.chebyshev.html?highlight=chebyshev#scipy.spatial.distance.chebyshev
+            # definition https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.chebyshev.html?highlight=chebyshev#scipy.spatial.distance.chebyshev
             chebyshev_distance = distance.chebyshev(src_list, dst_list)
 
             # braycurtis distance
-            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.braycurtis.html?highlight=braycurtis#scipy.spatial.distance.braycurtis
+            # definition: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.braycurtis.html?highlight=braycurtis#scipy.spatial.distance.braycurtis
             braycurtis_distance = distance.braycurtis(src_list, dst_list)
 
             # manhattan distance
-            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cityblock.html?highlight=manhattan
+            # definition: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cityblock.html?highlight=manhattan
             manhattan_distance = distance.cityblock(src_list, dst_list)
 
             # canberra distance
-            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.canberra.html?highlight=canberra#scipy.spatial.distance.canberra
+            # definition: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.canberra.html?highlight=canberra#scipy.spatial.distance.canberra
             canberra_distance = distance.canberra(src_list, dst_list)
 
             # sqeuclidean distance
-            # formular: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.sqeuclidean.html?highlight=sqeuclidean#scipy.spatial.distance.sqeuclidean
+            # definition: https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.sqeuclidean.html?highlight=sqeuclidean#scipy.spatial.distance.sqeuclidean
             sqeuclidean_distance = distance.sqeuclidean(src_list, dst_list)
 
             feature = torch.tensor([cosine_distance,
@@ -354,9 +354,6 @@ class Attacker:
             self.optimizer.step()
 
             dur.append(time.time() - t0)
-
-            # evaluate
-            acc = self.evaluate(self.val_nid)
 
     def _initialize(self):
         # create model
@@ -423,8 +420,8 @@ class Experiment:
 
         # get train / test graph
         self.dir = f'./models/{d}/{self.gnn_name}/'
-        traingraph, labels1 = load_graphs(f'{self.dir}traingraph.bin', [0])
-        testgraph, labels2 = load_graphs(f'{self.dir}testgraph.bin', [0])
+        traingraph, _ = load_graphs(f'{self.dir}traingraph.bin', [0])
+        testgraph, _ = load_graphs(f'{self.dir}testgraph.bin', [0])
 
         self.traingraph = traingraph[0]
         self.testgraph = testgraph[0]
@@ -436,8 +433,8 @@ class Experiment:
 
     def _load_dataset_subgraphs(self):
         self.dir = f'./models/{self.dataset_name}/{self.gnn_name}/'
-        traingraph, labels1 = load_graphs(f'{self.dir}traingraph.bin', [0])
-        testgraph, labels2 = load_graphs(f'{self.dir}testgraph.bin', [0])
+        traingraph, _ = load_graphs(f'{self.dir}traingraph.bin', [0])
+        testgraph, _ = load_graphs(f'{self.dir}testgraph.bin', [0])
 
         self.traingraph = traingraph[0]
         self.testgraph = testgraph[0]
@@ -477,7 +474,7 @@ class Experiment:
 
         # evaluate
         print_attack_done(attack_name)
-        self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
 
     def baseline_test_same_domain_post(self):
         # Baseline Test Same Domain Posteriors : Train on traingraph - Test on testgraph
@@ -500,7 +497,7 @@ class Experiment:
         print_attack_start(attack_name)
 
         # attacker
-        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name] = Attacker(self.target, self.traingraph)
         self.attacker[attack_name].create_modified_graph(survivors)
         self.attacker[attack_name].sample_data_posteriors(0.2, 0.4)
         self.attacker[attack_name].train()
@@ -523,7 +520,7 @@ class Experiment:
 
         # evaluate
         print_attack_done(attack_name)
-        self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
+        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
 
     def baseline_test_same_domain_dist(self):
         # Baseline Test Same Domain Distances : Train on traingraph - Test on testgraph
@@ -546,7 +543,7 @@ class Experiment:
         print_attack_start(attack_name)
 
         # attacker
-        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name] = Attacker(self.target, self.traingraph)
         self.attacker[attack_name].create_modified_graph(survivors)
         self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
         self.attacker[attack_name].train()
@@ -558,12 +555,6 @@ class Experiment:
     # Different Domain Attacks
     # Attack 3 : distances as features
     def baseline_train_diff_domain_dist(self, d1, d2):
-        """
-        Baseline train_dist:
-        The target model in this attack is trained on the traingraph-subset of the original dataset d1.
-        The attacker model samples its dataset on the traingraph-subset of dataset d2 and removes all edges.
-        Both models are evaluated on their traingraph-subset.
-        """
         # Baseline 1_distances - Train on traingraph (d1) - Test on traingraph (d2)
         attack_name = f'baseline_train_{d1}_{d2}_diff_domain_dist'
         print_attack_start(attack_name)
@@ -584,12 +575,6 @@ class Experiment:
         self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
 
     def baseline_test_diff_domain_dist(self, d1, d2):
-        """
-        Baseline test_dist:
-        The target model in this attack is trained on the traingraph-subset of the original dataset d1.
-        The attacker model samples its dataset on the testgraph-subset of dataset d2 and removes all edges.
-        Both models are evaluated on their testgraph-subset.
-        """
         # Baseline 2_distances - Train on traingraph (d1) - Test on testgraph (d2)
         attack_name = f'baseline_test_{d1}_{d2}_diff_domain_dist'
         print_attack_start(attack_name)
@@ -610,17 +595,12 @@ class Experiment:
         self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
 
     def surviving_edges_diff_domain_dist(self, survivors, d1, d2):
-        """
-        The target model in this attack is trained on the traingraph-subset of the original dataset.
-        The attacker model samples its dataset on the testgraph-subset and removes almost all edges.
-        Both models are evaluated on the testgraph-subset.
-        """
         # Surviving Edges
         attack_name = f'surviving_edges_{int(survivors*100)}p_{d1}_{d2}_diff_domain_dist'
         print_attack_start(attack_name)
 
         # attacker
-        self.attacker[attack_name] = Attacker(self.target, self.testgraph)
+        self.attacker[attack_name] = Attacker(self.target, self.traingraph)
         self.attacker[attack_name].create_modified_graph(survivors)
         self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
         self.attacker[attack_name].train()
@@ -628,8 +608,8 @@ class Experiment:
         # evaluate baseline 2_distances
         self.update_parameter(d2)
         self.attacker[attack_name].target_model = self.target
-        self.attacker[attack_name].graph = self.testgraph
+        self.attacker[attack_name].graph = self.traingraph
         self.attacker[attack_name].create_modified_graph(survivors)
         self.attacker[attack_name].sample_data_vector_distances(0.2, 0.4)
         print_attack_done(attack_name)
-        self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
+        self.evaluate_attack(attack_name, self.traingraph, verbose=self.verbose)
