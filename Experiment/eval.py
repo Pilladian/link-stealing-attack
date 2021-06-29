@@ -1,8 +1,8 @@
 import os
 import pandas
 
-gnn = "graphsage"
-dataset = "citeseer"
+gnn = "gcn"
+dataset = "cora"
 attack = "surviving_edges_same_domain_dist_80p"
 
 f = f"results/{gnn}/{dataset}/{attack}.csv"

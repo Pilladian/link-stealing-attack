@@ -1,0 +1,11 @@
+baseline_train_same_domain_post,74.97550000000001,74.4025
+surviving_edges_same_domain_post_20p,75.1275,77.8925
+surviving_edges_same_domain_post_40p,77.56899999999999,80.64399999999999
+surviving_edges_same_domain_post_60p,74.58550000000001,77.941
+surviving_edges_same_domain_post_80p,73.2435,76.52099999999999
+
+baseline_train_same_domain_dist,81.13499999999999,83.54499999999999
+surviving_edges_same_domain_dist_20p,82.61,84.727
+surviving_edges_same_domain_dist_40p,85.28549999999998,86.8965
+surviving_edges_same_domain_dist_60p,85.8645,87.251
+surviving_edges_same_domain_dist_80p,88.083,89.08850000000001
