@@ -339,10 +339,10 @@ INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.ou
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.out
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.out
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.out
-OUTPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.pdf
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.out
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.out
 OUTPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.out
+OUTPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.pdf
 INPUT /usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 INPUT /usr/share/texlive/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
@@ -407,7 +407,6 @@ INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/src/Prese
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/src/Presections/acknowledgement.tex
 INPUT /usr/share/texmf/fonts/tfm/public/lm/ec-lmssbx10.tfm
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.toc
-INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.toc
 OUTPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.toc
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/src/Chapters/chapter1.tex
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/src/Chapters/chapter1.tex
@@ -453,9 +452,7 @@ INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/src/Chapt
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/src/Chapters/chapter8.tex
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/src/Chapters/chapter8.tex
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.lof
-INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.lof
 OUTPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.lof
-INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.lot
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.lot
 OUTPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/Thesis.lot
 INPUT /home/us3r/Documents/Projekte/link-stealing-attack/Thesis/thesis/src/Appendices/Appendix.tex

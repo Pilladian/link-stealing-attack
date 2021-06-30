@@ -135,20 +135,74 @@
 
   \section{Target Models}
 
-    As our target models, we used three different types of graph neural network models, each with a slightly different algorithm used to obtain the neighborhood embeddings.
+    As our target models, we used three different types of graph neural network models and trained them to perform a node classification task. 
+    Therefor, we trained them on our three original datasets Cora, CiteSeer and Pubmed.
 
     \subsection*{GraphSAGE}
       In June 2017 Hamilton et al.\cite{hamilton2018inductive} proposed a general framework, called GraphSAGE (SAmple and aggreGatE), for inductive node embedding. 
       They came up with an idea of leveraging node features like text attributes, node profile information or node degrees to learn an embedding function that generalizes to unseen nodes instead of prior approaches that use matrix factorization.
       Until then, the training process focused on individual embeddings for each node, but with the GraphSAGE algorithm, a function is learned that generates embeddings by sampling and aggregating features from a node's neighborhood.
 
+      Our graphsage target models are trained to perform a node classification task.
+      In total we train three graphsage models - one for each dataset.
+      The input layer contains as much neurons as the given datasets' samples provide features.
+      Then, two hidden layers follow, each with 16 neurons.
+      The number of output neurons is equal to the classes the dataset provides.
+      We train each of them for 200 epochs with a learning rate of $0.01$ and dropout of $0.5$, achieving an average accuracy of $83\%$ for \emph{Cora}, $57\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}.
+
     \subsection*{Graph Attention Networks}
-      pass
+      In October 2017 Velickovic et al.\cite{gat} presented graph attention networks (GATs), novel neural network architectures that operate directly on graphs.
+      Without requiring any kind of matrix operation or knowledge about the local graph structure the authors specify different weights to different nodes in a nodes' neighborhood by stacking multiple layers in which nodes are able to attend over their neighborhoods' feature vectors.
+      Based on this approach, GATs don't only address transductive but also inductive problems and have achieved or matched state-of-the-art results across four established transductive and inductive graph benchmarks.
+
+      Our gat target models are trained to perform a node classification task.
+      In total we train three gat models - one for each dataset.
+      The input layer contains as much neurons as the given datasets' samples provide features.
+      Then, one hidden layer with 8 neurons follows.
+      The number of output neurons is equal to the classes the dataset provides.
+      We train each of them for 200 epochs with a learning rate of $0.005$, dropout of $0.6$, achieving an average accuracy of $78\%$ for \emph{Cora}, $61\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}.
 
     \subsection*{Graph Convolutional Networks}
-      pass
+      explanation
 
-    For each   
+      Our gcn target models are trained to perform a node classification task.
+      In total we train three gcn models - one for each dataset.
+      The input layer contains as much neurons as the given datasets' samples provide features.
+      Then, two hidden layers follow, each with 16 neurons.
+      The number of output neurons is equal to the classes the dataset provides.
+      We train each of them for 200 epochs with a learning rate of $0.01$ and dropout of $0.5$, achieving an average accuracy of $76\%$ for \emph{Cora}, $57\%$ for \emph{CiteSeer} and $88\%$ for \emph{Pubmed}. 
 
+    The following table provides an overview of our target models and their accuracies regarding their training datasets.
+    Each of them has been trained for 200 epochs, a learning rate of $0.01$ (GraphSAGE and GCN) or $0.005$ (GAT) and a dropout of $0.5$ (GraphSAGE and GCN) or $0.6$ (GAT).
+    \vspace{0.48cm}
+    \begin{table}[!h]
+      \centering
+      \footnotesize
+      \begin{tabular}{l|l|l|}
+        \toprule
+        Target Model & Dataset & Accuracy \\
+        \midrule
+          \multirow{3}{4em}{GraphSage} & Cora & $83\%$ \\
+          & CiteSeer & $61\%$ \\
+          & Pubmed & $89\%$ \\
 
-  \section{Attacker Model}
+          \multirow{3}{4em}{GAT} & Cora & $78\%$ \\
+          & CiteSeer & $57\%$ \\
+          & Pubmed & $89\%$ \\
+
+          \multirow{3}{4em}{GCN} & Cora & $76\%$ \\
+          & CiteSeer & $57\%$ \\
+          & Pubmed & $88\%$ \\
+          
+        \bottomrule
+      \end{tabular}
+      \caption{Target Model Accuracies}
+      \label{table:target-models}
+    \end{table}
+
+  \section{Attack Model}
+    As our attack model we use a Multilayer Perceptron \refeq{figure:neural-network}.
+    Depending on the attack, the MLP has eight (\emph{Attack 2} and \emph{Attack 3}) or two times the size of the posterior output of $f$ (\emph{Attack 1}) input neurons.
+    Then two hidden layers with 16 neurons each follow.
+    The final output layer consists of 2 neurons, representing the two cases of the two target nodes originally being connected or not.
+    We trained our attack models on the obtained datasets $D_A$ for 200 epochs, with a learning rate of $0.01$ and dropout of $0.5$.

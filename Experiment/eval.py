@@ -1,15 +1,15 @@
 import os
 import pandas
 
-gnn = "gcn"
-dataset = "cora"
-attack = "surviving_edges_same_domain_dist_80p"
+gnn = "graphsage"
+dataset = "pubmed"
+attack = "baseline_train_same_domain_post"
 
 f = f"results/{gnn}/{dataset}/{attack}.csv"
 with open(f, 'a') as fff:
         fff.write(f"acc,f1\n")
 
-for a in range(20):
+for a in range(10):
     os.system(f"python run-sd-attacks.py --gnn {gnn} --dataset {dataset}")
 
 data = pandas.read_csv(f)
