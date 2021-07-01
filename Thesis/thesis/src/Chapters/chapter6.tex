@@ -1,1 +1,35 @@
 \chapter{Evaluation}
+
+    \section{Datasets}
+        In total we used 3 different Datasets (Section \refeq{section:datasets}), which are common used as benchmark datasets for evaluating graph neural networks \cite{acharya2019feature, gao2019graphnas, gcn}.
+        All of them are citation datasets with nodes being publications and edges representing citations among these publications.        
+        Furthermore, do all datasets contain nodes' attributes and labels.
+
+        The method to sample the attack dataset $D_A$, described in Section \refeq{subsection:dataset-samples}, follows the common practice in the literature of link prediction \cite{BHPZ17, grover2016node2vec}.
+
+    \section{Metric}
+
+        We use F1-Score as our main evaluation metric.
+        It is a common used metric in binary classification \cite{lipton2014thresholding, santus2016features, woodbridge2016predicting}, since it provides a good relation between precision and recall.
+
+        \subsection{Precision}
+            A high precision represents a high probability that the prediction of a model is correct.
+            Let $M$ be a machine learning model that was trained to predict whether an email is spam or not.
+            High precision means, that when the model labels an email as malicious, it is correct most of the time and vice versa.
+
+        \subsection{Recall}
+            A high recall represents a high percentage of correctly classified inputs.
+            In the example just given, that means, that the model is able to identify a high amount of spam-mails as malicious.
+
+
+    \section{Attack Performance}
+
+        \subsection*{Attack 1}
+
+        \subsection*{Attack 2}
+
+        \subsection*{Attack 3}
+    
+    \section{Possible Defense}
+
+    \section{Summary of Results}

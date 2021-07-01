@@ -6,6 +6,7 @@
   Due computational and time constraints, most of the parameters to optimize the attacks remain unexplored.
 
   \section{Datasets}
+  \label{section:datasets}
 
     For all our experiments, we used 3 datasets in total.
     In the table below, they are listed with their most interesting attributes.
@@ -31,6 +32,7 @@
     \end{table}
 
     \subsection*{Sample Datasets for Experiments}
+    \label{subsection:dataset-samples}
 
       In total we train target models on all three datasets - \emph{Cora}, \emph{CiteSeer} and \emph{Pubmed} .
       To train the attacker models, we sample an adversary dataset based on the incomplete subgraph.
@@ -163,7 +165,9 @@
       We train each of them for 200 epochs with a learning rate of $0.005$, dropout of $0.6$, achieving an average accuracy of $78\%$ for \emph{Cora}, $61\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}.
 
     \subsection*{Graph Convolutional Networks}
-      explanation
+      In February 2017 Kipf et al. \cite{gcn} proposed a scalable approach for semi-supervised learning on graph-structured data that is based on an efficient variant of convolutional neural networks which operate directly on graphs.
+      Nevertheless, the authors only consider the transductive setting in their paper, the idea of the algorithm stays the same, when using it for inductive learning.
+      To aggregate the neighborhood, the authors use a single weight matrix per layer and deal with varying node degrees through an appropriate normalization of the adjacency matrix.
 
       Our gcn target models are trained to perform a node classification task.
       In total we train three gcn models - one for each dataset.
