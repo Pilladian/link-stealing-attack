@@ -33,7 +33,7 @@ def a1_cora():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 1 - Cora")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-cora.png')
 
@@ -68,7 +68,7 @@ def a1_citeseer():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 1 - CiteSeer")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-citeseer.png')
 
@@ -78,7 +78,7 @@ def a1_pubmed():
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
+    graphsage = [74.57, 74.51, 75.46, 75.53, 74.82]
     gat = [0, 0, 0, 0, 0]
     gcn = [0, 0, 0, 0, 0]
 
@@ -103,7 +103,7 @@ def a1_pubmed():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 1 - Pubmed")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-pubmed.png')
 
@@ -145,7 +145,7 @@ def a2_cora():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 2 - Cora")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-cora.png')
 
@@ -180,7 +180,7 @@ def a2_citeseer():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 2 - CiteSeer")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-citeseer.png')
 
@@ -215,7 +215,7 @@ def a2_pubmed():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 2 - Pubmed")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-pubmed.png')
 
@@ -257,7 +257,7 @@ def a3_cora_citeseer():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 3 - Cora (Target) - CiteSeer (Attacker)")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-cora-citeseer.png')
 def a3_cora_pubmed():
@@ -291,7 +291,7 @@ def a3_cora_pubmed():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 3 - Cora (Target) - Pubmed (Attacker)")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-cora-pubmed.png')
 def a3_citeseer_cora():
@@ -325,7 +325,7 @@ def a3_citeseer_cora():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 3 - CiteSeer (Target) - Cora (Attacker)")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-citeseer-cora.png')
 def a3_citeseer_pubmed():
@@ -359,7 +359,7 @@ def a3_citeseer_pubmed():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 3 - CiteSeer (Target) - Pubmed (Attacker)")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-citeseer-pubmed.png')
 def a3_pubmed_cora():
@@ -393,7 +393,7 @@ def a3_pubmed_cora():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 3 - Pubmed (Target) - Cora (Attacker)")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-pubmed-cora.png')
 def a3_pubmed_citeseer():
@@ -427,7 +427,7 @@ def a3_pubmed_citeseer():
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
     plt.title("Attack 3 - Pubmed (Target) - CiteSeer (Attacker)")
-    plt.ylim([0, 100])
+    plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-pubmed-citeseer.png')
 

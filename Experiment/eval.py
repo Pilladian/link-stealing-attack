@@ -3,7 +3,7 @@ import pandas
 
 gnn = "graphsage"
 dataset = "pubmed"
-attack = "baseline_train_same_domain_post"
+attack = "surviving_edges_same_domain_dist_40p"
 
 f = f"results/{gnn}/{dataset}/{attack}.csv"
 with open(f, 'a') as fff:
