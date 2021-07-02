@@ -1,35 +1,51 @@
 \chapter{Evaluation}
 
     \section{Datasets}
-        In total we used 3 different Datasets (Section \refeq{section:datasets}), which are common used as benchmark datasets for evaluating graph neural networks \cite{acharya2019feature, gao2019graphnas, gcn}.
+        In total we used 3 different Datasets (Section \refeq{section:datasets}), which are common used benchmark datasets for evaluating graph neural networks \cite{acharya2019feature, gao2019graphnas, gcn}.
         All of them are citation datasets with nodes being publications and edges representing citations among these publications.        
-        Furthermore, do all datasets contain nodes' attributes and labels.
+        Furthermore do all datasets contain nodes' attributes and labels.
 
         The method to sample the attack dataset $D_A$, described in Section \refeq{subsection:dataset-samples}, follows the common practice in the literature of link prediction \cite{BHPZ17, grover2016node2vec}.
 
     \section{Metric}
-
         We use F1-Score as our main evaluation metric.
         It is a common used metric in binary classification \cite{lipton2014thresholding, santus2016features, woodbridge2016predicting}, since it provides a good relation between precision and recall.
 
-        \subsection{Precision}
+        \subsection*{Precision}
             A high precision represents a high probability that the prediction of a model is correct.
             Let $M$ be a machine learning model that was trained to predict whether an email is spam or not.
             High precision means, that when the model labels an email as malicious, it is correct most of the time and vice versa.
 
-        \subsection{Recall}
+        \subsection*{Recall}
             A high recall represents a high percentage of correctly classified inputs.
-            In the example just given, that means, that the model is able to identify a high amount of spam-mails as malicious.
+            In the example just given, that means, that $M$ is able to identify a high amount of spam-mails as malicious.
 
 
     \section{Attack Performance}
+        The results presented below are the average results of 10 runs.
+        Meaning, that all attacks have been performed multiple times to get a better relation.
+        Note, that the performance varies based on the random choice of the nodes that are included in the partial graph $G_s$.
+        Each attack is performed on all target models, which have been trained on different datasets.
+        As our baseline we consider that the partial graph $G_s$ doesn't contain any links.
+        We then add 20\% of the edges per attack, ending up with 80\% known edges.
 
         \subsection*{Attack 1}
+            Like described in Section \refeq{section:attack1} this attack performs link stealing attacks on the same dataset distribution using the concatenation of the posterior outputs of two nodes to infer whether they have been connected or not. 
+            The following charts present the results for all three datasets.
 
         \subsection*{Attack 2}
+            Like described in Section \refeq{section:attack2} this attack performs link stealing attacks on the same dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
+            The following charts present the results for all three datasets.
 
         \subsection*{Attack 3}
+            Like described in Section \refeq{section:attack3} this attack performs link stealing attacks on a different dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
+            The following charts present the results for all three datasets.
     
     \section{Possible Defense}
+        One possible defense, which already has been presented by He et al. \cite{DBLP:journals/corr/abs-2005-02131}, is to minimize the posterior output vector of $f$. 
+        Meaning that instead of providing the complete posterior output of $f$'s prediction, $f$ could only present the top $k$ posteriors.
+        In that way the adversary must attack the model based on less information which makes the attack less effective.
+        
+        However, if we assume, that $f$ always provides the complete output posterior, \TODO{finish}
 
     \section{Summary of Results}

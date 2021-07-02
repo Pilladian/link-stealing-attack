@@ -77,6 +77,7 @@
     The adversary $A$ queries $f_t$ on both nodes $i$ and $j$, obtaining the posterior output of the target model $post_i = f_t(G_s, i)$ and $post_j = f_t(G_s, j)$.
 
     \subsection*{Attack 1}
+    \label{section:attack1}
       In \emph{Attack 1} we consider $G_A$ and $D_{f_t}$ from the same dataset distribution and denote $f_t = f_A$.
       Meaning, that $A$ samples its training dataset $D_A$ by querying $f_t$ on the subgraph $G_A$.
       That can be done, because $|post_u| = |f_t(G_A,u)|$ (training phase) and $|post_v| = |f_t(G_s,v)|$ (attack phase), with $u \in G_A$ and $v \in G_s$, have the same dimension.
@@ -113,6 +114,7 @@
       \end{figure}
 
     \subsection*{Attack 3}
+    \label{section:attack3}
       In \emph{Attack 3} we consider $G_A$ and $D_{f_t}$ from different dataset distributions.
       So the adversary trains another graph neural network model $f_A$ with a dataset $D_{f_A}$.
       Since $f_t$ and $f_A$ are trained on different dataset distributions, we must assume that they have different parameters like feature amount or number of classes. 
@@ -154,6 +156,7 @@
 
     \newpage
     \subsection*{Attack 2}
+    \label{section:attack2}
       In \emph{Attack 2} we consider $G_A$ and $D_{f_t}$ from the same dataset distribution and denote $f_t = f_A$ like it was done in \emph{Attack 1}.
       However, for better comparison of the impact of the dataset distribution, we sample the input for $A$, like it was done in \emph{Attack 3}.
 
