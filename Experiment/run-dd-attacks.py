@@ -6,7 +6,7 @@ warnings.filterwarnings('ignore')
 
 # Imports
 import argparse
-from src.utils import print_init, print_datasets, print_gnns, final_evaluation_diff_domain
+from src.utils import print_init, print_datasets, print_gnns, final_evaluation_diff_domain_2
 from src import Experiment
 
 
@@ -31,13 +31,13 @@ def main(args):
                         exp = Experiment(gnn, d1, args.verbose)
                         exp.initialize()
                         exp.baseline_train_diff_domain_dist(d1, d2)
-                        exp.baseline_test_diff_domain_dist(d1, d2)
+                        #exp.baseline_test_diff_domain_dist(d1, d2)
                         exp.surviving_edges_diff_domain_dist(0.20, d1, d2)
                         exp.surviving_edges_diff_domain_dist(0.40, d1, d2)
                         exp.surviving_edges_diff_domain_dist(0.60, d1, d2)
                         exp.surviving_edges_diff_domain_dist(0.80, d1, d2)
                         diff_domain_experiments.append(exp)
-        final_evaluation_diff_domain(diff_domain_experiments, log=args.log)
+        final_evaluation_diff_domain_2(diff_domain_experiments)
 
 
 if __name__ == '__main__':

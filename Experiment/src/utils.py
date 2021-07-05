@@ -192,3 +192,14 @@ def eval_one_attack(experiments, f):
         for i, exp in enumerate(experiments):
             for a in list(experiments[0].results.keys()):
                 lineup.write(f'{exp.results[a]["attacker"]["acc"]*100:.2f},{exp.results[a]["attacker"]["f1-score"]*100:.2f}\n')
+
+def final_evaluation_diff_domain_2(experiments):
+    lineup_file = f'./log/eval/{datetime.now().strftime("%Y%m%d%H%M")}-diff-ds-lineup.txt'
+    with open(lineup_file, 'w') as lineup:
+
+        lineup.write('''Attack,GNN,TAcc,AAcc,AF1\n''')
+        
+        for i, exp in enumerate(experiments):
+            for a in list(exp.results.keys()):
+                lineup.write(f'{a},{exp.gnn_name},{exp.results[a]["target"]["acc"]:.4f},{exp.results[a]["attacker"]["acc"]:.4f},{exp.results[a]["attacker"]["f1-score"]:.4f}\n')
+            lineup.write('\n')
