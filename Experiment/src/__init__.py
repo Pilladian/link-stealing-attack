@@ -552,7 +552,7 @@ class Experiment:
         print_attack_done(attack_name)
         self.evaluate_attack(attack_name, self.testgraph, verbose=self.verbose)
 
-    # Different Domain Attacks
+    # Different Domain Attacks - d1 = DA and d2 = Dft
     # Attack 3 : distances as features
     def baseline_train_diff_domain_dist(self, d1, d2):
         # Baseline 1_distances - Train on traingraph (d1) - Test on traingraph (d2)

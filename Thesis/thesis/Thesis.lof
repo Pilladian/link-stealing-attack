@@ -12,5 +12,7 @@
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Sampling Datasets - Same Dataset Distribution - Attack 1-2\relax }}{16}{figure.caption.37}%
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Sampling Datasets - Different Dataset Distribution - Attack 3\relax }}{17}{figure.caption.39}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Attack 1 - $D_{f_t} = CiteSeer$\relax }}{22}{figure.caption.53}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Attack 2 - $D_{f_t} = CiteSeer$\relax }}{23}{figure.caption.55}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

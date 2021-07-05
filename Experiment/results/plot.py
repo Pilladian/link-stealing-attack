@@ -5,111 +5,114 @@ import matplotlib.pyplot as plt
 def a1_cora():
 
     plt.figure(figsize=(12,6))
-
+    plt.grid(axis = 'y', zorder=0)
+    
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [70.028, 77.35, 76.45, 78.30, 76.39]
-    gat = [64.90, 76.72, 77.11, 75.04, 72.86]
-    gcn = [74.08, 73.40, 74.63, 72.69, 64.50]
+    graphsage = [0.70028, 0.7735, 0.7645, 0.7830, 0.7639]
+    gat = [0.6490, 0.7672, 0.7711, 0.7504, 0.7286]
+    gcn = [0.7408, 0.7340, 0.7463, 0.7269, 0.6450]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
-    lsize = 0.115
-    y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
+    lsize = 0.1
+    y_size = 0.005
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
     for i, value in enumerate(gat):
         plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
     for i, value in enumerate(gcn):
         plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 1 - Cora")
-    plt.ylim([0, 110])
+    #plt.title("Attack 1 - Cora")
+    plt.ylim([0, 1.1])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-cora.png')
 
 def a1_citeseer():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [76.06, 78.47, 78.42, 81.07, 78.84]
-    gat = [74.40, 77.89, 80.64, 77.94, 76.52]
-    gcn = [72.80, 74.54, 76.03, 76.23, 74.61]
+    graphsage = [0.7606, 0.7847, 0.7842, 0.8107, 0.7884]
+    gat = [0.7440, 0.7789, 0.8064, 0.7794, 0.7652]
+    gcn = [0.7280, 0.7454, 0.7603, 0.7623, 0.7461]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
-    lsize = 0.115
-    y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
+    lsize = 0.1
+    y_size = 0.005
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
     for i, value in enumerate(gat):
         plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
     for i, value in enumerate(gcn):
         plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 1 - CiteSeer")
-    plt.ylim([0, 110])
+    #plt.title("Attack 1 - CiteSeer")
+    plt.ylim([0, 1.1])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-citeseer.png')
 
 def a1_pubmed():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [74.57, 74.51, 75.46, 75.53, 74.82]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [0.7457, 0.7451, 0.7546, 0.7553, 0.7482]
+    gat = [0.7534, 0.7536, 0.7541, 0.7525, 0.7698]
+    gcn = [0.73173, 0.75828, 0.70828, 0.5836, 0.41295]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
-    lsize = 0.115
-    y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
+    lsize = 0.1
+    y_size = 0.005
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
     for i, value in enumerate(gat):
         plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
     for i, value in enumerate(gcn):
         plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 1 - Pubmed")
-    plt.ylim([0, 110])
+    #plt.title("Attack 1 - Pubmed")
+    plt.ylim([0, 1.1])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-pubmed.png')
 
 a1_cora()
 a1_citeseer()
-# a1_pubmed()
+a1_pubmed()
 
 # ------------------------------------------------------------------------------
 
@@ -117,111 +120,114 @@ a1_citeseer()
 def a2_cora():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [77.28, 78.30, 80.56, 83.15, 83.34]
-    gat = [79.32, 80.20, 81.17, 83.58, 85.05]
-    gcn = [69.96, 72.87, 73.09, 74.72, 73.11]
+    graphsage = [0.7728, 0.7830, 0.8056, 0.8315, 0.8334]
+    gat = [0.7932, 0.8020, 0.8117, 0.8358, 0.8505]
+    gcn = [0.6996, 0.7287, 0.7309, 0.7472, 0.7311]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
-    lsize = 0.115
-    y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
+    lsize = 0.1
+    y_size = 0.005
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
     for i, value in enumerate(gat):
         plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
     for i, value in enumerate(gcn):
         plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 2 - Cora")
-    plt.ylim([0, 110])
+    #plt.title("Attack 2 - Cora")
+    plt.ylim([0, 1.1])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-cora.png')
 
 def a2_citeseer():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [82.80, 82.25, 84.41, 85.56, 87.74]
-    gat = [83.55, 84.727, 86.90, 87.25, 89.09]
-    gcn = [73.84, 73.01, 74.83, 74.86, 75.02]
+    graphsage = [0.8280, 0.8225, 0.8441, 0.8556, 0.8774]
+    gat = [0.8355, 0.84727, 0.8690, 0.8725, 0.8909]
+    gcn = [0.7384, 0.7301, 0.7483, 0.7486, 0.7502]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
-    lsize = 0.115
-    y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
+    lsize = 0.1
+    y_size = 0.005
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
     for i, value in enumerate(gat):
         plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
     for i, value in enumerate(gcn):
         plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 2 - CiteSeer")
-    plt.ylim([0, 110])
+    #plt.title("Attack 2 - CiteSeer")
+    plt.ylim([0, 1.1])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-citeseer.png')
 
 def a2_pubmed():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [0.7607, 0.7764, 0.7986, 0.8101, 0.8248]
+    gat = [0.7595, 0.7806, 0.7972, 0.8131, 0.8134]
+    gcn = [0.75572, 0.76629, 0.781149, 0.79757, 0.81162]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
-    lsize = 0.115
-    y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
+    lsize = 0.1
+    y_size = 0.005
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
     for i, value in enumerate(graphsage):
         plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
     for i, value in enumerate(gat):
         plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
     for i, value in enumerate(gcn):
         plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 2 - Pubmed")
-    plt.ylim([0, 110])
+    #plt.title("Attack 2 - Pubmed")
+    plt.ylim([0, 1.1])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-pubmed.png')
 
 a2_cora()
 a2_citeseer()
-# a2_pubmed()
+a2_pubmed()
 
 # ------------------------------------------------------------------------------
 
@@ -229,6 +235,7 @@ a2_citeseer()
 def a3_cora_citeseer():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
@@ -241,28 +248,29 @@ def a3_cora_citeseer():
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
-    for i, value in enumerate(graphsage):
-        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
+    #for i, value in enumerate(graphsage):
+    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
-    for i, value in enumerate(gat):
-        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
+    #for i, value in enumerate(gat):
+    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
-    for i, value in enumerate(gcn):
-        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
+    #for i, value in enumerate(gcn):
+    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 3 - Cora (Target) - CiteSeer (Attacker)")
+    #plt.title("Attack 3 - Cora (Attacker) - CiteSeer (Target)")
     plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-cora-citeseer.png')
 def a3_cora_pubmed():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
@@ -275,62 +283,64 @@ def a3_cora_pubmed():
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
-    for i, value in enumerate(graphsage):
-        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
+    #for i, value in enumerate(graphsage):
+    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
-    for i, value in enumerate(gat):
-        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
+    #for i, value in enumerate(gat):
+    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
-    for i, value in enumerate(gcn):
-        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
+    #for i, value in enumerate(gcn):
+    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 3 - Cora (Target) - Pubmed (Attacker)")
+    #plt.title("Attack 3 - Cora (Attacker) - Pubmed (Target)")
     plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-cora-pubmed.png')
 def a3_citeseer_cora():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [75.45, 72.58, 79.18, 81.47, 85.35]
+    gat = [77.69, 81.92, 82.93, 84.58, 88.12]
+    gcn = [74.89, 67.97, 75.02, 72.68, 74.10]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
-    for i, value in enumerate(graphsage):
-        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
+    #for i, value in enumerate(graphsage):
+    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
-    for i, value in enumerate(gat):
-        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
+    #for i, value in enumerate(gat):
+    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
-    for i, value in enumerate(gcn):
-        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
+    #for i, value in enumerate(gcn):
+    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 3 - CiteSeer (Target) - Cora (Attacker)")
+    #plt.title("Attack 3 - CiteSeer (Attacker) - Cora (Target)")
     plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-citeseer-cora.png')
 def a3_citeseer_pubmed():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
@@ -343,62 +353,64 @@ def a3_citeseer_pubmed():
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
-    for i, value in enumerate(graphsage):
-        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
+    #for i, value in enumerate(graphsage):
+    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
-    for i, value in enumerate(gat):
-        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
+    #for i, value in enumerate(gat):
+    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
-    for i, value in enumerate(gcn):
-        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
+    #for i, value in enumerate(gcn):
+    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 3 - CiteSeer (Target) - Pubmed (Attacker)")
+    #plt.title("Attack 3 - CiteSeer (Attacker) - Pubmed (Target)")
     plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-citeseer-pubmed.png')
 def a3_pubmed_cora():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
-    graphsage = [0, 0, 0, 0, 0]
-    gat = [0, 0, 0, 0, 0]
-    gcn = [0, 0, 0, 0, 0]
+    graphsage = [70.88, 80.02, 83.84, 84.79, 83.37]
+    gat = [71.36, 83.94, 85.82, 85.40, 84.77]
+    gcn = [67.69, 77.30, 70.62, 71.16, 66.67]
 
     X_axis = np.arange(len(bartypes))
 
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
-    for i, value in enumerate(graphsage):
-        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
+    #for i, value in enumerate(graphsage):
+    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
-    for i, value in enumerate(gat):
-        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
+    #for i, value in enumerate(gat):
+    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
-    for i, value in enumerate(gcn):
-        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
+    #for i, value in enumerate(gcn):
+    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 3 - Pubmed (Target) - Cora (Attacker)")
+    #plt.title("Attack 3 - Pubmed (Attacker) - Cora (Target)")
     plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-pubmed-cora.png')
 def a3_pubmed_citeseer():
 
     plt.figure(figsize=(12,6))
+    plt.grid(axis = 'y', zorder=0)
 
     bartypes = ['0', '20', '40', '60', '80']
 
@@ -411,22 +423,22 @@ def a3_pubmed_citeseer():
     size = 0.25
     lsize = 0.115
     y_size = 0.5
-    plt.bar(X_axis - size, graphsage, size, label = 'GraphSAGE', color='tab:olive')
-    for i, value in enumerate(graphsage):
-        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
+    #for i, value in enumerate(graphsage):
+    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis, gat, size, label = 'GAT')
-    for i, value in enumerate(gat):
-        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
+    #for i, value in enumerate(gat):
+    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
-    plt.bar(X_axis + size, gcn, size, label = 'GCN')
-    for i, value in enumerate(gcn):
-        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
+    #for i, value in enumerate(gcn):
+    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
     plt.ylabel("Attack F1-Score")
-    plt.title("Attack 3 - Pubmed (Target) - CiteSeer (Attacker)")
+    #plt.title("Attack 3 - Pubmed (Attacker) - CiteSeer (Target)")
     plt.ylim([0, 110])
     plt.legend(loc = 'upper left')
     plt.savefig('attack-3-pubmed-citeseer.png')

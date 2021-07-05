@@ -36,7 +36,7 @@ def main(args):
         #experiment.baseline_test_same_domain_post()
         #experiment.surviving_edges_same_domain_post(0.20)
         #experiment.surviving_edges_same_domain_post(0.40)
-        #experiment.surviving_edges_same_domain_post(0.60)
+        experiment.surviving_edges_same_domain_post(0.60)
         #experiment.surviving_edges_same_domain_post(0.80)
 
         print(f'\n\n  [+] Same Domain - Distances - {experiment.gnn_name} : {experiment.dataset_name}\n')
@@ -44,14 +44,14 @@ def main(args):
         #experiment.baseline_train_same_domain_dist()
         #experiment.baseline_test_same_domain_dist()
         #experiment.surviving_edges_same_domain_dist(0.20)
-        experiment.surviving_edges_same_domain_dist(0.40)
+        #experiment.surviving_edges_same_domain_dist(0.40)
         #experiment.surviving_edges_same_domain_dist(0.60)
         #experiment.surviving_edges_same_domain_dist(0.80)
 
     #final_evaluation_same_domain(experiments, log=args.log, clear=args.clear)
-    gnn = "graphsage"
+    gnn = "gcn"
     dataset = "pubmed"
-    attack = "surviving_edges_same_domain_dist_40p" 
+    attack = "surviving_edges_same_domain_post_60p" 
     f = f"results/{gnn}/{dataset}/{attack}.csv" 
 
     eval_one_attack(experiments, f)

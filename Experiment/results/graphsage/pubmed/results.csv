@@ -7,3 +7,5 @@ surviving_edges_same_domain_post_80p,66.468,74.815
 baseline_train_same_domain_dist,71.04799999999999,76.071
 surviving_edges_same_domain_dist_20p,73.19099999999999,77.643
 surviving_edges_same_domain_dist_40p,76.518,79.855
+surviving_edges_same_domain_dist_60p,77.42,81.012
+surviving_edges_same_domain_dist_80p,79.85199999999999,82.47800000000001
