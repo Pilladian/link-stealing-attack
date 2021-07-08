@@ -249,16 +249,16 @@ def a3_cora_citeseer():
     lsize = 0.1
     y_size = 0.005
     plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
-    #for i, value in enumerate(graphsage):
-    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(graphsage):
+        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
-    #for i, value in enumerate(gat):
-    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gat):
+        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
-    #for i, value in enumerate(gcn):
-    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gcn):
+        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
@@ -284,16 +284,16 @@ def a3_cora_pubmed():
     lsize = 0.1
     y_size = 0.005
     plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
-    #for i, value in enumerate(graphsage):
-    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(graphsage):
+        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
-    #for i, value in enumerate(gat):
-    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gat):
+        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
-    #for i, value in enumerate(gcn):
-    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gcn):
+        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
@@ -319,16 +319,16 @@ def a3_citeseer_cora():
     lsize = 0.1
     y_size = 0.005
     plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
-    #for i, value in enumerate(graphsage):
-    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(graphsage):
+        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
-    #for i, value in enumerate(gat):
-    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gat):
+        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
-    #for i, value in enumerate(gcn):
-    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gcn):
+        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
@@ -354,16 +354,16 @@ def a3_citeseer_pubmed():
     lsize = 0.1
     y_size = 0.005
     plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
-    #for i, value in enumerate(graphsage):
-    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(graphsage):
+        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
-    #for i, value in enumerate(gat):
-    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gat):
+        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
-    #for i, value in enumerate(gcn):
-    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gcn):
+        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
@@ -389,16 +389,16 @@ def a3_pubmed_cora():
     lsize = 0.1
     y_size = 0.005
     plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
-    #for i, value in enumerate(graphsage):
-    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(graphsage):
+        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
-    #for i, value in enumerate(gat):
-    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gat):
+        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
-    #for i, value in enumerate(gcn):
-    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gcn):
+        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
@@ -424,16 +424,16 @@ def a3_pubmed_citeseer():
     lsize = 0.1
     y_size = 0.005
     plt.bar(X_axis - size, graphsage, size, zorder = 3, label = 'GraphSAGE', color='tab:olive')
-    #for i, value in enumerate(graphsage):
-    #    plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(graphsage):
+        plt.text(X_axis[i] - size - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis, gat, size, zorder = 3, label = 'GAT')
-    #for i, value in enumerate(gat):
-    #    plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gat):
+        plt.text(X_axis[i] - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.bar(X_axis + size, gcn, size, zorder = 3, label = 'GCN')
-    #for i, value in enumerate(gcn):
-    #    plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
+    for i, value in enumerate(gcn):
+        plt.text(X_axis[i] + size  - lsize, value + y_size, s=f'{value:0.2f}')
 
     plt.xticks(X_axis, bartypes)
     plt.xlabel("Percentage of Known Edges")
@@ -444,8 +444,8 @@ def a3_pubmed_citeseer():
     plt.savefig('attack-3-pubmed-citeseer.png')
 
 a3_cora_citeseer()
-a3_cora_pubmed()
-a3_citeseer_cora()
-a3_citeseer_pubmed()
-a3_pubmed_cora()
+#a3_cora_pubmed()
+#a3_citeseer_cora()
+#a3_citeseer_pubmed()
+#a3_pubmed_cora()
 a3_pubmed_citeseer()

@@ -14,5 +14,7 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Attack 1 - $D_{f_t} = CiteSeer$\relax }}{22}{figure.caption.53}%
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Attack 2 - $D_{f_t} = CiteSeer$\relax }}{23}{figure.caption.55}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Cora$\relax }}{24}{figure.caption.57}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Pubmed$\relax }}{25}{figure.caption.58}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

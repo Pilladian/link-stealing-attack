@@ -50,7 +50,7 @@
             Intuitively, with rising amount of known edges, we would expect a higher performance of our attacks.
             However, in most cases, the performance grows until 40\% or 60\% of known edges and drops afterwards.
             More precisely, in almost every case, the attack performance is better with only 60\% of known edges than with 80\%.
-            \notsure{The reason for that could be the following. Since we use the deleted edges as positive samples for our training data, the more edges are known, the less data will be provided for training the adversary. Leading to more training data in our baseline than in our 80\%-known-edges attack.}
+            \notsure{The reason we observe this, is the following. Since we use the deleted edges as positive samples for our training data, the more edges are known, the less data will be provided for training the adversary. Leading to more training data in our baseline than in our 80\%-known-edges attack.}
             With respect to all performed attacks, the average F1-Score is $0.7404$, with the lowest being $0.4130$ (GCN trained on Pubmed with 80\% known edges) and the highest being $0.810$ (GraphSAGE trained on CiteSeer with 60\% known edges).
 
         \subsection*{Attack 2}
@@ -75,24 +75,24 @@
 
         \subsection*{Attack 3}
             Like described in Section \refeq{section:attack3} this attack performs link stealing attacks on a different dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
-            The following charts present the results for our link stealing attacks on a target model, that was trained on the Cora dataset while the adversary was trained on another distribution dataset.
-            The charts for CiteSeer and Pubmed can be found here. \TODO{update}
+            The following charts present the results for our link stealing attacks on a target model, that was trained on the CiteSeer dataset while the adversary was trained on another distribution dataset.
+            The charts for Cora and Pubmed can be found here. \TODO{update}
 
-            % \begin{figure}[h]
-            %     \begin{center}
-            %         \includegraphics[width=\textwidth]{attack-3-citeseer-cora}
-            %         \caption{Attack 3 - $D_{f_t} = Cora$ and $D_A = CiteSeer$}
-            %         \label{figure:eval-att3-citeseer-ora}
-            %     \end{center}
-            % \end{figure}
+            \begin{figure}[h]
+                \begin{center}
+                    \includegraphics[width=\textwidth]{attack-3-cora-citeseer}
+                    \caption{Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Cora$}
+                    \label{figure:eval-att3-citeseer-ora}
+                \end{center}
+            \end{figure}
 
-            % \begin{figure}[h]
-            %     \begin{center}
-            %         \includegraphics[width=\textwidth]{attack-3-pubmed-cora}
-            %         \caption{Attack 3 - $D_{f_t} = Cora$ and $D_A = Pubmed$}
-            %         \label{figure:eval-att3-pubmed-cora}
-            %     \end{center}
-            % \end{figure}
+            \begin{figure}[h]
+                \begin{center}
+                    \includegraphics[width=\textwidth]{attack-3-pubmed-citeseer}
+                    \caption{Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Pubmed$}
+                    \label{figure:eval-att3-pubmed-cora}
+                \end{center}
+            \end{figure}
     
     \section{Possible Defense}
         One possible defense, which already has been presented by He et al. \cite{DBLP:journals/corr/abs-2005-02131}, is to minimize the posterior output vector of $f$. 
