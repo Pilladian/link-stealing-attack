@@ -110,9 +110,9 @@ def a1_pubmed():
     plt.legend(loc = 'upper left')
     plt.savefig('attack-1-pubmed.png')
 
-# a1_cora()
-# a1_citeseer()
-# a1_pubmed()
+a1_cora()
+a1_citeseer()
+a1_pubmed()
 
 # ------------------------------------------------------------------------------
 
@@ -225,9 +225,9 @@ def a2_pubmed():
     plt.legend(loc = 'upper left')
     plt.savefig('attack-2-pubmed.png')
 
-# a2_cora()
-# a2_citeseer()
-# a2_pubmed()
+a2_cora()
+a2_citeseer()
+a2_pubmed()
 
 # ------------------------------------------------------------------------------
 
@@ -444,8 +444,8 @@ def a3_pubmed_citeseer():
     plt.savefig('attack-3-pubmed-citeseer.png')
 
 a3_cora_citeseer()
-#a3_cora_pubmed()
-#a3_citeseer_cora()
-#a3_citeseer_pubmed()
-#a3_pubmed_cora()
+a3_cora_pubmed()
+a3_citeseer_cora()
+a3_citeseer_pubmed()
+a3_pubmed_cora()
 a3_pubmed_citeseer()

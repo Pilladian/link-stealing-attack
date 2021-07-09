@@ -15,6 +15,15 @@ a = cora_graphsage + cora_gat + cora_gcn \
     + citeseer_graphsage + citeseer_gat + citeseer_gcn \
     + pubmed_graphsage + pubmed_gat + pubmed_gcn
 
+x = cora_graphsage + citeseer_graphsage + pubmed_graphsage
+y = cora_gat + citeseer_gat + pubmed_gat
+z = cora_gcn + citeseer_gcn + pubmed_gcn
+
+print(float(sum(x) / len(x)))
+print(float(sum(y) / len(y)))
+print(float(sum(z) / len(z)))
+print()
+
 # Attack 2
 cora_graphsage = [0.7728, 0.7830, 0.8056, 0.8315, 0.8334]
 cora_gat = [0.7932, 0.8020, 0.8117, 0.8358, 0.8505]
@@ -34,5 +43,10 @@ b = cora_graphsage + cora_gat + cora_gcn \
 
 #b = [0.7728, 0.7932, 0.6996, 0.8280, 0.8355, 0.7384, 0.7607, 0.7595, 0.75572]
 
-print(float(sum(a) / len(a)))
-print(float(sum(b) / len(b)))
+x = cora_graphsage + citeseer_graphsage + pubmed_graphsage
+y = cora_gat + citeseer_gat + pubmed_gat
+z = cora_gcn + citeseer_gcn + pubmed_gcn
+
+print(float(sum(x) / len(x)))
+print(float(sum(y) / len(y)))
+print(float(sum(z) / len(z)))

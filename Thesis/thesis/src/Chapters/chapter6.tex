@@ -55,7 +55,7 @@
 
         \subsection*{Attack 2}
             Like described in Section \refeq{section:attack2} this attack performs link stealing attacks on the same dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
-            The following chart presents the results for our link stealing attacks on a target model, that was trained on the CiteSeer dataset.
+            Figure \refeq{figure:eval-att2-citeseer} presents the results for our link stealing attacks on a target model, that was trained on the CiteSeer dataset.
             The charts for Cora and Pubmed can be found here. \TODO{update}
 
             \begin{figure}[h]
@@ -70,19 +70,20 @@
             This time the average F1-Score of our baseline is $0.7715$, again depending on graph neural network type and target dataset $D_{f_t}$.
             The baseline performed best ($0.8355$ F1-Score) on the graphsage graph neural network, when it was trained on the  CiteSeer dataset and it performed worst ($0.6996$ F1-Score) on the graph convolutional network when it was trained on the Cora dataset.
             This time, the results support our forecast.
-            With rising amount of known edges, the attack performance grows, leading to an improvement up to 0.06 F1-Score.
+            % calculate improvement: impr = max(20p, 40p, 60p, 80p) - baseline
+            With rising amount of known edges, the attack performance grows, leading to an \TODO{improvement} up to $0.06$ F1-Score, while comparing the baseline performance with the results of attacks with known edges.
             With respect to all performed attacks, the average F1-Score is $0.7969$, with the lowest being $0.6996$ (GCN trained on Cora with 0\% known edges) and the highest being $0.8909$ (GAT trained on CiteSeer with 80\% known edges).
 
         \subsection*{Attack 3}
             Like described in Section \refeq{section:attack3} this attack performs link stealing attacks on a different dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
-            The following charts present the results for our link stealing attacks on a target model, that was trained on the CiteSeer dataset while the adversary was trained on another distribution dataset.
-            The charts for Cora and Pubmed can be found here. \TODO{update}
+            The following Figures \refeq{figure:eval-att3-citeseer-citeseer} and \refeq{figure:eval-att3-pubmed-citeseer} present the results for our link stealing attacks on a target model, that was trained on the CiteSeer dataset while the adversary was trained on another distribution dataset.
+            The charts for Cora and Pubmed being the target datasets, can be found here. \TODO{update}
 
             \begin{figure}[h]
                 \begin{center}
                     \includegraphics[width=\textwidth]{attack-3-cora-citeseer}
                     \caption{Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Cora$}
-                    \label{figure:eval-att3-citeseer-ora}
+                    \label{figure:eval-att3-citeseer-citeseer}
                 \end{center}
             \end{figure}
 
@@ -90,15 +91,77 @@
                 \begin{center}
                     \includegraphics[width=\textwidth]{attack-3-pubmed-citeseer}
                     \caption{Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Pubmed$}
-                    \label{figure:eval-att3-pubmed-cora}
+                    \label{figure:eval-att3-pubmed-citeseer}
                 \end{center}
             \end{figure}
+
+            Evaluating \emph{Attack 3}, we note, that the average attack performance of our baseline (\TODO{$0.7492$} F1-Score) is higher than the average baseline performance of \emph{Attack 1} but lower than the average baseline performance of \emph{Attack 2}.
+            The results differ, based on the used datasets $D_{f_t}$ and $D_A$ and the architecture of the target model.
+            We achieve a minimum baseline attack performance of \TODO{$0.6561$} F1-Score with $D_{f_t}$ being the Cora dataset, the attack model being trained on Pubmed and the target model being a graph convolutional neural network.
+            However, when our target model is a graph attention network, which was trained on the CiteSeer dataset, while we set $D_A = Pubmed$, we can achieve a maximum baseline attack performance of \TODO{$0.8363$} F1-Score.  
+            Like in \emph{Attack 2}, the attack performance increases as well, while the amount of known edges rises.
+            This leads to an improvement up to \TODO{$0.1292$} F1-Score.
+            With respect to all performed attacks, the average F1-Score is \TODO{$0.7934$}, with the lowest being \TODO{$0.6561$ (GCN trained on Cora and adversary trained on Pubmed with 0\% known edges}) and the highest being \TODO{$0.8908$ (GAT trained on CiteSeer and adversary trained on Pubmed with 80\% known edges}).
+        
+        The following two tables provide an overview of the best attack performances (Table \refeq{table:attack-best-results-all}) and of the average attack performances on our three target model architectures (Table \refeq{table:attack-avg-results-all})
+
+        \vspace{0.48cm}
+        \begin{table}[!h]
+            \centering
+            \footnotesize
+            \begin{tabular}{l|l|l|l|}
+              \toprule
+              Target Model & Attack 1 & Attack 2 & Attack 3 \\
+              \midrule
+              GraphSAGE & 0.8107 & 0.8774 & \TODO{0.8857} \\
+              GAT & 0.8064 & 0.8909 & \TODO{0.8908} \\
+              GCN & 0.7603 & 0.8116 & \TODO{0.8124} \\
+            
+              \bottomrule
+            \end{tabular}
+            \caption{Best Attack Performances on Target Models (F1-Score)}
+            \label{table:attack-best-results-all}
+          \end{table}
+        
+        \vspace{0.48cm}
+        \begin{table}[!h]
+            \centering
+            \footnotesize
+            \begin{tabular}{l|l|l|l|}
+            \toprule
+            Target Model & Attack 1 & Attack 2 & Attack 3 \\
+            \midrule
+            GraphSAGE & 0.7642 & 0.8150 & \TODO{0.8156} \\
+            GAT & 0.7549 & 0.8248 & \TODO{0.8196} \\
+            GCN & 0.7020 & 0.7510 & \TODO{0.7450} \\
+              
+            \bottomrule
+            \end{tabular}
+            \caption{Average Attack Performances on Target Models (F1-Score)}
+            \label{table:attack-avg-results-all}
+        \end{table}
+            
     
     \section{Possible Defense}
         One possible defense, which already has been presented by He et al. \cite{DBLP:journals/corr/abs-2005-02131}, is to minimize the posterior output vector of $f$. 
         Meaning that instead of providing the complete posterior output of $f$'s prediction, $f$ could only present the top $k$ posteriors.
-        In that way the adversary must attack the model based on less information which makes the attack less effective.
+        In that way the adversary must attack the target model based on less information which makes the attack less effective.
+        Since the performed attacks are very similar and only the architecture and functionality of the target model varies, we can assume, that the defense would lead to a similar drop of attack performance in our work.
         
-        However, if we assume, that $f$ always provides the complete output posterior, \TODO{finish}
+        However, if we assume, that $f$ always provides the complete output posterior, there still exist some methods to mitigate our attacks. 
+        Like He et al. proposed in their work, it is also possible to defend against these attacks by leveraging differential privacy (DP) and adversarial examples.
+        More specifically we could adopt edge-Differential Privacy \cite{Hay_accurateestimation, lu2020protect, 8345716, Zhang_2015}.
+        The approach of Zhang et al. \cite{Zhang_2015} specifies a probability distribution over possible outputs to ensure DP.
+        While it is carefully defined to maximize the utility for the given input, it still provides the required privacy level.
+        Like shown in previous work \cite{jia2020attriguard, jia2019memguard}, it is also possible to fool the adversary by adding noise to the prediction of the target model.
 
     \section{Summary of Results}
+        To sum up, we made the following observations during our experiments.
+        First, our attacks can successfully steal links from inductive trained graph neural networks.
+        For example we were able to steal links from graph attention networks with F1-Scores up to $0.8908$, which shows the effectiveness of our attacks.
+        Second, there exists a dependence between the amount of known edges the adversary has and the attack performance. 
+        The more background knowledge the adversary has, the better the results.
+        Lastly, we also achieve good results with our transferring attack.
+        However, the performance varies dependent on the shadow dataset.
+        But in total the different distribution does not really impact the performance, since the results are similar to same dataset distribution attacks. 
+
