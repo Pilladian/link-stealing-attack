@@ -1,8 +1,25 @@
 \chapter{Discussion}
 
     \section{Findings}
-        Even less information than He et al. \cite{DBLP:journals/corr/abs-2005-02131} lead to slightly worse results but still pretty confident.
+        In this thesis we wanted to find out, whether it is possible to efficiently steal links from the training graph of a graph neural network, that has been trained inductively.
+        Besides this main question, we also analysed the impact of different distribution datasets on the performance of our attacks and how the choice of features, used to train the attack model, can increase the accuracy of the adversary.
+
+        We found that an adversary with black box access to an inductive trained graph neural network is able to efficiently steal links from the target models training graph.
+        To achieve this, the adversary has multiple strategies which differ in the choice of features used to train the attack model and in the dataset distribution of the shadow dataset.
+        We saw, that the attack performance is better, when we sample features on the posterior outputs of the target model instead of using them directly.
+        We therefor compared the concatenation of the posteriors and a distance vector containing values of eight different distance metrics, that measure the similarity between the posteriors, being the input for our attack model.
+        Furthermore we found, that the attack performance is similar when using different dataset distributions to train our attack model.
+        More precisely, we are able to steal links using a transferring attack almost as accurate as using a shadow dataset from the same distribution like the one, the target model was trained on.
+        Therefor we compared the performance of attack models that have been trained on one of our three datasets Cora, CiteSeer or Pubmed while the target model was trained on another dataset, that differs the one the attacker used.
 
     \section{Impact}
+        % Dataset confidential because intellectual property
+        % Contains sensitive data
+        % Big impact since GNNs are rising
+        % Hard to protect against LSA
+
 
     \section{Future Work}
+        % Other Downstream tasks like graph classification, link prediction
+        % Other ways of using only posteriors (order of how to provide them to the attack model)
+        % Defenses against Link Stealing Attacks
