@@ -22,9 +22,10 @@
   In prior work, He et al. proposed the first link stealing attacks on graph neural networks, focusing on the transductive learning setting. 
   More precisely, given a black box access to a graph neural network, they were able to predict, whether two nodes of a graph that was used for training the model, are linked or not. 
   In our work, we now focus on the inductive setting. 
-  Specifically, given a black box access to a graph neural network model that was trained inductively, we aim to predict whether there exists a link between any two nodes of the training graph or not.
-  \TODO{present results}
-
+  Specifically, given a black box access to a graph neural network model that was trained inductively, we are able to predict whether there exists a link between any two nodes of the training graph or not.
+  Our experiments show that there exist efficient ways to properly reveal sensitive information about the training graphs of inductive trained graph neural networks, which leads to big privacy concerns.
+  Depending on datasets and the graph neural network model we achieve up to \TODO{$0.8909$} F1-Score while having an average success rate of \TODO{$0.82$} F1-Score regarding all our attacks.
+  
 \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 
 \clearpage  % Abstract ended, start a new page
