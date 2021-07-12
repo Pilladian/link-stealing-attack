@@ -35,7 +35,7 @@
         \subsection*{Attack 1}
             Like described in Section \refeq{section:attack1} this attack performs link stealing attacks on the same dataset distribution using the concatenation of the posterior outputs of two nodes to infer whether they have been connected or not. 
             Figure \refeq{figure:eval-att1-citeseer} presents the results for our link stealing attacks on the target models, that have been trained on the CiteSeer dataset.
-            The charts for Cora and Pubmed can be found here. \TODO{update}
+            Please find the results for Cora in Figure \refeq{figure:eval-att1-cora} and for Pubmed in Figure \refeq{figure:eval-att1-pubmed}
 
             \begin{figure}[h]
                 \begin{center}
@@ -56,7 +56,7 @@
         \subsection*{Attack 2}
             Like described in Section \refeq{section:attack2} this attack performs link stealing attacks on the same dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
             Figure \refeq{figure:eval-att2-citeseer} presents the results for our link stealing attacks on a target model, that was trained on the CiteSeer dataset.
-            The charts for Cora and Pubmed can be found here. \TODO{update}
+            Please find the results for Cora in Figure \refeq{figure:eval-att2-cora} and for Pubmed in Figure \refeq{figure:eval-att2-pubmed}
 
             \begin{figure}[h]
                 \begin{center}
@@ -71,19 +71,19 @@
             The baseline performed best ($0.8355$ F1-Score) on the graphsage graph neural network, when it was trained on the  CiteSeer dataset and it performed worst ($0.6996$ F1-Score) on the graph convolutional network when it was trained on the Cora dataset.
             This time, the results support our forecast.
             % calculate improvement: impr = max(20p, 40p, 60p, 80p) - baseline
-            With rising amount of known edges, the attack performance grows, leading to an \TODO{improvement} up to $0.06$ F1-Score, while comparing the baseline performance with the results of attacks with known edges.
+            With rising amount of known edges, the attack performance grows, leading to an improvement up to \TODO{$0.06$} F1-Score, while comparing the baseline performance with the results of attacks with known edges.
             With respect to all performed attacks, the average F1-Score is $0.7969$, with the lowest being $0.6996$ (GCN trained on Cora with 0\% known edges) and the highest being $0.8909$ (GAT trained on CiteSeer with 80\% known edges).
 
         \subsection*{Attack 3}
             Like described in Section \refeq{section:attack3} this attack performs link stealing attacks on a different dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
-            The following Figures \refeq{figure:eval-att3-citeseer-citeseer} and \refeq{figure:eval-att3-pubmed-citeseer} present the results for our link stealing attacks on a target model, that was trained on the CiteSeer dataset while the adversary was trained on another distribution dataset.
-            The charts for Cora and Pubmed being the target datasets, can be found here. \TODO{update}
+            The following Figures \refeq{figure:eval-att3-cora-citeseer} and \refeq{figure:eval-att3-pubmed-citeseer} present the results for our link stealing attacks on a target model, that was trained on the CiteSeer dataset while the adversary was trained on another distribution dataset.
+            Please find the results for Cora in Figures \refeq{figure:eval-att3-citeseer-cora} and \refeq{figure:eval-att3-pubmed-cora} and for Pubmed in Figures \refeq{figure:eval-att3-cora-pubmed} and \refeq{figure:eval-att3-citeseer-pubmed}.
 
             \begin{figure}[h]
                 \begin{center}
                     \includegraphics[width=\textwidth]{attack-3-cora-citeseer}
                     \caption{Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Cora$}
-                    \label{figure:eval-att3-citeseer-citeseer}
+                    \label{figure:eval-att3-cora-citeseer}
                 \end{center}
             \end{figure}
 

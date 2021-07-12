@@ -13,13 +13,18 @@
         Therefor we compared the performance of attack models that have been trained on one of our three datasets Cora, CiteSeer or Pubmed while the target model was trained on another dataset, that differs the one the attacker used.
 
     \section{Impact}
-        % Dataset confidential because intellectual property
-        % Contains sensitive data
-        % Big impact since GNNs are rising
-        % Hard to protect against LSA
-
+        Since training data for machine learning models can often be deemed confidential, we note, that stealing links from the training graph of an inductive trained graph neural network leads to a huge privacy risk.
+        The data owner often spends lots of time and resources preprocessing the data and thus can claim the dataset as intellectual property.
+        Furthermore, the training data of a graph neural network often contains sensitive data, that can be revealed using our attacks.
+        This can include health data of patients or sensitive social relationships of social network users.
+        Since graphs and therefor graph neural networks are getting more popular every day, our attacks have a huge impact on the privacy of training data.
+        Furthermore, it seems to be hard to protect against our attacks without a tradeoff between good privacy and functionality of the target model. 
 
     \section{Future Work}
-        % Other Downstream tasks like graph classification, link prediction
-        % Other ways of using only posteriors (order of how to provide them to the attack model)
-        % Defenses against Link Stealing Attacks
+        In future work it would be interesting to see how link stealing attacks perform on target models, that have been trained to perform different downstream tasks.
+        Since all of our target models are trained to perform node classification, it would be interesting to see, whether the task of the graph neural network has some impact on the attack accuracy.
+        Furthermore, one could spend some time figuring out, whether there is a better way of using the raw posteriors as input for the attack model.
+        Since we only concatenate them to one big vector, maybe there is a better way of using them, which leads to better results.
+        Also one could search for even better feature samples than eight distance metrics to use as input for the attack model.
+        Last but definitely not least, one could search for good defenses against our attacks.
+        Since revealing links from the train graph brings huge privacy risks, finding an efficient defense against our attack may be the most important future work.
