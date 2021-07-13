@@ -50,7 +50,7 @@
             Intuitively, with rising amount of known edges, we would expect a higher performance of our attacks.
             However, in most cases, the performance grows until 40\% or 60\% of known edges and drops afterwards.
             More precisely, in almost every case, the attack performance is better with only 60\% of known edges than with 80\%.
-            \notsure{The reason we observe this, is the following. Since we use the deleted edges as positive samples for our training data, the more edges are known, the less data will be provided for training the adversary. Leading to more training data in our baseline than in our 80\%-known-edges attack.}
+            The reason we observe this, is the following. Since we use the deleted edges as positive samples for our training data, the more edges are known, the less data will be provided for training the adversary. Leading to more training data in our baseline than in our 80\%-known-edges attack.
             With respect to all performed attacks, the average F1-Score is $0.7404$, with the lowest being $0.4130$ (GCN trained on Pubmed with 80\% known edges) and the highest being $0.810$ (GraphSAGE trained on CiteSeer with 60\% known edges).
 
         \subsection*{Attack 2}
@@ -71,7 +71,7 @@
             The baseline performed best ($0.8355$ F1-Score) on the graphsage graph neural network, when it was trained on the  CiteSeer dataset and it performed worst ($0.6996$ F1-Score) on the graph convolutional network when it was trained on the Cora dataset.
             This time, the results support our forecast.
             % calculate improvement: impr = max(20p, 40p, 60p, 80p) - baseline
-            With rising amount of known edges, the attack performance grows, leading to an improvement up to \TODO{$0.06$} F1-Score, while comparing the baseline performance with the results of attacks with known edges.
+            With rising amount of known edges, the attack performance grows, leading to an improvement up to $0.06$ F1-Score, while comparing the baseline performance with the results of attacks with known edges.
             With respect to all performed attacks, the average F1-Score is $0.7969$, with the lowest being $0.6996$ (GCN trained on Cora with 0\% known edges) and the highest being $0.8909$ (GAT trained on CiteSeer with 80\% known edges).
 
         \subsection*{Attack 3}
@@ -95,13 +95,13 @@
                 \end{center}
             \end{figure}
 
-            Evaluating \emph{Attack 3}, we note, that the average attack performance of our baseline (\TODO{$0.7492$} F1-Score) is higher than the average baseline performance of \emph{Attack 1} but lower than the average baseline performance of \emph{Attack 2}.
+            Evaluating \emph{Attack 3}, we note, that the average attack performance of our baseline ($0.7668$} F1-Score) is higher than the average baseline performance of \emph{Attack 1} but lower than the average baseline performance of \emph{Attack 2}.
             The results differ, based on the used datasets $D_{f_t}$ and $D_A$ and the architecture of the target model.
-            We achieve a minimum baseline attack performance of \TODO{$0.6561$} F1-Score with $D_{f_t}$ being the Cora dataset, the attack model being trained on Pubmed and the target model being a graph convolutional neural network.
-            However, when our target model is a graph attention network, which was trained on the CiteSeer dataset, while we set $D_A = Pubmed$, we can achieve a maximum baseline attack performance of \TODO{$0.8363$} F1-Score.  
+            We achieve a minimum baseline attack performance of $0.6636$ F1-Score with $D_{f_t}$ being the Cora dataset, the attack model being trained on Pubmed and the target model being a graph convolutional neural network.
+            However, when our target model is a graph attention network, which was trained on the CiteSeer dataset, while we set $D_A = Pubmed$, we can achieve a maximum baseline attack performance of $0.8383$ F1-Score.  
             Like in \emph{Attack 2}, the attack performance increases as well, while the amount of known edges rises.
-            This leads to an improvement up to \TODO{$0.1292$} F1-Score.
-            With respect to all performed attacks, the average F1-Score is \TODO{$0.7934$}, with the lowest being \TODO{$0.6561$ (GCN trained on Cora and adversary trained on Pubmed with 0\% known edges}) and the highest being \TODO{$0.8908$ (GAT trained on CiteSeer and adversary trained on Pubmed with 80\% known edges}).
+            This leads to an improvement up to $0.1320$ F1-Score.
+            With respect to all performed attacks, the average F1-Score is $0.7938$, with the lowest being $0.6636$ (GCN trained on Cora and adversary trained on Pubmed with 0\% known edges) and the highest being $0.8854$ (GAT trained on CiteSeer and adversary trained on Cora with 80\% known edges).
         
         The following two tables provide an overview of the best attack performances (Table \refeq{table:attack-best-results-all}) and of the average attack performances on our three target model architectures (Table \refeq{table:attack-avg-results-all})
 
@@ -113,9 +113,9 @@
               \toprule
               Target Model & Attack 1 & Attack 2 & Attack 3 \\
               \midrule
-              GraphSAGE & 0.8107 & 0.8774 & \TODO{0.8857} \\
-              GAT & 0.8064 & 0.8909 & \TODO{0.8908} \\
-              GCN & 0.7603 & 0.8116 & \TODO{0.8124} \\
+              GraphSAGE & $0.8107$ & $0.8774$ & $0.8793$ \\
+              GAT & $0.8064$ & $0.8909$ & $0.8854$ \\
+              GCN & $0.7603$ & $0.8116$ & $0.8092$ \\
             
               \bottomrule
             \end{tabular}
@@ -131,9 +131,9 @@
             \toprule
             Target Model & Attack 1 & Attack 2 & Attack 3 \\
             \midrule
-            GraphSAGE & 0.7642 & 0.8150 & \TODO{0.8156} \\
-            GAT & 0.7549 & 0.8248 & \TODO{0.8196} \\
-            GCN & 0.7020 & 0.7510 & \TODO{0.7450} \\
+            GraphSAGE & $0.7642$ & $0.8150$ & $0.8139$ \\
+            GAT & $0.7549$ & $0.8248$ & $0.8199$ \\
+            GCN & $0.7020$ & $0.7510$ & $0.7477$ \\
               
             \bottomrule
             \end{tabular}

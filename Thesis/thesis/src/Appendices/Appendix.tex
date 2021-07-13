@@ -1,7 +1,5 @@
 % Appendix A
 \chapter*{Appendix}
-
-    \TODO{Update table}
     \begin{table}[h]
         \centering
         \footnotesize
@@ -9,14 +7,14 @@
         \toprule
         Metrics & Definition \\
         \midrule
-        Cosine & $1 - \dfrac{f_t(u)\cdot f_t(v)}{\left|f_t(u)\right|_2\left|f_t(v)\right|_2}$ \\
-        Euclidean & $\left|f_t(u) - f_t(v)\right|_2$ \\
-        Correlation & $1-\dfrac{(f_t(u)-\overline{f_t(u)}) \cdot(f_t(v)-\overline{f_t(v)})}{|(f_t(u)-\overline{f_t(u)})|_{2}|(f_t(v)-\overline{f_t(v)})|_{2}}$ \\
+        Cosine & $1 - \dfrac{f_t(u)\cdot f_t(v)}{\left||f_t(u)\right||_2\left||f_t(v)\right||_2}$ \\
+        Euclidean & $\left||f_t(u) - f_t(v)\right||_2$ \\
+        Correlation & $1-\dfrac{(f_t(u)-\overline{f_t(u)}) \cdot(f_t(v)-\overline{f_t(v)})}{||(f_t(u)-\overline{f_t(u)})||_{2}||(f_t(v)-\overline{f_t(v)})||_{2}}$ \\
         Chebyshev & $\max _{i}\left|f_{t_i}(u)-f_{t_i}(v)\right|$ \\
         Braycurtis & $\dfrac{\sum\left|f_{t_i}(u)-f_{t_i}(v)\right|} {\sum\left|f_{t_i}(u)+f_{t_i}(v)\right|}$ \\
         Manhattan & $\sum{i}\left|f_{t_i}(u)-f_{t_i}(v)\right|$ \\
         Canberra & $\sum_{i} \dfrac{\left|f_{t_i}(u)-f_{t_i}(v)\right|}{\left|f_{t_i}(u)\right|+\left|f_{t_i}(v)\right|}$ \\
-        Sqeuclidean & $\left|f_t(u) - f_t(v)\right|_2^2$ \\
+        Sqeuclidean & $\left||f_t(u) - f_t(v)\right||_2^2$ \\
         \bottomrule
         \end{tabular}
         \caption{Distance metrics: $f_{t_i}(u)$ represents the $i$-th component of $f_t(u)$.}

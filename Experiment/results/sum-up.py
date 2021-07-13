@@ -1,10 +1,18 @@
 import pandas
 
+data0 = pandas.read_csv('diff-domain/202107081805-diff-ds-lineup.txt')
 data1 = pandas.read_csv('diff-domain/202107060628-diff-ds-lineup.txt')
 data2 = pandas.read_csv('diff-domain/202107062225-diff-ds-lineup.txt')
 data3 = pandas.read_csv('diff-domain/202107071946-diff-ds-lineup.txt')
+data4 = pandas.read_csv('diff-domain/202107091336-diff-ds-lineup.txt')
+data5 = pandas.read_csv('diff-domain/202107100553-diff-ds-lineup.txt')
+data6 = pandas.read_csv('diff-domain/202107102214-diff-ds-lineup.txt')
+data7 = pandas.read_csv('diff-domain/202107111443-diff-ds-lineup.txt')
+data8 = pandas.read_csv('diff-domain/202107120715-diff-ds-lineup.txt')
+data9 = pandas.read_csv('diff-domain/202107122324-diff-ds-lineup.txt')
 
-datas = [data1, data2, data3]
+
+datas = [data0, data1, data2, data3, data4, data5, data6, data7, data8, data9]
 
 attacks = []
 attack = 'all'
@@ -76,10 +84,11 @@ improvement = (0, None, None)
 #                 improvement = (impr, dsets, sgnn)
             
         
-#         text += f"{dsets}_{sgnn} = [{trains}, {p20s}, {p40s}, {p60s}, {p80s}]\n"
+#         text += f"{sgnn} = [{trains}, {p20s}, {p40s}, {p60s}, {p80s}]\n"
 #     print(text + '\n')
 
 for sgnn in ['graphsage', 'gat', 'gcn']:
+    maximum = (0, None, None)
     
     for dsets in ['cora_citeseer', 'cora_pubmed', 'citeseer_cora', 'citeseer_pubmed', 'pubmed_cora', 'pubmed_citeseer']:
 
@@ -144,10 +153,10 @@ for sgnn in ['graphsage', 'gat', 'gcn']:
         
         text += f"{dsets}_{sgnn} = [{trains}, {p20s}, {p40s}, {p60s}, {p80s}]\n"
     #print(text + '\n')
-    print(f'Avg. F1-Score {sgnn} - {attack} {sum(attacks) / len(attacks):.4f}')
-    attacks = []
+    #print(f'Avg. F1-Score {sgnn} - {attack} {sum(attacks) / len(attacks):.4f}')
+    #print(f'Maximum F1-Score: {maximum[0]:.4f} - {maximum[1]} - {maximum[2]}')
+    #attacks = []
 
-#print(f'Avg. F1-Score {attack} {sum(attacks) / len(attacks):.4f}')
-#print(f'Maximum F1-Score: {maximum[0]:.4f} - {maximum[1]} - {maximum[2]}')
-#print(f'Minimum F1-Score: {minimum[0]:.4f} - {minimum[1]} - {minimum[2]}')
-#print(f'Improvement: {improvement[0]:.4f} - {improvement[1]} - {improvement[2]}')
+print(f'Avg. F1-Score {attack} {sum(attacks) / len(attacks):.4f}')
+print(f'Minimum F1-Score: {minimum[0]:.4f} - {minimum[1]} - {minimum[2]}')
+print(f'Improvement: {improvement[0]:.4f} - {improvement[1]} - {improvement[2]}')
