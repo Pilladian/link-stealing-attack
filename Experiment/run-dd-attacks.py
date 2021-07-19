@@ -16,6 +16,8 @@ def main(args):
     print_init(args)
 
     # Datasets
+    print(args.dataset)
+    exit()
     datasets = print_datasets(args.dataset)
     # GNNs
     gnns = print_gnns(args.gnn)

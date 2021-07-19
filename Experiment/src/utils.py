@@ -143,6 +143,17 @@ def final_evaluation_same_domain(experiments, log, clear):
             string += '      ' + line
         print(string)
 
+def final_evaluation_same_domain_2(experiments):
+    lineup_file = f'./log/eval/{datetime.now().strftime("%H%M")}-same-ds.txt'
+    with open(lineup_file, 'w') as lineup:
+
+        lineup.write('''Attack,GNN,Dataset,TAcc,AAcc,AF1\n''')
+        
+        for i, exp in enumerate(experiments):
+            for a in list(exp.results.keys()):
+                lineup.write(f'{a},{exp.gnn_name},{exp.dataset_name},{exp.results[a]["target"]["acc"]:.4f},{exp.results[a]["attacker"]["acc"]:.4f},{exp.results[a]["attacker"]["f1-score"]:.4f}\n')
+            lineup.write('\n')
+
 def final_evaluation_diff_domain(experiments, log):
     lineup_file = f'./log/{datetime.now().strftime("%Y%m%d%H%M")}-diff-ds-lineup.txt'
     with open(lineup_file, 'w') as lineup:
