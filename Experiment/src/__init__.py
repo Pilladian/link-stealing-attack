@@ -72,9 +72,9 @@ class Target:
         for epoch in range(self.parameter['n_epochs']):
             self.model.train()
             # forward
-            if self.gnn_name == 'graphsage':
+            if self.gnn_name in ['graphsage', 'gcn']:
                 logits = self.model(self.graph, self.graph.ndata['feat'])
-            elif self.gnn_name in ['gat', 'gcn']:
+            elif self.gnn_name in ['gat']:
                 g = dgl.remove_self_loop(self.graph)
                 self.model.g = dgl.add_self_loop(g)
                 logits = self.model(self.graph.ndata['feat'])
@@ -117,14 +117,14 @@ class Target:
                             self.parameter['residual'])
 
         elif self.gnn_name == 'gcn':
-            self.model = GCN(
-                            self.graph,
+            self.model = GraphSAGE(
                             self.graph.ndata['feat'].shape[1],
                             self.parameter['n_hidden'],
                             self.num_classes,
                             self.parameter['n_layers'],
                             F.relu,
-                            self.parameter['dropout'])
+                            self.parameter['dropout'],
+                            self.parameter['aggregator_type'])
 
         # load model to gpu
         if self.gpu:
@@ -143,9 +143,9 @@ class Target:
         self.model.eval()
         with torch.no_grad():
             # query model
-            if self.gnn_name == 'graphsage':
+            if self.gnn_name in ['graphsage', 'gcn']:
                 logits = self.model(graph, graph.ndata['feat'])
-            elif self.gnn_name in ['gat', 'gcn']:
+            elif self.gnn_name in ['gat']:
                 g = dgl.remove_self_loop(graph)
                 self.model.g = dgl.add_self_loop(g)
                 logits = self.model(graph.ndata['feat'])
@@ -162,9 +162,9 @@ class Target:
         self.model.eval()
         with torch.no_grad():
             # query model
-            if self.gnn_name == 'graphsage':
+            if self.gnn_name in ['graphsage', 'gcn']:
                 logits = self.model(graph, graph.ndata['feat'])
-            elif self.gnn_name in ['gat', 'gcn']:
+            elif self.gnn_name in ['gat']:
                 g = dgl.remove_self_loop(graph)
                 self.model.g = dgl.add_self_loop(g)
                 logits = self.model(graph.ndata['feat'])
