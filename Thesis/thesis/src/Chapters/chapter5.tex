@@ -145,12 +145,12 @@
       They came up with an idea of leveraging node features like text attributes, node profile information or node degrees to learn an embedding function that generalizes to unseen nodes instead of prior approaches that use matrix factorization.
       Until then, the training process focused on individual embeddings for each node, but with the GraphSAGE algorithm, a function is learned that generates embeddings by sampling and aggregating features from a node's neighborhood.
 
-      Our graphsage target models are trained to perform a node classification task.
+      Our graphsage target models are trained to perform a node classification task using the \emph{mean} aggregator type.
       In total we train three graphsage models - one for each dataset.
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, two hidden layers follow, each with 16 neurons.
       The number of output neurons is equal to the classes the dataset provides.
-      We train each of them for 200 epochs with a learning rate of $0.01$ and dropout of $0.5$, achieving an average accuracy of $83\%$ for \emph{Cora}, $57\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}.
+      \TODO{We train each of them for 200 epochs with a learning rate of $0.01$ and dropout of $0.5$, achieving an average accuracy of $83\%$ for \emph{Cora}, $57\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}}.
 
     \subsection*{Graph Attention Networks}
       In October 2017 Velickovic et al.\cite{gat} presented graph attention networks (GATs), novel neural network architectures that operate directly on graphs.
@@ -162,22 +162,23 @@
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, one hidden layer with 8 neurons follows.
       The number of output neurons is equal to the classes the dataset provides.
-      We train each of them for 200 epochs with a learning rate of $0.005$, dropout of $0.6$, achieving an average accuracy of $78\%$ for \emph{Cora}, $61\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}.
+      \TODO{We train each of them for 200 epochs with a learning rate of $0.005$, dropout of $0.6$, achieving an average accuracy of $78\%$ for \emph{Cora}, $61\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}}.
 
     \subsection*{Graph Convolutional Networks}
       In February 2017 Kipf et al. \cite{gcn} proposed a scalable approach for semi-supervised learning on graph-structured data that is based on an efficient variant of convolutional neural networks which operate directly on graphs.
       Nevertheless, the authors only consider the transductive setting in their paper, the idea of the algorithm stays the same, when using it for inductive learning.
       To aggregate the neighborhood, the authors use a single weight matrix per layer and deal with varying node degrees through an appropriate normalization of the adjacency matrix.
+      However, we use a GraphSAGE model with the \emph{gcn} aggregator type to simulate inductive trained graph convolutional networks.
 
       Our gcn target models are trained to perform a node classification task.
       In total we train three gcn models - one for each dataset.
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, two hidden layers follow, each with 16 neurons.
       The number of output neurons is equal to the classes the dataset provides.
-      We train each of them for 200 epochs with a learning rate of $0.01$ and dropout of $0.5$, achieving an average accuracy of $76\%$ for \emph{Cora}, $57\%$ for \emph{CiteSeer} and $88\%$ for \emph{Pubmed}. 
+      \TODO{We train each of them for 200 epochs with a learning rate of $0.01$ and dropout of $0.5$, achieving an average accuracy of $76\%$ for \emph{Cora}, $57\%$ for \emph{CiteSeer} and $88\%$ for \emph{Pubmed}}. 
 
     The following table provides an overview of our target models and their accuracies regarding their training datasets.
-    Each of them has been trained for 200 epochs, a learning rate of $0.01$ (GraphSAGE and GCN) or $0.005$ (GAT) and a dropout of $0.5$ (GraphSAGE and GCN) or $0.6$ (GAT).
+    Each of them has been trained for 200 epochs, a learning rate of $0.01$ (GraphSAGE and GCN) or $0.005$ (GAT) and a dropout of $0.5$ (GraphSAGE and GCN) or $0.6$ (GAT). \TODO{TODO}
     \vspace{0.48cm}
     \begin{table}[!h]
       \centering
