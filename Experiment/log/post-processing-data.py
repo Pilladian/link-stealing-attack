@@ -342,7 +342,7 @@ for gnn in gnns:
     for dataset in datasets:
         if sum(attack_2[gnn][dataset]['bl']) / len(attack_2[gnn][dataset]['bl']) < worst_baseline_f1_score[0]:
             worst_baseline_f1_score = (sum(attack_2[gnn][dataset]['bl']) / len(attack_2[gnn][dataset]['bl']), gnn, dataset)
-# Avg. F1-Score of all Attack-1 Attacks
+# Avg. F1-Score of all Attack-2 Attacks
 l = []
 for gnn in gnns:
     for dataset in datasets:
@@ -353,14 +353,14 @@ for gnn in gnns:
         l.append(sum(attack_2[gnn][dataset]['80']) / len(attack_2[gnn][dataset]['80']))
         
 avg_attack_2_f1_score = round(sum(l) / len(l), 4)
-# Best F1-Score of all Attack-1 Attacks
+# Best F1-Score of all Attack-2 Attacks
 best_attack_2_f1_score = (0, None, None, None)
 for gnn in gnns:
     for dataset in datasets:
         for attack in ['bl', '20', '40','60', '80']:
             if sum(attack_2[gnn][dataset][attack]) / len(attack_2[gnn][dataset][attack]) > best_attack_2_f1_score[0]:
                 best_attack_2_f1_score = (sum(attack_2[gnn][dataset][attack]) / len(attack_2[gnn][dataset][attack]), attack, gnn, dataset)
-# Worst F1-Score of all Attack-1 Attacks
+# Worst F1-Score of all Attack-2 Attacks
 worst_attack_2_f1_score = (1, None, None, None)
 for gnn in gnns:
     for dataset in datasets:
@@ -397,7 +397,7 @@ for gnn in gnns:
     for dataset in datasets:
         if sum(attack_3[gnn][dataset]['bl']) / len(attack_3[gnn][dataset]['bl']) < worst_baseline_f1_score[0]:
             worst_baseline_f1_score = (sum(attack_3[gnn][dataset]['bl']) / len(attack_3[gnn][dataset]['bl']), gnn, dataset)
-# Avg. F1-Score of all Attack-1 Attacks
+# Avg. F1-Score of all Attack-3 Attacks
 l = []
 for gnn in gnns:
     for dataset in datasets:
@@ -408,14 +408,14 @@ for gnn in gnns:
         l.append(sum(attack_3[gnn][dataset]['80']) / len(attack_3[gnn][dataset]['80']))
         
 avg_attack_3_f1_score = round(sum(l) / len(l), 4)
-# Best F1-Score of all Attack-1 Attacks
+# Best F1-Score of all Attack-3 Attacks
 best_attack_3_f1_score = (0, None, None, None)
 for gnn in gnns:
     for dataset in datasets:
         for attack in ['bl', '20', '40','60', '80']:
             if sum(attack_3[gnn][dataset][attack]) / len(attack_3[gnn][dataset][attack]) > best_attack_3_f1_score[0]:
                 best_attack_3_f1_score = (sum(attack_3[gnn][dataset][attack]) / len(attack_3[gnn][dataset][attack]), attack, gnn, dataset)
-# Worst F1-Score of all Attack-1 Attacks
+# Worst F1-Score of all Attack-3 Attacks
 worst_attack_3_f1_score = (1, None, None, None)
 for gnn in gnns:
     for dataset in datasets:
@@ -430,3 +430,87 @@ print(f'Worst Attack-3 Baseline F1-Score: {worst_baseline_f1_score}\n')
 print(f'Avg.  Attack-3 F1-Score: {avg_attack_3_f1_score}')
 print(f'Best  Attack-3 F1-Score: {best_attack_3_f1_score}')
 print(f'Worst Attack-3 F1-Score: {worst_attack_3_f1_score}\n')
+
+# Best Attack Performance on GNNs
+res = {'graphsage': [], 'gat': [], 'gcn': []}
+# Attack 1
+datasets = ['cora', 'citeseer', 'pubmed']
+for gnn in gnns:
+    best = 0
+    for dataset in datasets:
+        for attack in ['bl', '20', '40','60', '80']:
+            if sum(attack_1[gnn][dataset][attack]) / len(attack_1[gnn][dataset][attack]) > best:
+                best = sum(attack_1[gnn][dataset][attack]) / len(attack_1[gnn][dataset][attack])
+    res[gnn].append(best)
+
+# Attack 2
+for gnn in gnns:
+    best = 0
+    for dataset in datasets:
+        for attack in ['bl', '20', '40','60', '80']:
+            if sum(attack_2[gnn][dataset][attack]) / len(attack_2[gnn][dataset][attack]) > best:
+                best = sum(attack_2[gnn][dataset][attack]) / len(attack_2[gnn][dataset][attack])
+    res[gnn].append(best)
+
+# Attack 3
+datasets = ['cora_citeseer', 'cora_pubmed', 'citeseer_cora', 'citeseer_pubmed', 'pubmed_cora', 'pubmed_citeseer']
+for gnn in gnns:
+    best = 0
+    for dataset in datasets:
+        for attack in ['bl', '20', '40','60', '80']:
+            if sum(attack_3[gnn][dataset][attack]) / len(attack_3[gnn][dataset][attack]) > best:
+                best = sum(attack_3[gnn][dataset][attack]) / len(attack_3[gnn][dataset][attack])
+    res[gnn].append(best)
+
+
+string = "Best Attack Performances LATEX Code:\n"
+for gnn in gnns:
+    string += f'{"GraphSAGE" if gnn == "graphsage" else gnn.upper()} & ${res[gnn][0]:0.4f}$ & ${res[gnn][1]:0.4f}$ & ${res[gnn][2]:0.4f}$ \\\\\n'
+
+print(string)
+
+# Average Attack Performance on GNNs
+res = {'graphsage': [], 'gat': [], 'gcn': []}
+# Attack 1
+datasets = ['cora', 'citeseer', 'pubmed']
+for gnn in gnns:
+    l = []
+    for dataset in datasets:
+        l.append(sum(attack_1[gnn][dataset]['bl']) / len(attack_1[gnn][dataset]['bl']))
+        l.append(sum(attack_1[gnn][dataset]['20']) / len(attack_1[gnn][dataset]['20']))
+        l.append(sum(attack_1[gnn][dataset]['40']) / len(attack_1[gnn][dataset]['40']))
+        l.append(sum(attack_1[gnn][dataset]['60']) / len(attack_1[gnn][dataset]['60']))
+        l.append(sum(attack_1[gnn][dataset]['80']) / len(attack_1[gnn][dataset]['80']))
+        
+    res[gnn].append(round(sum(l) / len(l), 4))
+
+# Attack 2
+for gnn in gnns:
+    l = []
+    for dataset in datasets:
+        l.append(sum(attack_2[gnn][dataset]['bl']) / len(attack_2[gnn][dataset]['bl']))
+        l.append(sum(attack_2[gnn][dataset]['20']) / len(attack_2[gnn][dataset]['20']))
+        l.append(sum(attack_2[gnn][dataset]['40']) / len(attack_2[gnn][dataset]['40']))
+        l.append(sum(attack_2[gnn][dataset]['60']) / len(attack_2[gnn][dataset]['60']))
+        l.append(sum(attack_2[gnn][dataset]['80']) / len(attack_2[gnn][dataset]['80']))
+        
+    res[gnn].append(round(sum(l) / len(l), 4))
+
+# Attack 3
+datasets = ['cora_citeseer', 'cora_pubmed', 'citeseer_cora', 'citeseer_pubmed', 'pubmed_cora', 'pubmed_citeseer']
+for gnn in gnns:
+    l = []
+    for dataset in datasets:
+        l.append(sum(attack_3[gnn][dataset]['bl']) / len(attack_3[gnn][dataset]['bl']))
+        l.append(sum(attack_3[gnn][dataset]['20']) / len(attack_3[gnn][dataset]['20']))
+        l.append(sum(attack_3[gnn][dataset]['40']) / len(attack_3[gnn][dataset]['40']))
+        l.append(sum(attack_3[gnn][dataset]['60']) / len(attack_3[gnn][dataset]['60']))
+        l.append(sum(attack_3[gnn][dataset]['80']) / len(attack_3[gnn][dataset]['80']))
+        
+    res[gnn].append(round(sum(l) / len(l), 4))
+
+string = "Avg. Attack Performances LATEX Code:\n"
+for gnn in gnns:
+    string += f'{"GraphSAGE" if gnn == "graphsage" else gnn.upper()} & ${res[gnn][0]:0.4f}$ & ${res[gnn][1]:0.4f}$ & ${res[gnn][2]:0.4f}$ \\\\\n'
+
+print(string)

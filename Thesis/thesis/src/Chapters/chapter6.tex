@@ -24,7 +24,6 @@
             In the example just given, that means, that $M$ is able to identify a high amount of spam-mails as malicious.
 
     \section{Attack Performance}
-        \TODO{TODO}
         The results presented below are the average results of 10 runs.
         Meaning, that all attacks have been performed multiple times to get a better relation.
         Note, that the performance varies based on the random choice of the nodes that are included in the partial graph $G_s$.
@@ -45,13 +44,15 @@
                 \end{center}
             \end{figure}
 
-            Note that our baseline already achieves an average F1-Score of $0.7278$ depending on graph neural network type and target dataset $D_{f_t}$.
-            The baseline performed best ($0.7605$ F1-Score) on the graphsage graph neural network, when it was trained on the  CiteSeer dataset and it performed worst ($0.6490$ F1-Score) on the graph attention network when it was trained on the Cora dataset.
+            Note that our baseline already achieves an average F1-Score of $0.7427$ depending on graph neural network type and target dataset $D_{f_t}$.
+            The baseline performed best ($0.7799$ F1-Score) on the gcn graph neural network, when it was trained on the  CiteSeer dataset and it performed worst ($0.6847$ F1-Score) on the graph attention network when it was trained on the Cora dataset.
             Intuitively, with rising amount of known edges, we would expect a higher performance of our attacks.
-            However, in most cases, the performance grows until 40\% or 60\% of known edges and drops afterwards.
-            More precisely, in almost every case, the attack performance is better with only 60\% of known edges than with 80\%.
-            The reason we observe this, is the following. Since we use the deleted edges as positive samples for our training data, the more edges are known, the less data will be provided for training the adversary. Leading to more training data in our baseline than in our 80\%-known-edges attack.
-            With respect to all performed attacks, the average F1-Score is $0.7404$, with the lowest being $0.4130$ (GCN trained on Pubmed with 80\% known edges) and the highest being $0.810$ (GraphSAGE trained on CiteSeer with 60\% known edges).
+            However, in some cases, the performance grows until 40\% or 60\% of known edges and drops afterwards.
+            More precisely, sometimes the attack performance is better with only 60\% of known edges than with 80\%.
+            The reason we observe this, is the following. 
+            Since we use the deleted edges as positive samples for our training data, the more edges are known, the less data will be provided for training the adversary. 
+            Leading to more training data in our baseline than in our 80\%-known-edges attack.
+            With respect to all performed attacks, the average F1-Score is $0.7413$, with the lowest being $0.5491$ (GraphSAGE trained on Pubmed with 20\% known edges) and the highest being $0.8197$ (GCN trained on Cora with 80\% known edges).
 
         \subsection*{Attack 2}
             Like described in Section \refeq{section:attack2} this attack performs link stealing attacks on the same dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
@@ -67,12 +68,12 @@
             \end{figure}
 
             The first noticeable fact is, that using the distance vector instead of the concatenation of the posteriors is much more effective.
-            This time the average F1-Score of our baseline is $0.7715$, again depending on graph neural network type and target dataset $D_{f_t}$.
-            The baseline performed best ($0.8355$ F1-Score) on the graphsage graph neural network, when it was trained on the  CiteSeer dataset and it performed worst ($0.6996$ F1-Score) on the graph convolutional network when it was trained on the Cora dataset.
+            This time the average F1-Score of our baseline is $0.7810$, again depending on graph neural network type and target dataset $D_{f_t}$.
+            The baseline performed best ($0.8410$ F1-Score) on the GAT graph neural network, when it was trained on the  CiteSeer dataset and it performed worst ($0.7529$ F1-Score) on the GraphSAGE graph neural network when it was trained on the Pubmed dataset.
             This time, the results support our forecast.
             % calculate improvement: impr = max(20p, 40p, 60p, 80p) - baseline
-            With rising amount of known edges, the attack performance grows, leading to an improvement up to $0.06$ F1-Score, while comparing the baseline performance with the results of attacks with known edges.
-            With respect to all performed attacks, the average F1-Score is $0.7969$, with the lowest being $0.6996$ (GCN trained on Cora with 0\% known edges) and the highest being $0.8909$ (GAT trained on CiteSeer with 80\% known edges).
+            With rising amount of known edges, the attack performance grows, leading to an improvement up to $0.08$ F1-Score, while comparing the baseline performance with the results of attacks with known edges.
+            With respect to all performed attacks, the average F1-Score is $0.8059$, with the lowest being $0.7454$ (GraphSAGE trained on Cora with 80\% known edges) and the highest being $0.8911$ (GAT trained on CiteSeer with 80\% known edges).
 
         \subsection*{Attack 3}
             Like described in Section \refeq{section:attack3} this attack performs link stealing attacks on a different dataset distribution using the calculated distance vector of the posterior outputs of two nodes to infer whether they have been connected or not. 
@@ -95,13 +96,13 @@
                 \end{center}
             \end{figure}
 
-            Evaluating \emph{Attack 3}, we note, that the average attack performance of our baseline ($0.7668$} F1-Score) is higher than the average baseline performance of \emph{Attack 1} but lower than the average baseline performance of \emph{Attack 2}.
+            Evaluating \emph{Attack 3}, we note, that the average attack performance of our baseline ($0.7503$ F1-Score) is higher than the average baseline performance of \emph{Attack 1} but lower than the average baseline performance of \emph{Attack 2}.
             The results differ, based on the used datasets $D_{f_t}$ and $D_A$ and the architecture of the target model.
-            We achieve a minimum baseline attack performance of $0.6636$ F1-Score with $D_{f_t}$ being the Cora dataset, the attack model being trained on Pubmed and the target model being a graph convolutional neural network.
-            However, when our target model is a graph attention network, which was trained on the CiteSeer dataset, while we set $D_A = Pubmed$, we can achieve a maximum baseline attack performance of $0.8383$ F1-Score.  
-            Like in \emph{Attack 2}, the attack performance increases as well, while the amount of known edges rises.
-            This leads to an improvement up to $0.1320$ F1-Score.
-            With respect to all performed attacks, the average F1-Score is $0.7938$, with the lowest being $0.6636$ (GCN trained on Cora and adversary trained on Pubmed with 0\% known edges) and the highest being $0.8854$ (GAT trained on CiteSeer and adversary trained on Cora with 80\% known edges).
+            We achieve a minimum baseline attack performance of $0.6039$ F1-Score with $D_{f_t}$ being the Cora dataset, the attack model being trained on Pubmed and the target model being a GCN graph neural network.
+            However, when our target model is a GAT graph neural network, which was trained on the CiteSeer dataset, while we set $D_A = Cora$, we can achieve a maximum baseline attack performance of $0.8168$ F1-Score.  
+            Like in \emph{Attack 2}, the attack performance mostly increases, while the amount of known edges rises.
+            This leads to an improvement up to $0.23$ F1-Score.
+            With respect to all performed attacks, the average F1-Score is $0.7979$, with the lowest being $0.6039$ (GCN trained on Cora and adversary trained on Pubmed with 0\% known edges) and the highest being $0.8955$ (GCN trained on CiteSeer and adversary trained on Pubmed with 80\% known edges).
         
         The following two tables provide an overview of the best attack performances (Table \refeq{table:attack-best-results-all}) and of the average attack performances on our three target model architectures (Table \refeq{table:attack-avg-results-all})
 
@@ -113,9 +114,9 @@
               \toprule
               Target Model & Attack 1 & Attack 2 & Attack 3 \\
               \midrule
-              GraphSAGE & $0.8107$ & $0.8774$ & $0.8793$ \\
-              GAT & $0.8064$ & $0.8909$ & $0.8854$ \\
-              GCN & $0.7603$ & $0.8116$ & $0.8092$ \\
+              GraphSAGE & $0.7661$ & $0.8219$ & $0.8159$ \\
+              GAT & $0.8088$ & $0.8911$ & $0.8927$ \\
+              GCN & $0.8197$ & $0.8722$ & $0.8955$ \\
             
               \bottomrule
             \end{tabular}
@@ -131,9 +132,9 @@
             \toprule
             Target Model & Attack 1 & Attack 2 & Attack 3 \\
             \midrule
-            GraphSAGE & $0.7642$ & $0.8150$ & $0.8139$ \\
-            GAT & $0.7549$ & $0.8248$ & $0.8199$ \\
-            GCN & $0.7020$ & $0.7510$ & $0.7477$ \\
+            GraphSAGE & $0.6952$ & $0.7805$ & $0.7804$ \\
+            GAT & $0.7526$ & $0.8254$ & $0.8206$ \\
+            GCN & $0.7762$ & $0.8119$ & $0.7927$ \\
               
             \bottomrule
             \end{tabular}
