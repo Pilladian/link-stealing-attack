@@ -1,34 +1,34 @@
 \chapter{Attacks}
 \label{chapter:attacks}
 
-  In recent work He et al. \cite{DBLP:journals/corr/abs-2005-02131} proposed the first link stealing attacks on graph neural networks.
-  They focused on transductive trained graph neural networks and were able to steal links of the graph, that was used for training the given target model.
-  In our work, we want to show, that it is possible for an adversary to steal links from the training graph, given black-box access to an inductive trained target graph neural network model.
+  In recent work He et al. \cite{DBLP:journals/corr/abs-2005-02131} proposed the first link stealing attacks on Graph Neural Networks.
+  They focused on transductive trained Graph Neural Networks and were able to steal links of the graph, that was used for training the given target model.
+  In our work, we want to show, that it is possible for an adversary to steal links from the training graph, given black-box access to an inductive trained target Graph Neural Network model.
 
-  \section{Adversary's Goal}
+  \section{Problem Statement}
 
-    Let $f_t$ be the target graph neural network model, trained on a graph $G$, to perform some machine learning task.
+    Let $f_t$ be the target Graph Neural Network model, trained on a graph $G$, to perform some machine learning task.
     Let $G_s = (V_s, E_s)$ be a subgraph of $G$ with $|V_s|$ nodes and $|E_s|$ edges. 
     We assume, that some of $G_s$'s links/edges are missing.
-    Meaning for two nodes $u,v \in V_s$, the link $(u,v)$ does exist in the training graph $G$ but is missing in $G_s$.
-    The goal of an adversary $A$ is, to infer whether two nodes $i,j \in V_s$ are connected to each other in $G$ or not.
-    More precisely, whether the link $(i,j)$ between the nodes $i$ and $j$ is missing in $G_s$, or doesn't exist in $G$ as well.
+    Meaning for two nodes $u,v \in V_s$, the link $(u,v)$ exists in the training graph $G$ but is missing in $G_s$.
+    The goal of an adversary $A$ is to recover the missing links from $G_s$.
+    More precisely, the adversary wants to infer whether $e_{uv} \in G \wedge e_{uv} \not\in G_s$ ($A$ recovered the missing link between $u$ and $v$) or $e_{uv} \not\in G \wedge e_{uv} \not\in G_s$ (the link between $u$ and $v$ does not exist).
   
   \section{Intuition}
 
     Since $A$ has black box access to its target model, it will use the posterior output of $f_t$, to make its classification.
     To do so, $A$ queries $f_t$ on two nodes $i,j \in V_s$, from which it want's to know whether they are linked or not.
-    For both nodes $f_t$ will return a posterior: $post_i = f_t(G_s, i)$ and $post_j = f_t(G_s, j)$.
-    $A$ can be trained on how the two posteriors "look like", when $i$ and $j$ originally have been connected and the edge is missing in $G_s$ or how they look like when there is no edge to recover.
+    For both nodes $f_t$ will return a posterior: $post_i = f_t(i)$ and $post_j = f_t(j)$.
+    $A$ can be trained based on the similarity of the two posteriors, when $i$ and $j$ originally have been connected and the edge is missing in $G_s$ or how similar they are when there is no edge to be recovered.
 
 
   \section{Threat Model}
   \label{section:threat-model}
 
-    For any of our attacks, we assume, \emph{Black-Box Access} (Query Access) to the target graph neural network model $f_t$, that was trained on a graph dataset $D_{f_t}$.
-    We consider $f_A$ another graph neural network model, which was trained by the adversary using a graph dataset $D_{f_A}$.
+    For any of our attacks, we assume, \emph{Black-Box Access} (Query Access) to the target Graph Neural Network model $f_t$, that was trained on a graph dataset $D_{f_t}$.
+    We consider $f_A$ a shadow Graph Neural Network model, which was trained by the adversary using a shadow graph dataset $D_{f_A}$.
     The adversary $A$ was trained on a dataset $D_A$ to perform link stealing attacks.
-    We denote $G_A = (V_A, E_A)$ as graph used by the adversary querying $f_A$ to sample $D_A$.
+    We denote $G_A = (V_A, E_A)$ as graph used by the adversary querying the shadow model $f_A$ to sample $D_A$.
     We assume, that in any attack $G_s$ is a subgraph of $D_{f_t}$ and $G_A$ is a subgraph of $D_{f_A}$.
     Meaning, that $G_s$ and $D_{f_t}$ share the same dataset distribution as well as $G_A$ and $D_{f_A}$.
     However, $D_{f_A}$ must not be from the same dataset distribution as $D_{f_t}$.
@@ -71,7 +71,7 @@
   \section{Attack Methodology}
 
     % TODO
-    Let $f_t$ be the target graph neural network model and $G_s$ a subgraph of $D_{f_t}$.
+    Let $f_t$ be the target Graph Neural Network model and $G_s$ a subgraph of $D_{f_t}$.
     We assume that $G_s$ is not complete. 
     More precisely, there exist edges $(i,j)$ between any nodes $i,j \in G_s$, with $(i,j) \in D_{f_t}$ but $(i,j) \not\in G_s$.
     The adversary $A$ queries $f_t$ on both nodes $i$ and $j$, obtaining the posterior output of the target model $post_i = f_t(G_s, i)$ and $post_j = f_t(G_s, j)$.
@@ -79,8 +79,8 @@
     \subsection*{Attack 1}
     \label{section:attack1}
       In \emph{Attack 1} we consider $G_A$ and $D_{f_t}$ from the same dataset distribution and denote $f_t = f_A$.
-      Meaning, that $A$ samples its training dataset $D_A$ by querying $f_t$ on the subgraph $G_A$.
-      That can be done, because $|post_u| = |f_t(G_A,u)|$ (training phase) and $|post_v| = |f_t(G_s,v)|$ (attack phase), with $u \in G_A$ and $v \in G_s$, have the same dimension.
+      Meaning, that $A$ samples its training dataset $D_A$ by querying the target model $f_t$ on the partial graph $G_A$.
+      That can be done, because $|post_u| = |f_t(u)|$ (training phase) and $|post_v| = |f_t(v)|$ (attack phase), with $u \in G_A$ and $v \in G_s$, have the same dimension.
       Based on this assumption, $A$ can directly be trained on the posteriors generated by $f_t$.
       Therefore we concatenate $post_i$ and $post_j$ obtaining the input $post_{ij} = cat(post_i, post_j)$, with $cat(A,B) = [a_0,...,a_n,b_0,...,b_n]$, where $A = [a_0,...,a_n]$ and $B = [b_0,...,b_n]$. 
       Given $post_{ij}$, $A$ can infer, whether $i$ and $j$ have been connected in the training graph $D_{f_t}$ and the edge is missing in $G_s$ or not.
@@ -116,9 +116,9 @@
     \subsection*{Attack 3}
     \label{section:attack3}
       In \emph{Attack 3} we consider $G_A$ and $D_{f_t}$ from different dataset distributions.
-      So the adversary trains another graph neural network model $f_A$ with a dataset $D_{f_A}$.
+      So the adversary trains a shadow Graph Neural Network model $f_A$ with a shadow dataset $D_{f_A}$.
       Since $f_t$ and $f_A$ are trained on different dataset distributions, we must assume that they have different parameters like feature amount or number of classes. 
-      Meaning, that it is not possible anymore, to train the adversary directly on the posterior output of $f_t$, since $|post_u| = |f_A(G_A,u)|$ (training phase) and $|post_v| = |f_t(G_s,v)|$ (attack phase), with $u \in G_A$ and $v \in G_s$, may have different dimensions.
+      Meaning, that it is not possible anymore, to train the adversary directly on the posterior output of $f_t$, since $|post_u| = |f_A(u)|$ (training phase) and $|post_v| = |f_t(v)|$ (attack phase), with $u \in G_A$ and $v \in G_s$, may have different dimensions.
       Based on this assumption, we need to sample the input for $A$, by creating features based on the posteriors, instead of using them directly.
       As features we use eight common distance metrics, to measure the distance between $post_i$ and $post_j$.
       We have in total experimented with Cosine distance, Euclidean distance, Correlation distance, Chebyshev distance, Braycurtis distance, Canberra distance, Manhattan distance, and Square-euclidean distance.
@@ -154,7 +154,6 @@
         \label{figure:flow-chart-attack-3}
       \end{figure}
 
-    \newpage
     \subsection*{Attack 2}
     \label{section:attack2}
       In \emph{Attack 2} we consider $G_A$ and $D_{f_t}$ from the same dataset distribution and denote $f_t = f_A$ like it was done in \emph{Attack 1}.

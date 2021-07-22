@@ -1,10 +1,10 @@
 \chapter{Discussion}
 
     \section{Findings}
-        In this thesis we wanted to find out, whether it is possible to efficiently steal links from the training graph of a graph neural network, that has been trained inductively.
+        In this thesis we wanted to find out, whether it is possible to efficiently steal links from the training graph of a Graph Neural Network, that has been trained inductively.
         Besides this main question, we also analysed the impact of different distribution datasets on the performance of our attacks and how the choice of features, used to train the attack model, can increase the accuracy of the adversary.
 
-        We found that an adversary with black box access to an inductive trained graph neural network is able to efficiently steal links from the target models training graph.
+        We found that an adversary with black box access to an inductive trained Graph Neural Network is able to efficiently steal links from the target models training graph.
         To achieve this, the adversary has multiple strategies which differ in the choice of features used to train the attack model and in the dataset distribution of the shadow dataset.
         We saw, that the attack performance is better, when we sample features on the posterior outputs of the target model instead of using them directly.
         We therefor compared the concatenation of the posteriors and a distance vector containing values of eight different distance metrics, that measure the similarity between the posteriors, being the input for our attack model.
@@ -13,16 +13,16 @@
         Therefor we compared the performance of attack models that have been trained on one of our three datasets Cora, CiteSeer or Pubmed while the target model was trained on another dataset, that differs the one the attacker used.
 
     \section{Impact}
-        Since training data for machine learning models can often be deemed confidential, we note, that stealing links from the training graph of an inductive trained graph neural network leads to a huge privacy risk.
+        Since training data for machine learning models can often be deemed confidential, we note, that stealing links from the training graph of an inductive trained Graph Neural Network leads to a huge privacy risk.
         The data owner often spends lots of time and resources preprocessing the data and thus can claim the dataset as intellectual property.
-        Furthermore, the training data of a graph neural network often contains sensitive data, that can be revealed using our attacks.
+        Furthermore, the training data of a Graph Neural Network often contains sensitive data, that can be revealed using our attacks.
         This can include health data of patients or sensitive social relationships of social network users.
-        Since graphs and therefor graph neural networks are getting more popular every day, our attacks have a huge impact on the privacy of training data.
+        Since nowadays graphs and therefor Graph Neural Networks are getting more and more popular, our attacks have a huge impact on the privacy of the training data.
         Furthermore, it seems to be hard to protect against our attacks without a tradeoff between good privacy and functionality of the target model. 
 
     \section{Future Work}
-        In future work it would be interesting to see how link stealing attacks perform on target models, that have been trained to perform different downstream tasks.
-        Since all of our target models are trained to perform node classification, it would be interesting to see, whether the task of the graph neural network has some impact on the attack accuracy.
+        In future work it would be interesting to see how Link Stealing Attacks perform on target models, that have been trained to perform different downstream tasks.
+        Since all of our target models are trained to perform node classification, it would be interesting to see, whether the task of the Graph Neural Network has some impact on the attack accuracy.
         Furthermore, one could spend some time figuring out, whether there is a better way of using the raw posteriors as input for the attack model.
         Since we only concatenate them to one big vector, maybe there is a better way of using them, which leads to better results.
         Also one could search for even better feature samples than eight distance metrics to use as input for the attack model.

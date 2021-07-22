@@ -8,7 +8,7 @@
     They are used to model software agents in video games, let autonomous robots learn new things or find patterns in data.
 
     A neural network consists of multiple layers.
-    An input layer, one or many more hidden layers and an output layer.
+    An input layer, one or more hidden layers and an output layer.
     Each of these layers contain multiple neurons, which are represented as mathematical functions, that take multiple inputs and use them to calculate one output.
     Such neuron is also called perceptron, while a fully connected neural network is called a multilayer perceptron (MLP).
 
@@ -92,7 +92,7 @@
 
     \subsubsection*{Train a Neural Network}
 
-      When we are confronted to a new task, we try to gain as much information as possible and based on them, we aim to learn how to solve the problem.
+      When we are confronted to a new task, we try to gain as much information as possible and based on them, we aim to learn how to solve the given problem.
       Neural networks behave similar.
       Before we can apply a neural network on classifying whether the object we provide is a spoon or fork, we need to tell the network, based on which information it should make its decision.
       That could be images of spoons and forks or their weight, length and width.
@@ -110,7 +110,7 @@
     We denote $\overrightarrow{a}$ as the feature vector of node $a$, representing the attributes of $a$.
     An edge $e = (i,j)$ contains the source node $i$ and the destination node $j$.
     In that way, links describe the relationship between the source and destination node. 
-    The most popular example where graphs are used to model data, are social networks. 
+    The most popular example, where graphs are used to model data, are social networks. 
     The nodes represent the users that have multiple attributes like location, gender, workplace etc., while the edges state which relationship the users have.
     Lets consider a directed graph $G = (V,E)$ with $V$ representing the users and $E$ their relationships.
     If user $a$ follows user $b$, the edge $e_{ab} = (a,b)$ would be an element in $E$.
@@ -119,9 +119,9 @@
     In $G'$ it doesn't matter whether user $a'$ follows $b'$ or the other way around. 
     Both results in $e'_{a'b'}, e'_{b'a'} \in E'$.
     Figure \refeq{figure:undirected-graph} shows an undirected graph.
-    Since there is a link drawn between node $A$ and node $B$, we know, that there exists some relationship between them, but we don't know who follows whom ($e_{AB}, e_{BA} \in E$).
+    Since there is a link drawn between node $A$ and node $B$, we know, that there exists some relationship between them, but we don't know "who follows whom" ($e_{AB}, e_{BA} \in E$).
     The same holds for $e_{CF}, e_{FC} \in E$ or $e_{EG}, e_{GE} \in E$.
-    Since there isn't a link drawn between node $E$ and node $C$, there doesn't exists a known relationship between them ($e_{EC}, e_{CE} \not\in E$).
+    Since there isn't a link drawn between node $E$ and node $C$, there doesn't exist a known relationship between them ($e_{EC}, e_{CE} \not\in E$).
 
     \vspace{0.48cm}
     \begin{figure}[!h]
@@ -164,7 +164,7 @@
 
 	\section{Graph Neural Networks}
       
-    % Describe how to query a graph neural network (f(Graph, node))
+    % Describe how to query a Graph Neural Network (f(Graph, node))
     In the last decades, social networks have become a huge part of life for many people all around the world.
     The companies behind these networks collect tons of data of each user every day.
     Let $G = (V, E)$ be a graph that models such a social network. 
@@ -172,19 +172,19 @@
     The feature vector $\overrightarrow{a}$ of user $a$ contains all information the company already has regarding this user.
     That could be the name, relationship status, workplace, address, amount of children and so on.
     Lets consider one attribute (\emph{workplace}) as non mandatory for the registration.
-    This leads to some users $v_{workplace} = \{v $ | $ \forall v \in V: v$ has $workplace$ given$\}$, the company knows the workplace from and some users $v_{unknown} = \{v $ | $ \forall v \in V: v$ has $workplace$ not given$\}$, where the attribute is unknown.
-    Based on the information $G$ provides, a graph neural network model $f$ can be trained to predict the missing attribute of all users in $v_{unknown}$.
+    This leads to some users $v_{workplace} = \{v $ | $ \forall v \in V: v$'s $workplace$ is known$\}$, the company knows the workplace from and some users $v_{unknown} = \{v $ | $ \forall v \in V: v$'s $workplace$ is unknown$\}$, where the attribute is unknown.
+    Based on the information $G$ provides, a Graph Neural Network model $f$ can be trained to predict the missing attribute of all users in $v_{unknown}$.
     This is a simple node classification task, where the missing attribute $workplace$ is the label.
-    This example is one of many tasks a graph neural network can perform.
-    Other options could be graph classification, where $f$ should be able to predict whether a given graph is a subgraph of another one, or link prediction, which is used for friendship prediction in social networks.
-    There exist two major ideas of training a graph neural network - transductive or inductive.
-    In our experiments introduced and described in Chapter \refeq{chapter:attacks} we focus on attacks on inductive trained graph neural networks. 
+    This example is one of many tasks a Graph Neural Network can perform.
+    Others could be graph classification, where $f$ should be able to predict whether a given graph is a subgraph of another one, or link prediction, which is used for friendship prediction in social networks.
+    There exist two major ideas of training a Graph Neural Network - transductive or inductive.
+    In our experiments introduced and described in Chapter \refeq{chapter:attacks} we focus on attacks on inductive trained Graph Neural Networks. 
 
     \subsection*{Transductive Setting}
 
       In the transductive setting \cite{kipf2017semisupervised} we consider the graph being fixed.
-      Meaning, that neither the links not the feature vectors of the nodes change.
-      Furthermore, the complete graph is provided as input to a graph neural network model $f$, including all nodes, their links and their feature vectors.
+      Meaning, that neither the links nor the feature vectors of the nodes change over the time.
+      Furthermore, the complete graph is provided as input to a Graph Neural Network model $f$, including all nodes, their links and their feature vectors.
       Thus, the model learns hidden layer representations that encode both local graph structure and features of nodes to perform its task, by aggregating information throughout the graph.
       In the example given above, we want to predict the $workplace$ of unlabeled users.
       Since this setting operates on the full graph, we consider the information the graph provides as known all the time, especially during the training phase.
@@ -196,38 +196,38 @@
 
     \subsection*{Inductive Setting}
 
-      For inductive learning, we provide the full graph as input for the model.
-      Instead an aggregation function $neighborhood(n)$ is used, which aggregates the feature vectors of the $k$-hop neighborhood of the node $n$ to obtain the input for $f$. 
+      For inductive learning, we do not provide the full graph as input for the Graph Neural Network model $f$.
+      Instead an aggregation function $aggregate(n)$ is used, which aggregates the feature vectors of the $k$-hop neighborhood of the node $n$ to obtain the input for $f$. 
       We can set $k$ to any number.
-      $k = 0$ does only consider $n$'s feature vector as input and no aggregated neighbor embeddings.
-      $k = 1$ aggregates the neighbor vectors of $n$ with $n$'s feature vector, while $k = 2$ also considers the neighbors of the neighbors of $n$.
+      $k = 0$ does only consider $n$'s feature vector as input and no aggregated neighborhood embeddings.
+      $k = 1$ aggregates the feature vectors of $n$'s neighbors with $n$'s own feature vector, while $k = 2$ also considers the neighbors of the neighbors of $n$.
       Besides this aggregation function the model also learns an update function $update(n)$, which updates $n$'s feature vector with the aggregation of it's neighborhood.
       In that way $\overrightarrow{n}$ not only contains $n$'s features but also the information of it's neighbors.
-      Thanks to this algorithms, it's no longer necessary to train $f$ on the whole graph but instead only learn and later on apply these two functions.
+      Thanks to this algorithms, it's no longer necessary to train $f$ on the whole graph.
       To better understand the process, we continue with the example given above.
-      Lets assume that three new users register to the social network, nobody setting his / her workplace.
-      Since some other mandatory information and maybe some links are given, the graph neural network can be used to predict the workplace of the new users nevertheless they haven't been included in the training process.
+      Lets assume that three new users register to the social network, nobody providing their workplace.
+      Since some other mandatory information and maybe some links are given, the Graph Neural Network can be used to predict the workplace of the new users nevertheless they haven't been included in the training process.
       This happens, by aggregating their neighborhood feature vectors with the own one and querying $f$ on the updated feature vector.
       $f$ will then predict the workplace based on the provided aggregation, since it was trained to find patterns in vectors that lead to certain predictions.
-      Therefor, inductive trained graph neural networks are able to generalize to unseen nodes, making them easier to use for real world problems.
+      Therefor, inductive trained Graph Neural Networks are able to generalize to unseen nodes, making them easier to use for real world problems.
       
-      Since the most real world problems like friendship prediction in social networks or protein-protein interactions in chemical networks cannot be modeled with a static graph, the inductive learning method is commonly used, while the transductive one isn't.
+      Since the most real world problems like friendship prediction in social networks or protein-protein interactions in chemical networks cannot be modeled with a static graph, the inductive learning method is commonly used.
       
   \section{Link Stealing Attacks}
     
     Link Stealing Attacks have been introduced the first time by He et al. \cite{DBLP:journals/corr/abs-2005-02131}.
-    Given a graph neural network, they performed different attacks with different attack methodologies to steal links from the graph that was used for training.
+    Given a Graph Neural Network, they performed different attacks with different attack methodologies to steal links from the graph that was used for training the target GNN.
 
-    Let $f$ be the target graph neural network model, that was trained on some graph dataset $G = (V, E)$.
+    Let $f$ be the target Graph Neural Network model, that was trained on some graph dataset $G = (V, E)$.
     We assume the adversary was able to obtain some partial graph of $G$ and define it as $G_s = (V_s, E_s)$.
     Furthermore, we assume that $E_s$ is incomplete.
-    This means, that some links that originally have been in $E_s$ are missing.
+    This means, that some links that originally have been in $E$ are missing in $E_s$.
     The goal of link stealing attacks is to recover these missing edges.
     To achieve the reconstruction, the target model will be queried on two nodes $i,j \in V_s$.
     Since $f$ was trained to perform some task, the outputs $f(i)$ and $f(j)$ will be some posterior representing $f$'s prediction.
     Based on those posteriors, an adversary will train an attack model $A$, that infers, whether the two nodes $i$ and $j$ have originally been connected in $G$, and therefor the edge $e_{ij}$ is missing in $E_s$, or if they haven't been linked in the first place.
     To train the attack model, one need some positive and some negative samples.
-    We define the positive samples $pos = \{ (i,j)$ | $i,j \in V_A: e_{ij} \in E \wedge e_{ij} \not\in E_s\}$ as set of node pairs, that have been connected in $G$ but aren't connected in $G_s$. 
+    We define the positive samples $pos = \{ (i,j)$ | $i,j \in V_s: e_{ij} \in E \wedge e_{ij} \not\in E_s\}$ as set of node pairs, that have been connected in $G$ but aren't connected in $G_s$. 
     The negative samples $neg = \{ (i,j)$ | $i,j \in V_s: e_{ij} \not\in E \wedge e_{ij} \not\in E_s\}$ are defined as set of node pairs, that haven't been connected in neither of the two graphs.
     As input for $A$ the authors used the concatenation of the two posteriors or a vector containing the results of eight common distance functions, to describe the similarity of the two posteriors $f(i)$ and $f(j)$.
     The basic intuition is the following: 
@@ -236,5 +236,5 @@
 
     By completing $G_s$, an adversary steals sensitive information about the training graph of the target model $f$, since $G_s$ is a partial graph of $f$'s training graph $G$.
 
-    He et al. performed their attacks on transductive trained graph neural networks and achieved high accuracy in recovering the links of $G_s$. 
-    In our work, we focus on link stealing attacks on inductive trained graph neural networks and we hope to show, that they are very likely to reveal sensitive information about their training graph as well.
+    He et al. performed their attacks on transductive trained Graph Neural Networks and achieved high accuracy in recovering the links of $G_s$. 
+    In our work, we focused on link stealing attacks on inductive trained Graph Neural Networks and we showed, that they are very likely to reveal sensitive information about their training graph as well.

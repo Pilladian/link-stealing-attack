@@ -1,8 +1,8 @@
 \chapter{Implementation}
 
-  In order to analyze how effective our attacks can steal links from the training graph of an inductive trained graph neural network, we performed several experiments by attacking GNNs that have been trained to perform node classification.
+  In order to analyze how effective our attacks can steal links from the training graph of an inductive trained Graph Neural Network, we performed several experiments by attacking GNNs that have been trained to perform node classification.
   In this chapter we want to go through the implementation of our attacks.
-  We covered multiple datasets and types of graph neural network models, leading to an amount of \textasciitilde200 experiments.
+  We covered multiple datasets and types of Graph Neural Network models, leading to an amount of \textasciitilde200 experiments.
   Due computational and time constraints, most of the parameters to optimize the attacks remain unexplored.
 
   \section{Datasets}
@@ -35,7 +35,7 @@
     \label{subsection:dataset-samples}
 
       In total we train target models on all three datasets - \emph{Cora}, \emph{CiteSeer} and \emph{Pubmed} .
-      To train the attacker models, we sample an adversary dataset based on the incomplete subgraph.
+      To train the attack models, we sample an adversary dataset based on the incomplete subgraph.
 
       \subsubsection*{Same Dataset Distributions - Attack 1-2}
         Let $D_{f_t} = (V_{f_t}, E_{f_t})$ be one of our three original datasets with $|V_{f_t}|$ nodes and $|E_{f_t}|$ edges.
@@ -77,12 +77,12 @@
         We then delete all edges we sampled for $pos$, in our graph clone $G_A$, to simulate the missing edges, we want to steal.
         This leads to $E_A = \{(i,j)$ | $\forall (i,j) \in E': (i,j) \not\in pos\}$.
         $G_A$ is now a modified graph that contains less edges then the original graph $D'$ and we define a raw-dataset $raw = pos \cup neg$, containing the positive and negative samples obtained from $D'$.
-        As the next step, we create the adversary's dataset $D_A = \{(post_{ij}, l)$ | $\forall (i,j,l)\in raw: post_{ij} = concat(f_t(G_A, i), f_t(G_A, j))\}$ for \emph{Attack 1} and $D_A = \{(dist_{ij}, l)$ | $\forall (i,j,l)\in raw: dist_{ij} = dist(post_i, post_j)\}$ for \emph{Attack 2}.
-        $f_t(G_A, i)$ returns the node classification output posterior of the target model, when it is queried on $i$ given the adversary's graph $G_A$.
-        $concat(a, b)$ concatenates the output posteriors $a$ and $b$ with each other returning the feature we will train the attacker model on.
+        As the next step, we create the adversary's dataset $D_A = \{(post_{ij}, l)$ | $\forall (i,j,l)\in raw: post_{ij} = concat(f_t(i), f_t(j))\}$ for \emph{Attack 1} and $D_A = \{(dist_{ij}, l)$ | $\forall (i,j,l)\in raw: dist_{ij} = dist(f_t(i), f_t(j))\}$ for \emph{Attack 2}.
+        $f_t(i)$ returns the node classification output posterior of the target model, when it is queried on node $i$.
+        $concat(a, b)$ concatenates the output posteriors $a$ and $b$ with each other returning the feature we will train the attack model on.
         $l$ denotes the label either being 1 (positive sample) or 0 (negative sample).
         $dist(a,b) = [Cosine(a,b), ..., Sqeuclidean(a,b)]$, return the vector containing 8 different distance values like described in Section \refeq{section:threat-model}.
-        With our adversary's dataset $D_A$ we can now continue training our attacker model using either $post_{ij}$ or $dist_{ij}$ as input features and $l$ as class.
+        With our adversary's dataset $D_A$ we can now continue training our attack model using either $post_{ij}$ or $dist_{ij}$ as input features and $l$ as class.
         $G_s$ represents the incomplete subgraph of $D_{f_t}$, which will be used to test the adversary performance on $f_f$.
         More precisely, how well does the adversary can predict correctly whether a link between two nodes in $G_s$ is missing or not.
 
@@ -132,12 +132,12 @@
         However, this time the adversary was trained on another dataset distribution than the target model.
         E.g. the adversary was trained with the \emph{Cora} dataset.
         We then use $A$ to steal links from the training graph of a target model that was trained on the \emph{CiteSeer} dataset, considering an incomplete subgraph of the \emph{CiteSeer} dataset as $G_s$.
-        Because of that we use $dist_{ij}$ as input for the attacker model instead of the posterior concatenation, like it was done in \emph{Attack 2}.
+        Because of that we use $dist_{ij}$ as input for the attack model instead of the posterior concatenation, like it was done in \emph{Attack 2}.
 
 
   \section{Target Models}
 
-    As our target models, we used three different types of graph neural network models and trained them to perform a node classification task. 
+    As our target models, we used three different types of Graph Neural Network models and trained them to perform a node classification task. 
     Therefor, we trained them on our three original datasets Cora, CiteSeer and Pubmed.
 
     \subsection*{GraphSAGE}
@@ -150,19 +150,19 @@
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, two hidden layers follow, each with 16 neurons.
       The number of output neurons is equal to the classes the dataset provides.
-      \TODO{We train each of them for 200 epochs with a learning rate of $0.01$ and dropout of $0.5$, achieving an average accuracy of $83\%$ for \emph{Cora}, $57\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}}.
+      We train each of them for 200 epochs with a learning rate of $0.01$, dropout of $0.5$ and the Adam optimizer, achieving an average accuracy of $0.81$ for \emph{Cora}, $0.75$ for \emph{CiteSeer} and $0.87$ for \emph{Pubmed}.
 
     \subsection*{Graph Attention Networks}
-      In October 2017 Velickovic et al.\cite{gat} presented graph attention networks (GATs), novel neural network architectures that operate directly on graphs.
+      In October 2017 Velickovic et al.\cite{gat} presented Graph Attention Networks (GATs), novel neural network architectures that operate directly on graphs.
       Without requiring any kind of matrix operation or knowledge about the local graph structure the authors specify different weights to different nodes in a nodes' neighborhood by stacking multiple layers in which nodes are able to attend over their neighborhoods' feature vectors.
       Based on this approach, GATs don't only address transductive but also inductive problems and have achieved or matched state-of-the-art results across four established transductive and inductive graph benchmarks.
 
-      Our gat target models are trained to perform a node classification task.
-      In total we train three gat models - one for each dataset.
+      Our GAT target models are trained to perform a node classification task.
+      In total we train three GAT models - one for each dataset.
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, one hidden layer with 8 neurons follows.
       The number of output neurons is equal to the classes the dataset provides.
-      \TODO{We train each of them for 200 epochs with a learning rate of $0.005$, dropout of $0.6$, achieving an average accuracy of $78\%$ for \emph{Cora}, $61\%$ for \emph{CiteSeer} and $89\%$ for \emph{Pubmed}}.
+      We train each of them for 200 epochs with a learning rate of $0.005$, dropout of $0.6$ and the Adam optimizer, achieving an average accuracy of $0.78$ for \emph{Cora}, $0.61$ for \emph{CiteSeer} and $0.89$ for \emph{Pubmed}.
 
     \subsection*{Graph Convolutional Networks}
       In February 2017 Kipf et al. \cite{gcn} proposed a scalable approach for semi-supervised learning on graph-structured data that is based on an efficient variant of convolutional neural networks which operate directly on graphs.
@@ -170,15 +170,15 @@
       To aggregate the neighborhood, the authors use a single weight matrix per layer and deal with varying node degrees through an appropriate normalization of the adjacency matrix.
       However, we use a GraphSAGE model with the \emph{gcn} aggregator type to simulate inductive trained graph convolutional networks.
 
-      Our gcn target models are trained to perform a node classification task.
-      In total we train three gcn models - one for each dataset.
+      Our GCN target models are trained to perform a node classification task.
+      In total we train three GCN models - one for each dataset.
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, two hidden layers follow, each with 16 neurons.
       The number of output neurons is equal to the classes the dataset provides.
-      \TODO{We train each of them for 200 epochs with a learning rate of $0.01$ and dropout of $0.5$, achieving an average accuracy of $76\%$ for \emph{Cora}, $57\%$ for \emph{CiteSeer} and $88\%$ for \emph{Pubmed}}. 
+      We train each of them for 200 epochs with a learning rate of $0.01$, dropout of $0.5$ and the Adam optimizer, achieving an average accuracy of $0.82$ for \emph{Cora}, $0.75$ for \emph{CiteSeer} and $0.86$ for \emph{Pubmed}. 
 
     The following table provides an overview of our target models and their accuracies regarding their training datasets.
-    Each of them has been trained for 200 epochs, a learning rate of $0.01$ (GraphSAGE and GCN) or $0.005$ (GAT) and a dropout of $0.5$ (GraphSAGE and GCN) or $0.6$ (GAT). \TODO{TODO}
+    Each of them has been trained for 200 epochs,with the Adam optimizer, a learning rate of $0.01$ (GraphSAGE and GCN) or $0.005$ (GAT) and a dropout of $0.5$ (GraphSAGE and GCN) or $0.6$ (GAT). 
     \vspace{0.48cm}
     \begin{table}[!h]
       \centering
@@ -187,17 +187,17 @@
         \toprule
         Target Model & Dataset & Accuracy \\
         \midrule
-          \multirow{3}{4em}{GraphSage} & Cora & $83\%$ \\
-          & CiteSeer & $61\%$ \\
-          & Pubmed & $89\%$ \\
+          \multirow{3}{4em}{GraphSage} & Cora & $0.81$ \\
+          & CiteSeer & $0.75$ \\
+          & Pubmed & $0.87$ \\
 
-          \multirow{3}{4em}{GAT} & Cora & $78\%$ \\
-          & CiteSeer & $57\%$ \\
-          & Pubmed & $89\%$ \\
+          \multirow{3}{4em}{GAT} & Cora & $0.78$ \\
+          & CiteSeer & $0.61$ \\
+          & Pubmed & $0.89$ \\
 
-          \multirow{3}{4em}{GCN} & Cora & $76\%$ \\
-          & CiteSeer & $57\%$ \\
-          & Pubmed & $88\%$ \\
+          \multirow{3}{4em}{GCN} & Cora & $0.82$ \\
+          & CiteSeer & $0.75$ \\
+          & Pubmed & $0.86$ \\
           
         \bottomrule
       \end{tabular}
@@ -210,4 +210,4 @@
     Depending on the attack, the MLP has eight (\emph{Attack 2} and \emph{Attack 3}) or two times the size of the posterior output of $f$ (\emph{Attack 1}) input neurons.
     Then two hidden layers with 16 neurons each follow.
     The final output layer consists of 2 neurons, representing the two cases of the two target nodes originally being connected or not.
-    We trained our attack models on the obtained datasets $D_A$ for 200 epochs, with a learning rate of $0.01$ and dropout of $0.5$.
+    We trained our attack models on the obtained datasets $D_A$ for 200 epochs, with a learning rate of $0.01$ and dropout of $0.5$ using the Adam optimizer.

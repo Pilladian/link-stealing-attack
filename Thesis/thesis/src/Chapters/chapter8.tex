@@ -1,14 +1,14 @@
 \chapter{Conclusion}
     Since machine learning and big data are huge points of interest for many people and companies, the need for privacy preserving approaches is indispensable.
     With our work we want to contribute, by showing privacy risks in common used training processes.
-    That's why we propose link stealing attacks on inductive trained graph neural networks.
-    Using our attacks, we are able to successfully steal links from a graph that was used to inductively train the target graph neural network model.
+    That's why we propose Link Stealing Attacks on inductive trained Graph Neural Networks.
+    Using our attacks, we are able to successfully steal links from a graph that was used to inductively train the target Graph Neural Network model.
     Only with black box access to the target model an adversary is able to reveal sensitive information about that graph leading to huge privacy concerns.
-    We investigated the performance of our attacks using three types of graph neural networks - GraphSAGE, Graph Attention Networks and Graph Convolutional Networks and trained them on three common used graph datasets - Cora, CiteSeer and Pubmed - to perform node classification.
+    We investigated the performance of our attacks using three types of Graph Neural Networks - GraphSAGE, Graph Attention Networks and Graph Convolutional Networks and trained them on three common used graph datasets - Cora, CiteSeer and Pubmed - to perform node classification.
     In our experiments we also considered different inputs for our attack model.
-    For some experiments, we concatenate the posterior outputs of our target model, for some others, we sample new features based on the similarity of the posteriors using eight different distance metrics.   
-    We showed, that we are able to efficiently predict whether any two nodes in the training graph are linked or not only considering black box access and some shadow dataset.
+    For some experiments, we concatenate the posterior outputs of our target model, for some others, we sample new features based on the similarity of the posteriors using eight common distance metrics.   
+    We showed, that we are able to efficiently infer whether any two nodes in the training graph are linked or not only considering black box access and some shadow dataset.
     We also showed, that transferring attacks perform with similar results while being trained on different dataset distributions.
 
-    To conclude this thesis, we saw that a common used training procedure can lead to significant privacy risks, since the target graph neural network model can be used to reveal sensitive information about the graph that was used for training.
+    To conclude this thesis, we saw that a common used training procedure can lead to significant privacy risks, since the target Graph Neural Network model can be used to reveal sensitive information about the graph that was used for training.
     We saw that only black box access and some shadow dataset is enough to perform our attacks and that the performance increases with rising background knowledge.
