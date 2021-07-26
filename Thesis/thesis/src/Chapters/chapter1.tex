@@ -23,12 +23,12 @@
 		They can be used in different tasks to directly operate on graphs.
 		For example they can be trained to perform node classification tasks\cite{kipf2017semisupervised}.
 		More precisely, given a graph containing a few labeled nodes, the model is trained to predict the labels of the other, unlabeled nodes in the graph by considering the graph structure, feature vectors or links of the nodes.
-		They can also be used to perform link prediction, where GNNs are trained to predict whether to people are linked or not.
+		They can also be used to perform link prediction, where GNNs are trained to predict whether two people are linked or not.
 		In social networks this is called friendship prediction \cite{zhang2018link}.
 
 		A Graph Neural Network can be trained in different ways, depending on the purpose it will be in the future.
 		One way is to train them using the transductive setting \cite{5206871, ZHA2010187, WANG2017218, 10.1007/978-3-642-04174-7_29}.
-		Therefor, we consider the graph to be fixed.
+		Therefore, we consider the graph to be fixed.
 		Meaning that neither the edges nor the feature vectors of the nodes change during the lifetime of the graph.
 		Regarding the node classification task that means, that there are some labeled nodes, which are used for training the GNN, and many unlabeled nodes, which need to be classified correctly.
 		Nevertheless this training method is possible, it hardly can be applied to real world problems like training a graph neural network on social network data.

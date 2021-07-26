@@ -44,8 +44,8 @@
                 \end{center}
             \end{figure}
 
-            Note that our baseline already achieves an average F1-Score of $0.7427$ depending on Graph Neural Network type and target dataset $D_{f_t}$.
-            The baseline performed best ($0.7799$ F1-Score) on the Graph Convolutional Neural Network, when it was trained on the  CiteSeer dataset and it performed worst ($0.6847$ F1-Score) on the Graph Attention Network when it was trained on the Cora dataset.
+            Note that our baseline already achieves an average F1-Score of $0.7421$ depending on Graph Neural Network type and target dataset $D_{f_t}$.
+            The baseline performed best ($0.7903$ F1-Score) on the Graph Convolutional Neural Network, when it was trained on the  CiteSeer dataset and it performed worst ($0.6663$ F1-Score) on the Graph Attention Network when it was trained on the Cora dataset.
             Intuitively, with rising amount of known edges, we would expect a higher performance of our attacks.
             However, in some cases, the performance grows until 40\% or 60\% of known edges and drops afterwards.
             More precisely, sometimes the attack performance is better with only 60\% of known edges than with 80\%.
@@ -63,8 +63,8 @@
                 \toprule
                 Target Model & $D_{f_t}$ & $G_A$ Distribution & $\alpha$ & F1-Score \\
                 \midrule
-                GCT       & Cora   & Cora   & 0.8 & $0.8197$ \\
-                GraphSAGE & Pubmed & Pubmed & 0.2 & $0.5491$ \\
+                GCN       & Cora   & Cora   & 0.8 & $0.8110$ \\
+                GraphSAGE & Pubmed & Pubmed & 0.2 & $0.5643$ \\
                 
                 \bottomrule
                 \end{tabular}
@@ -86,12 +86,12 @@
             \end{figure}
 
             The first noticeable fact is, that using the distance vector instead of the concatenation of the posteriors is more effective.
-            This time the average F1-Score of our baseline is $0.7810$, again depending on Graph Neural Network type and target dataset $D_{f_t}$.
-            The baseline performed best ($0.8410$ F1-Score) on the Graph Attention Network, when it was trained on the  CiteSeer dataset and it performed worst ($0.7529$ F1-Score) on the GraphSAGE GNN when it was trained on the Pubmed dataset.
+            This time the average F1-Score of our baseline is $0.7770$, again depending on Graph Neural Network type and target dataset $D_{f_t}$.
+            The baseline performed best ($0.8374$ F1-Score) on the Graph Attention Network, when it was trained on the CiteSeer dataset and it performed worst ($0.7535$ F1-Score) on the GraphSAGE GNN when it was trained on the Pubmed dataset.
             Again we can observe, that the results support our forecast.
             % calculate improvement: impr = max(20p, 40p, 60p, 80p) - baseline
-            With rising amount of known edges, the attack performance grows, leading to an improvement up to $0.08$ F1-Score, while comparing the baseline performance with the results of attacks with known edges.
-            With respect to all performed attacks, the average F1-Score is $0.8059$.
+            With rising amount of known edges, the attack performance grows, leading to an improvement up to $0.08$ F1-Score, while comparing the baseline performance with the results of attacks with more known edges.
+            With respect to all performed attacks, the average F1-Score is $0.8049$.
             Table \refeq{table:attack2-best-and-worst-performance} presents the F1-Scores of our best and worst attacks.
             
             \vspace{0.48cm}
@@ -102,8 +102,8 @@
                 \toprule
                 Target Model & $D_{f_t}$ & $G_A$ Distribution & $\alpha$ & F1-Score \\
                 \midrule
-                GAT       & CiteSeer & CiteSeer & 0.8 & $0.8911$ \\
-                GraphSAGE & Cora     & Cora     & 0.8 & $0.7454$ \\
+                GAT       & CiteSeer & CiteSeer & 0.8 & $0.8923$ \\
+                GraphSAGE & Cora     & Cora     & 0.8 & $0.7463$ \\
                 
                 \bottomrule
                 \end{tabular}
@@ -132,13 +132,13 @@
                 \end{center}
             \end{figure}
 
-            Evaluating \emph{Attack 3}, we note, that the average attack performance of our baseline ($0.7503$ F1-Score) is higher than the average baseline performance of \emph{Attack 1} but lower than the average baseline performance of \emph{Attack 2}.
+            Evaluating \emph{Attack 3}, we note, that the average attack performance of our baseline ($0.7562$ F1-Score) is higher than the average baseline performance of \emph{Attack 1} but lower than the average baseline performance of \emph{Attack 2}.
             The results differ, based on the used datasets $D_{f_t}$ and $D_A$ and the architecture of the target model.
-            We achieve a minimum baseline attack performance of $0.6039$ F1-Score with $D_{f_t}$ being the Cora dataset, the attack model being trained on the Pubmed dataseet and the target model being a Graph Convolutional Neural Network.
-            However, when our target model is a Graph Attention Network, which was trained on the CiteSeer dataset, while the attack model was trained on the Cora dataset, we can achieve a maximum baseline attack performance of $0.8168$ F1-Score.  
+            We achieve a minimum baseline attack performance of $0.6272$ F1-Score with $D_{f_t}$ being the Cora dataset, the attack model being trained on the Pubmed dataset and the target model being a Graph Convolutional Neural Network.
+            However, when our target model is a Graph Attention Network, which was trained on the CiteSeer dataset, while the attack model was trained on the Pubmed dataset, we can achieve a maximum baseline attack performance of $0.8297$ F1-Score.  
             Like in the other experiments, the attack performance mostly increases, while the amount of known edges rises.
-            This leads to an improvement up to $0.23$ F1-Score.
-            With respect to all performed attacks, the average F1-Score is $0.7979$.
+            This leads to an improvement up to $0.20$ F1-Score.
+            With respect to all performed attacks, the average F1-Score is $0.8001$.
             Table \refeq{table:attack3-best-and-worst-performance} presents the F1-Scores of our best and worst attacks.
             
             \vspace{0.48cm}
@@ -148,9 +148,9 @@
                 \begin{tabular}{l|l|l|l|l|}
                 \toprule
                 Target Model & $D_{f_t}$ & $G_A$ Distribution & $\alpha$ & F1-Score \\
-                \midrule
-                GCN & CiteSeer & Pubmed & 0.8 & $0.8955$ \\
-                GCN & Cora     & Pubmed & 0.0 & $0.6039$ \\
+                \midrule 
+                GAT & CiteSeer & Cora   & 0.8 & $0.8986$ \\
+                GCN & Cora     & Pubmed & 0.0 & $0.6272$ \\
                 
                 \bottomrule
                 \end{tabular}
@@ -165,14 +165,14 @@
             \centering
             \footnotesize
             \begin{tabular}{l|l|l|l|}
-              \toprule
-              Target Model & Attack 1 & Attack 2 & Attack 3 \\
-              \midrule
-              GraphSAGE & $0.7661$ & $0.8219$ & $0.8159$ \\
-              GAT & $0.8088$ & $0.8911$ & $0.8927$ \\
-              GCN & $0.8197$ & $0.8722$ & $0.8955$ \\
-            
-              \bottomrule
+                \toprule
+                Target Model & Attack 1 & Attack 2 & Attack 3 \\
+                \midrule
+                GraphSAGE & $0.7577$ & $0.8275$ & $0.8149$ \\
+                GAT & $0.8024$ & $0.8923$ & $0.8985$ \\
+                GCN & $0.8110$ & $0.8732$ & $0.8777$ \\
+                
+                \bottomrule
             \end{tabular}
             \caption{Best Attack Performances on Target Models (F1-Score)}
             \label{table:attack-best-results-all}
@@ -183,14 +183,14 @@
             \centering
             \footnotesize
             \begin{tabular}{l|l|l|l|}
-            \toprule
-            Target Model & Attack 1 & Attack 2 & Attack 3 \\
-            \midrule
-            GraphSAGE & $0.6952$ & $0.7805$ & $0.7804$ \\
-            GAT & $0.7526$ & $0.8254$ & $0.8206$ \\
-            GCN & $0.7762$ & $0.8119$ & $0.7927$ \\
-              
-            \bottomrule
+                \toprule
+                Target Model & Attack 1 & Attack 2 & Attack 3 \\
+                \midrule
+                GraphSAGE & $0.6943$ & $0.7796$ & $0.7808$ \\
+                GAT & $0.7529$ & $0.8251$ & $0.8210$ \\
+                GCN & $0.7766$ & $0.8100$ & $0.7985$ \\
+                
+                \bottomrule
             \end{tabular}
             \caption{Average Attack Performances on Target Models (F1-Score)}
             \label{table:attack-avg-results-all}
