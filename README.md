@@ -2,11 +2,26 @@
 > Philipp Zimmermann - 6th Semester B.Sc. Cybersecurity
 
 
-## Topic Description
+## Abstract
 
-Given a graph dataset `dataset` ( nodes and edges ). Let `target` be a Graph Neural Network (GraphSAGE, GAT, GCN) that is trained on `dataset` to perform node classification. Let `attacker` be a Multi Layer Perceptron that is trained on features generated based on the output-posteriors of `target` to perform link stealing attacks.
-
-Let `i` and `j` be two nodes in `dataset`. The goal is to predict whether the edge `(i,j)` exists or not. Therefor `target` is queried twice, once for each node, giving back two posteriors for the labels `post_i` and `post_j`. The distance between `post_i` and `post_j` is calculated eight times (cosine, euclidean, correlation, chebyshev, braycurtis, manhattan, canberra, sqeuclidean) and concatenated, being the input feature for `attacker`. Based on that `attacker` now decides whether `i` and `j` are connected or not.
+Since nowadays graphs are a common way to store and visualize data, Machine Learning
+algorithms have been improved to directly operate on them. In most cases the graph
+itself can be deemed confidential, since the owner of the data often spends much time
+and resources collecting and preparing the data. In our work, we show, that so called
+inductive trained graph neural networks can reveal sensitive information about their
+training graph. We focus on extracting information about the edges of the target training
+graph by observing the predictions of the target model in so called link stealing attacks.
+In prior work, He et al. proposed the first link stealing attacks on graph neural networks,
+focusing on the transductive learning setting. More precisely, given black box access
+to a graph neural network, the authors were able to predict, whether two nodes of a
+graph that was used for training the model, are linked or not. In our work, we now focus
+on the inductive setting. Specifically, given black box access to a graph neural network
+model that was trained inductively, we are able to predict whether there exists a link
+between any two nodes of the training graph or not. Our experiments show that there
+exist efficient ways to properly reveal sensitive information about the training graphs of
+inductive trained graph neural networks, which leads to big privacy concerns. Depending
+on datasets and the graph neural network model we achieve up to 0.8955 F1-Score while
+having an average performance of 0.7817 F1-Score regarding all our attacks.
 
 ## References
 These references have been used for initial research / getting familiar with the topic. Every reference that was used for the Thesis can be find in the Bibliography section.
@@ -36,12 +51,16 @@ These references have been used for initial research / getting familiar with the
 
 **Start** : 1. April 2021
 
+**Registration** : 14. June 2021
+
 | Design State                         | Time in weeks | Start
 |---                                   |---            |---
 | Familiarization Phase                | 2             | 01/04
 | Design Experiment                    | 4             | 08/04
-| Writing ( Research, Evaluation, ... )| -             | 30/04
-| Intro Talk Preparation               | -             | 14/05
+| Writing ( Research, Evaluation, ... )| 12            | 30/04
+| Reviews                              | -             | 22/07
+| Intro Talk Preparation               | 4             | 14/05
 | Final Talk Preparation               | -             | -
+| Printing                             | -             | -
 
-**End** : in progress
+**Submission** : 14. September 2021
