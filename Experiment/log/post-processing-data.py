@@ -2,14 +2,20 @@ import matplotlib.pyplot as plt
 import numpy
 import pandas
 
-data00 = pandas.read_csv('eval/005500-same-ds.txt')
-data01 = pandas.read_csv('eval/050600-same-ds.txt')
-data02 = pandas.read_csv('eval/081400-same-ds.txt')
-data03 = pandas.read_csv('eval/112000-same-ds.txt')
-data04 = pandas.read_csv('eval/173200-same-ds.txt')
-data05 = pandas.read_csv('eval/224900-same-ds.txt')
+# 10 runs
+d = 'same/'
+data000 = pandas.read_csv(f'eval/{d}005500-same-ds.txt')
+data001 = pandas.read_csv(f'eval/{d}023500-same-ds.txt')
+data002 = pandas.read_csv(f'eval/{d}050600-same-ds.txt')
+data003 = pandas.read_csv(f'eval/{d}081400-same-ds.txt')
+data004 = pandas.read_csv(f'eval/{d}084100-same-ds.txt')
+data005 = pandas.read_csv(f'eval/{d}112000-same-ds.txt')
+data006 = pandas.read_csv(f'eval/{d}144500-same-ds.txt')
+data007 = pandas.read_csv(f'eval/{d}173200-same-ds.txt')
+data008 = pandas.read_csv(f'eval/{d}185700-same-ds.txt')
+data009 = pandas.read_csv(f'eval/{d}224900-same-ds.txt')
 
-datas0 = [data00, data01, data02, data03, data04, data05]
+datas0 = [data000, data001, data002, data003, data004, data005, data006, data007, data008, data009]
 
 
 # -----------------------------------------------------------------------------------------------------------------------------
@@ -171,10 +177,20 @@ for dataset in datasets:
 # Attack-3
 # -----------------------------------------------------------------------------------------------------------------------------
 
-data10 = pandas.read_csv('eval/104400-diff-ds.txt')
-data11 = pandas.read_csv('eval/214400-diff-ds.txt')
+d = 'diff/'
 
-datas1 = [data10, data11]
+data100 = pandas.read_csv(f'eval/{d}013300-diff-ds.txt')
+data101 = pandas.read_csv(f'eval/{d}032800-diff-ds.txt')
+data102 = pandas.read_csv(f'eval/{d}054100-diff-ds.txt')
+data103 = pandas.read_csv(f'eval/{d}104400-diff-ds.txt')
+data104 = pandas.read_csv(f'eval/{d}124700-diff-ds.txt')
+data105 = pandas.read_csv(f'eval/{d}143200-diff-ds.txt')
+data106 = pandas.read_csv(f'eval/{d}164900-diff-ds.txt')
+data107 = pandas.read_csv(f'eval/{d}183600-diff-ds.txt')
+data108 = pandas.read_csv(f'eval/{d}214400-diff-ds.txt')
+data109 = pandas.read_csv(f'eval/{d}234600-diff-ds.txt')
+
+datas1 = [data100, data101, data102, data103, data104, data105, data106, data107, data108, data109]
 
 attack_3 = {'graphsage': {}, 'gat': {}, 'gcn': {}}
 
@@ -227,7 +243,7 @@ attacks = ['bl', '20', '40', '60', '80']
 # Plot results
 for dataset in datasets:
     # Attack 3
-    plt_attack_3 = f'attack-3-{dataset}.png'
+    plt_attack_3 = f'attack-3-{"-".join(dataset.split("_"))}.png'
     res = {'graphsage': [], 'gat': [], 'gcn': []}
 
     for gnn in gnns:
