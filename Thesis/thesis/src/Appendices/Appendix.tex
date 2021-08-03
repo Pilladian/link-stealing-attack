@@ -21,6 +21,7 @@
         \label{table:distance}
     \end{table}
 
+    \vspace{1cm}
     \begin{table}[!h]
         \centering
         \footnotesize
@@ -35,7 +36,7 @@
           $G_A$ & Graph used to sample $D_A$ \\
           $\alpha$ & Percentage of known edges in $G_A$ \\
           $G_A^{0.4}$ & Graph used to sample $D_A$ with 40\% known edges \\
-          $f_A$ & GNN Model, that is involved in training $A$ \\
+          $f_A$ & Shadow GNN Model, that is involved in training $A$ \\
           $D_{f_A}$ & Dataset used to train $f_A$ \\
           $G_s$ & Incomplete Graph, $A$ performs link stealing attacks on \\
           \bottomrule
@@ -47,7 +48,7 @@
     \begin{figure}[h]
       \begin{center}
         \includegraphics[width=\textwidth]{attack-1-cora}
-        \caption{Attack 1 - $D_{f_t} = Cora$}
+        \caption[Attack 1 - $D_{f_t} = Cora$]{Performance of \emph{Attack 1} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the Cora dataset.}
         \label{figure:eval-att1-cora}
       \end{center}
     \end{figure}
@@ -55,7 +56,7 @@
     \begin{figure}[h]
       \begin{center}
         \includegraphics[width=\textwidth]{attack-1-pubmed}
-        \caption{Attack 1 - $D_{f_t} = Pubmed$}
+        \caption[Attack 1 - $D_{f_t} = Pubmed$]{Performance of \emph{Attack 1} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the Pubmed dataset.}
         \label{figure:eval-att1-pubmed}
       \end{center}
     \end{figure}
@@ -63,7 +64,7 @@
     \begin{figure}[h]
       \begin{center}
           \includegraphics[width=\textwidth]{attack-2-cora}
-          \caption{Attack 2 - $D_{f_t} = Cora$}
+          \caption[Attack 2 - $D_{f_t} = Cora$]{Performance of \emph{Attack 2} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the Cora dataset.}
           \label{figure:eval-att2-cora}
       \end{center}
     \end{figure}
@@ -71,7 +72,7 @@
     \begin{figure}[h]
       \begin{center}
           \includegraphics[width=\textwidth]{attack-2-pubmed}
-          \caption{Attack 2 - $D_{f_t} = Pubmed$}
+          \caption[Attack 2 - $D_{f_t} = Pubmed$]{Performance of \emph{Attack 2} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the Pubmed dataset.}
           \label{figure:eval-att2-pubmed}
       \end{center}
     \end{figure}
@@ -79,7 +80,7 @@
     \begin{figure}[h]
       \begin{center}
           \includegraphics[width=\textwidth]{attack-3-citeseer-cora}
-          \caption{Attack 3 - $D_{f_t} = Cora$ and $D_A = CiteSeer$}
+          \caption[Attack 3 - $D_{f_t} = Cora$ and $D_A = CiteSeer$]{Performance of \emph{Attack 3} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the Cora dataset while the shadow model $f_A$ was trained on the CiteSeer dataset.}
           \label{figure:eval-att3-citeseer-cora}
       \end{center}
   \end{figure}
@@ -87,7 +88,7 @@
   \begin{figure}[h]
       \begin{center}
           \includegraphics[width=\textwidth]{attack-3-pubmed-cora}
-          \caption{Attack 3 - $D_{f_t} = Cora$ and $D_A = Pubmed$}
+          \caption[Attack 3 - $D_{f_t} = Cora$ and $D_A = Pubmed$]{Performance of \emph{Attack 3} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the Cora dataset while the shadow model $f_A$ was trained on the Pubmed dataset.}
           \label{figure:eval-att3-pubmed-cora}
       \end{center}
   \end{figure}
@@ -95,7 +96,7 @@
   \begin{figure}[h]
     \begin{center}
         \includegraphics[width=\textwidth]{attack-3-pubmed-cora}
-        \caption{Attack 3 - $D_{f_t} = Pubmed$ and $D_A = Cora$}
+        \caption[Attack 3 - $D_{f_t} = Pubmed$ and $D_A = Cora$]{Performance of \emph{Attack 3} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the Pubmed dataset while the shadow model $f_A$ was trained on the Cora dataset.}
         \label{figure:eval-att3-cora-pubmed}
     \end{center}
   \end{figure}
@@ -103,7 +104,7 @@
   \begin{figure}[h]
       \begin{center}
           \includegraphics[width=\textwidth]{attack-3-pubmed-citeseer}
-          \caption{Attack 3 - $D_{f_t} = Pubmed$ and $D_A = CiteSeer$}
+          \caption[Attack 3 - $D_{f_t} = Pubmed$ and $D_A = CiteSeer$]{Performance of \emph{Attack 3} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the Pubmed dataset while the shadow model $f_A$ was trained on the CiteSeer dataset.}
           \label{figure:eval-att3-citeseer-pubmed}
       \end{center}
   \end{figure}

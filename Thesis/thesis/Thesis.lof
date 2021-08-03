@@ -12,17 +12,17 @@
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Sampling Datasets - Same Dataset Distribution - Attack 1-2\relax }}{16}{figure.caption.37}%
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Sampling Datasets - Different Dataset Distribution - Attack 3\relax }}{17}{figure.caption.39}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Attack 1 - $D_{f_t} = CiteSeer$\relax }}{22}{figure.caption.53}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Attack 2 - $D_{f_t} = CiteSeer$\relax }}{24}{figure.caption.56}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Cora$\relax }}{25}{figure.caption.59}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Pubmed$\relax }}{25}{figure.caption.60}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Attack 1 - $D_{f_t} = CiteSeer$}}{22}{figure.caption.53}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Attack 2 - $D_{f_t} = CiteSeer$}}{24}{figure.caption.56}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Cora$}}{25}{figure.caption.59}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Pubmed$}}{25}{figure.caption.60}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Attack 1 - $D_{f_t} = Cora$\relax }}{38}{figure.caption.78}%
-\contentsline {figure}{\numberline {8.2}{\ignorespaces Attack 1 - $D_{f_t} = Pubmed$\relax }}{38}{figure.caption.79}%
-\contentsline {figure}{\numberline {8.3}{\ignorespaces Attack 2 - $D_{f_t} = Cora$\relax }}{39}{figure.caption.80}%
-\contentsline {figure}{\numberline {8.4}{\ignorespaces Attack 2 - $D_{f_t} = Pubmed$\relax }}{39}{figure.caption.81}%
-\contentsline {figure}{\numberline {8.5}{\ignorespaces Attack 3 - $D_{f_t} = Cora$ and $D_A = CiteSeer$\relax }}{40}{figure.caption.82}%
-\contentsline {figure}{\numberline {8.6}{\ignorespaces Attack 3 - $D_{f_t} = Cora$ and $D_A = Pubmed$\relax }}{40}{figure.caption.83}%
-\contentsline {figure}{\numberline {8.7}{\ignorespaces Attack 3 - $D_{f_t} = Pubmed$ and $D_A = Cora$\relax }}{41}{figure.caption.84}%
-\contentsline {figure}{\numberline {8.8}{\ignorespaces Attack 3 - $D_{f_t} = Pubmed$ and $D_A = CiteSeer$\relax }}{41}{figure.caption.85}%
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Attack 1 - $D_{f_t} = Cora$}}{38}{figure.caption.78}%
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Attack 1 - $D_{f_t} = Pubmed$}}{38}{figure.caption.79}%
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Attack 2 - $D_{f_t} = Cora$}}{39}{figure.caption.80}%
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Attack 2 - $D_{f_t} = Pubmed$}}{39}{figure.caption.81}%
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Attack 3 - $D_{f_t} = Cora$ and $D_A = CiteSeer$}}{40}{figure.caption.82}%
+\contentsline {figure}{\numberline {8.6}{\ignorespaces Attack 3 - $D_{f_t} = Cora$ and $D_A = Pubmed$}}{40}{figure.caption.83}%
+\contentsline {figure}{\numberline {8.7}{\ignorespaces Attack 3 - $D_{f_t} = Pubmed$ and $D_A = Cora$}}{41}{figure.caption.84}%
+\contentsline {figure}{\numberline {8.8}{\ignorespaces Attack 3 - $D_{f_t} = Pubmed$ and $D_A = CiteSeer$}}{41}{figure.caption.85}%

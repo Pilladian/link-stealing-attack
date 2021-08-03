@@ -39,7 +39,7 @@
             \begin{figure}[h]
                 \begin{center}
                     \includegraphics[width=\textwidth]{attack-1-citeseer}
-                    \caption{Attack 1 - $D_{f_t} = CiteSeer$}
+                    \caption[Attack 1 - $D_{f_t} = CiteSeer$]{Performance of \emph{Attack 1} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the CiteSeer dataset.}
                     \label{figure:eval-att1-citeseer}
                 \end{center}
             \end{figure}
@@ -80,7 +80,7 @@
             \begin{figure}[h]
                 \begin{center}
                     \includegraphics[width=\textwidth]{attack-2-citeseer}
-                    \caption{Attack 2 - $D_{f_t} = CiteSeer$}
+                    \caption[Attack 2 - $D_{f_t} = CiteSeer$]{Performance of \emph{Attack 2} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the CiteSeer dataset.}
                     \label{figure:eval-att2-citeseer}
                 \end{center}
             \end{figure}
@@ -119,7 +119,7 @@
             \begin{figure}[h]
                 \begin{center}
                     \includegraphics[width=\textwidth]{attack-3-cora-citeseer}
-                    \caption{Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Cora$}
+                    \caption[Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Cora$]{Performance of \emph{Attack 3} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the CiteSeer dataset while the shadow model $f_A$ was trained on the Cora dataset.}
                     \label{figure:eval-att3-cora-citeseer}
                 \end{center}
             \end{figure}
@@ -127,7 +127,7 @@
             \begin{figure}[h]
                 \begin{center}
                     \includegraphics[width=\textwidth]{attack-3-pubmed-citeseer}
-                    \caption{Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Pubmed$}
+                    \caption[Attack 3 - $D_{f_t} = CiteSeer$ and $D_A = Pubmed$]{Performance of \emph{Attack 3} in F1-Score (y-axis) on our three GNN architectures with rising amount of known edges (x-axis). The target model $f_t$ was trained on the CiteSeer dataset while the shadow model $f_A$ was trained on the Pubmed dataset.}
                     \label{figure:eval-att3-pubmed-citeseer}
                 \end{center}
             \end{figure}
@@ -168,9 +168,9 @@
                 \toprule
                 Target Model & Attack 1 & Attack 2 & Attack 3 \\
                 \midrule
-                GraphSAGE & $0.7577$ & $0.8275$ & $0.8149$ \\
-                GAT & $0.8024$ & $0.8923$ & $0.8985$ \\
-                GCN & $0.8110$ & $0.8732$ & $0.8777$ \\
+                GraphSAGE & $0.7577$ & \textbf{0.8275} & $0.8149$ \\
+                GAT & $0.8024$ & $0.8923$ & \textbf{0.8985} \\
+                GCN & $0.8110$ & $0.8732$ & \textbf{0.8777} \\
                 
                 \bottomrule
             \end{tabular}
@@ -186,9 +186,9 @@
                 \toprule
                 Target Model & Attack 1 & Attack 2 & Attack 3 \\
                 \midrule
-                GraphSAGE & $0.6943$ & $0.7796$ & $0.7808$ \\
-                GAT & $0.7529$ & $0.8251$ & $0.8210$ \\
-                GCN & $0.7766$ & $0.8100$ & $0.7985$ \\
+                GraphSAGE & $0.6943$ & $0.7796$ & \textbf{0.7808} \\
+                GAT & $0.7529$ & \textbf{0.8251} & $0.8210$ \\
+                GCN & $0.7766$ & \textbf{0.8100} & $0.7985$ \\
                 
                 \bottomrule
             \end{tabular}
@@ -196,11 +196,11 @@
             \label{table:attack-avg-results-all}
         \end{table}
     
-    We notice, that sometimes the results of \emph{Attack 3} are more effective than \emph{Attack 2} (Table \refeq{table:attack-best-results-all}), which is against our intuition, since \emph{Attack 3} uses different distribution datasets.
+    We notice, that sometimes the performance of \emph{Attack 3} is better than the performance of \emph{Attack 2} (Table \refeq{table:attack-best-results-all}), which is against our intuition, since \emph{Attack 3} uses different distribution datasets.
     This phenomenon can be explained with the size of $G_A$.
     In \emph{Attack 2} $G_A$ is much smaller, meaning that less training data can be provided to train the attack model.
     Since $G_A$ is a complete dataset - Cora, CiteSeer or Pubmed - in \emph{Attack 3}, the attack model has more data it can be trained on, leading to a better attack performance.
-    In general however (Table \refeq{table:attack-avg-results-all}), we observe that \emph{Attack 2} scores better than \emph{Attack 3} on all target models.
+    In general however (Table \refeq{table:attack-avg-results-all}), we observe that \emph{Attack 2} scores better than \emph{Attack 3} on almost all target models.
 
     \section{Possible Defense}
         One possible defense, which already has been presented by He et al. \cite{DBLP:journals/corr/abs-2005-02131}, is to minimize the posterior output vector of $f$. 
