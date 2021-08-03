@@ -1,4 +1,4 @@
-# Bachelor-Thesis
+# Bachelor Thesis
 > Philipp Zimmermann - 6th Semester B.Sc. Cybersecurity
 
 
