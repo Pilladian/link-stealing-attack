@@ -210,9 +210,9 @@
       Since some other mandatory information and maybe some links are given, the Graph Neural Network can be used to predict the workplace of the new users nevertheless they haven't been included in the training process.
       This happens, by aggregating their neighborhood feature vectors with the own one and querying $f$ on the updated feature vector.
       $f$ will then predict the workplace based on the provided aggregation, since it was trained to find patterns in vectors that lead to certain predictions.
-      Therefor, inductive trained Graph Neural Networks are able to generalize to unseen nodes, making them easier to use for real world problems.
+      Therefore, inductive trained Graph Neural Networks are able to generalize to unseen nodes, making them easier to use for real world problems.
       
-      Since the most real world problems like friendship prediction in social networks or protein-protein interactions in chemical networks cannot be modeled with a static graph, the inductive learning method is commonly used.
+      Since the most real world problems like friendship prediction in social networks or protein-protein interactions in chemical networks cannot be modeled with a static graph, the inductive learning method is more widely used compared to the transductive learning method.
       
   \section{Link Stealing Attacks}
     
@@ -226,7 +226,7 @@
     The goal of link stealing attacks is to recover these missing edges.
     To achieve the reconstruction, the target model will be queried on two nodes $i,j \in V_s$.
     Since $f$ was trained to perform some task, the outputs $f(i)$ and $f(j)$ will be some posterior representing $f$'s prediction.
-    Based on those posteriors, an adversary will train an attack model $A$, that infers, whether the two nodes $i$ and $j$ have originally been connected in $G$, and therefor the edge $e_{ij}$ is missing in $E_s$, or if they haven't been linked in the first place.
+    Based on those posteriors, an adversary will train an attack model $A$, that infers, whether the two nodes $i$ and $j$ have originally been connected in $G$, and therefore the edge $e_{ij}$ is missing in $E_s$, or if they haven't been linked in the first place.
     To train the attack model, one need some positive and some negative samples.
     We define the positive samples $pos = \{ (i,j)$ | $i,j \in V_s: e_{ij} \in E \wedge e_{ij} \not\in E_s\}$ as set of node pairs, that have been connected in $G$ but aren't connected in $G_s$. 
     The negative samples $neg = \{ (i,j)$ | $i,j \in V_s: e_{ij} \not\in E \wedge e_{ij} \not\in E_s\}$ are defined as set of node pairs, that haven't been connected in neither of the two graphs.
