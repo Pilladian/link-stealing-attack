@@ -43,4 +43,7 @@
   Given black box access to a transductive trained Graph Neural Network, they showed that an adversary is able to predict whether any two nodes of a graph, that was used for training, are linked or not.
   The attacks reveal serious concerns on the intellectual property, confidentiality and privacy of graphs, when they are used for training.
   Our work is different, since we focus on \emph{Link Stealing Attacks} on inductive trained Graph Neural Networks.
+  Basically, considering a GNN that was trained using the transductive setting to perform a node classification task, the prediction of the model for each node is fixed, since it only can handle fixed graphs.
+  However, when the GNN is trained inductively, it is able to generalize to unseen nodes, leading to the possibility of different prediction results, based on the amount of information, the graph provides.
+  In our work we consider inductive trained Graph Neural Networks and explore their vulnerability against \emph{Link Stealing Attacks}.
   Specifically, given black box access to an inductive trained Graph Neural Network, we aim to predict whether there exists a link between any two nodes of a graph, that was used for training.

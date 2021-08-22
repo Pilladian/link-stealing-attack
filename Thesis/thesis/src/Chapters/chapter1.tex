@@ -12,7 +12,7 @@
 		% \TODO{Transductive (use full graph) - Inductive (use Local graph / neighborhood)}
 
 		A graph is a data structure which is used to model large data and the relationships between their entities \cite{DBLP:journals/corr/abs-2005-00687, cook2006mining}.
-		Graphs consist of nodes and edges and can be used to model data in almost every domain, e.g. in social networks \TODO{cite}, chemical networks \TODO{cite} or healthcare analytics \TODO{cite}.
+		Graphs consist of nodes and edges and can be used to model data in almost every domain, e.g. in social networks \TODO{TODO cite}, chemical networks \TODO{TODO cite} or healthcare analytics \TODO{TODO cite}.
 		In a social network, the nodes are the users that are registered in the network and the edges represent whether the users know each other or not.
 		If they know each other, the two nodes will be linked in the graph and if they don't know each other, the link between them does not exist.
 		A graph itself can be deemed as intellectual property of the data owner, since one may spent lots of time and resources collecting and preparing the data.
@@ -22,10 +22,10 @@
 		They can be used in different tasks to directly operate on graphs.
 		For example they can be trained to perform node classification tasks\cite{kipf2017semisupervised}.
 		More precisely, given a graph containing a few labeled nodes, the model is trained to predict the labels of the other, unlabeled nodes in the graph by considering the graph structure, feature vectors or links of the nodes.
-		They can also be used to perform link prediction, where GNNs are trained to predict whether two people are linked or not.
+		They can also be used to perform link prediction, where GNNs are trained to predict whether two nodes are linked or not.
 		In social networks this is called friendship prediction \cite{zhang2018link}.
 
-		A Graph Neural Network can be trained in different ways, depending on the purpose it will be in the future.
+		A Graph Neural Network can be trained in different ways, depending on the purpose it will be used for in the future.
 		One way is to train them using the transductive setting \cite{5206871, ZHA2010187, WANG2017218, 10.1007/978-3-642-04174-7_29}.
 		Therefore, we consider the graph to be fixed.
 		Meaning that neither the edges nor the feature vectors of the nodes change during the lifetime of the graph.

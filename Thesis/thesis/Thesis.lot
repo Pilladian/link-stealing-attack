@@ -2,17 +2,17 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Attack Methodology\relax }}{14}{table.caption.31}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Attack Methodology\relax }}{17}{table.caption.31}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Dataset Information\relax }}{15}{table.caption.34}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Target Model Accuracies\relax }}{19}{table.caption.44}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Dataset Information\relax }}{19}{table.caption.34}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Target Model Accuracies\relax }}{23}{table.caption.44}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {6.1}{\ignorespaces Attack-1: Best and Worst Attack Performance\relax }}{23}{table.caption.54}%
-\contentsline {table}{\numberline {6.2}{\ignorespaces Attack-2: Best and Worst Attack Performance\relax }}{24}{table.caption.57}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Attack-3: Best and Worst Attack Performance\relax }}{26}{table.caption.61}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Best Attack Performances on Target Models (F1-Score)\relax }}{26}{table.caption.62}%
-\contentsline {table}{\numberline {6.5}{\ignorespaces Average Attack Performances on Target Models (F1-Score)\relax }}{26}{table.caption.63}%
+\contentsline {table}{\numberline {6.1}{\ignorespaces Attack-1: Best and Worst Attack Performance\relax }}{27}{table.caption.54}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Attack-2: Best and Worst Attack Performance\relax }}{28}{table.caption.57}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Attack-3: Best and Worst Attack Performance\relax }}{30}{table.caption.61}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Best Attack Performances on Target Models (F1-Score)\relax }}{30}{table.caption.62}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Average Attack Performances on Target Models (F1-Score)\relax }}{30}{table.caption.63}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {8.1}{\ignorespaces Distance metrics: $f_{t_i}(u)$ represents the $i$-th component of $f_t(u)$.\relax }}{37}{table.caption.76}%
-\contentsline {table}{\numberline {8.2}{\ignorespaces Notations\relax }}{37}{table.caption.77}%
+\contentsline {table}{\numberline {8.1}{\ignorespaces Distance metrics: $f_{t_i}(u)$ represents the $i$-th component of $f_t(u)$.\relax }}{41}{table.caption.76}%
+\contentsline {table}{\numberline {8.2}{\ignorespaces Notations\relax }}{41}{table.caption.77}%

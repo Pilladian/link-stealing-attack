@@ -113,51 +113,15 @@
         \label{figure:flow-chart-attack-1}
       \end{figure}
 
-    \subsection*{Attack 3}
-    \label{section:attack3}
-      In \emph{Attack 3} we consider $G_A$ and $D_{f_t}$ from different dataset distributions.
-      So the adversary trains a shadow Graph Neural Network model $f_A$ with a shadow dataset $D_{f_A}$.
-      Since $f_t$ and $f_A$ are trained on different dataset distributions, we must assume that they have different parameters like feature amount or number of classes. 
-      Meaning, that it is not possible anymore, to train the adversary directly on the posterior output of $f_t$, since $|post_u| = |f_A(u)|$ (training phase) and $|post_v| = |f_t(v)|$ (attack phase), with $u \in G_A$ and $v \in G_s$, may have different dimensions.
-      Based on this assumption, we need to sample the input for $A$, by creating features based on the posteriors, instead of using them directly.
+    \subsection*{Attack 2}
+    \label{section:attack2}
+      In \emph{Attack 2} we consider $G_A$ and $D_{f_t}$ from the same dataset distribution and denote $f_t = f_A$ like it was done in \emph{Attack 1}.
+      However, for better comparison of the impact of the dataset distribution (\emph{Attack 3}) we sample the input for $A$, by creating features based on the posteriors, instead of using them directly.
       As features we use eight common distance metrics, to measure the distance between $post_i$ and $post_j$.
       We have in total experimented with Cosine distance, Euclidean distance, Correlation distance, Chebyshev distance, Braycurtis distance, Canberra distance, Manhattan distance, and Square-euclidean distance.
       The formal definition of each distance metrics is listed in table \refeq{table:distance}.
       So we construct the input $dist_{ij}$ for $A$ as follows: $dist_{ij} = dist(post_i, post_j)$, where $dist(post_i, post_j) = [Cosine(post_i,post_j), ..., Sqeuclidean(post_i,post_j)]$.
       Given $dist_{ij}$, $A$ now can infer, whether $i$ and $j$ have been connected in the training graph $D_{f_t}$ and the edge is missing in $G_s$ or not.
-
-      \vspace{0.48cm}
-      \begin{figure}[h!]
-        \begin{tikzpicture}
-          
-          % Definitions
-          \tikzstyle{A} = [rectangle, rounded corners, minimum width=2cm, minimum height=1cm,text centered, draw=black]
-          \tikzstyle{f_t} = [rectangle, rounded corners, minimum width=2cm, minimum height=1cm,text centered, draw=black]
-          \tikzstyle{G_s} = [rectangle, rounded corners,minimum width=2cm, minimum height=1cm, text centered, draw=black]
-          \tikzstyle{sample} = [rectangle, minimum width=1.5cm, minimum height=0.6cm, text centered, draw=black]
-          \tikzstyle{dec} = [rectangle, minimum width=2cm, minimum height=1cm, text centered]
-          \tikzstyle{arrow} = [thick,->,>=stealth]
-
-          \node (G_s) [G_s] {$G_s$};
-          \node (f_t) [f_t, right of=G_s, xshift=3cm] {$f_t$};
-          \node (sample) [sample, right of=f_t, xshift=3.5cm] {$dist()$};
-          \node (A) [A, right of=sample, xshift=3cm] {$A$};
-          \node (dec) [dec, below of=A, yshift=-1cm] {Classification};
-
-          \draw [arrow] (G_s) -- node[anchor=south] {$i,j \in G_s$} (f_t);
-          \draw [arrow] (f_t) -- node[anchor=south] {$post_i, post_j$} (sample);
-          \draw [arrow] (sample) -- node[anchor=south] {$dist_{ij}$} (A);
-          \draw [arrow] (A) -- (dec);
-
-        \end{tikzpicture}
-        \caption{Flow Chart - Attack 3}
-        \label{figure:flow-chart-attack-3}
-      \end{figure}
-
-    \subsection*{Attack 2}
-    \label{section:attack2}
-      In \emph{Attack 2} we consider $G_A$ and $D_{f_t}$ from the same dataset distribution and denote $f_t = f_A$ like it was done in \emph{Attack 1}.
-      However, for better comparison of the impact of the dataset distribution, we sample the input for $A$, like it was done in \emph{Attack 3}.
 
       \vspace{0.48cm}
       \begin{figure}[h!]
@@ -186,6 +150,45 @@
         \caption{Flow Chart - Attack 2}
         \label{figure:flow-chart-attack-2}
       \end{figure}
+
+      \subsection*{Attack 3}
+      \label{section:attack3}
+        In \emph{Attack 3} we consider $G_A$ and $D_{f_t}$ from different dataset distributions.
+        So the adversary trains a shadow Graph Neural Network model $f_A$ with a shadow dataset $D_{f_A}$.
+        Since $f_t$ and $f_A$ are trained on different dataset distributions, we must assume that they have different parameters like feature amount or number of classes. 
+        Meaning, that it is not possible anymore, to train the adversary directly on the posterior output of $f_t$, since $|post_u| = |f_A(u)|$ (training phase) and $|post_v| = |f_t(v)|$ (attack phase), with $u \in G_A$ and $v \in G_s$, may have different dimensions.
+        Based on this assumption, we need to sample the input for $A$, like it was done in \emph{Attack 2}, by creating features based on the posteriors, instead of using them directly, like it was done in \emph{Attack 1}.
+        As features we again use the eight distance metrics, to measure the distance between $post_i$ and $post_j$.
+        So we construct the input $dist_{ij}$ for $A$ as $dist_{ij} = dist(post_i, post_j)$.
+        Given $dist_{ij}$, $A$ now can infer, whether $i$ and $j$ have been connected in the training graph $D_{f_t}$ and the edge is missing in $G_s$ or not.
+  
+        \vspace{0.48cm}
+        \begin{figure}[h!]
+          \begin{tikzpicture}
+            
+            % Definitions
+            \tikzstyle{A} = [rectangle, rounded corners, minimum width=2cm, minimum height=1cm,text centered, draw=black]
+            \tikzstyle{f_t} = [rectangle, rounded corners, minimum width=2cm, minimum height=1cm,text centered, draw=black]
+            \tikzstyle{G_s} = [rectangle, rounded corners,minimum width=2cm, minimum height=1cm, text centered, draw=black]
+            \tikzstyle{sample} = [rectangle, minimum width=1.5cm, minimum height=0.6cm, text centered, draw=black]
+            \tikzstyle{dec} = [rectangle, minimum width=2cm, minimum height=1cm, text centered]
+            \tikzstyle{arrow} = [thick,->,>=stealth]
+  
+            \node (G_s) [G_s] {$G_s$};
+            \node (f_t) [f_t, right of=G_s, xshift=3cm] {$f_t$};
+            \node (sample) [sample, right of=f_t, xshift=3.5cm] {$dist()$};
+            \node (A) [A, right of=sample, xshift=3cm] {$A$};
+            \node (dec) [dec, below of=A, yshift=-1cm] {Classification};
+  
+            \draw [arrow] (G_s) -- node[anchor=south] {$i,j \in G_s$} (f_t);
+            \draw [arrow] (f_t) -- node[anchor=south] {$post_i, post_j$} (sample);
+            \draw [arrow] (sample) -- node[anchor=south] {$dist_{ij}$} (A);
+            \draw [arrow] (A) -- (dec);
+  
+          \end{tikzpicture}
+          \caption{Flow Chart - Attack 3}
+          \label{figure:flow-chart-attack-3}
+        \end{figure}
 
     Furthermore, for each Attack we assume different amounts of edges given in $G_A$. 
     The percentage of known edges is denoted as $\alpha$ and has an impact on the prediction (posteriors) of $f_t$ and $f_A$.

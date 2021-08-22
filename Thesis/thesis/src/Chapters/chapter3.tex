@@ -238,4 +238,6 @@
     By completing $G_s$, an adversary steals sensitive information about the training graph of the target model $f$, since $G_s$ is a partial graph of $f$'s training graph $G$.
 
     He et al. performed their attacks on transductive trained Graph Neural Networks and achieved high accuracy in recovering the links of $G_s$. 
-    In our work, we focused on link stealing attacks on inductive trained Graph Neural Networks and we showed, that they are very likely to reveal sensitive information about their training graph as well.
+    While the authors used GNNs that only can handle fixed graphs, 
+    in our work, we focused on link stealing attacks on inductive trained Graph Neural Networks.
+    Using the inductive training setting, our models are able to generalize to unseen nodes, leading to different model predictions based on different information the graph provides. By the end of this thesis however, we will show, that inductive trained GNNs are very likely to reveal sensitive information about their training graph as well.

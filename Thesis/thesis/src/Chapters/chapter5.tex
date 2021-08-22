@@ -22,9 +22,9 @@
         \toprule
         Name & Number of Nodes & Number of Edges & Number of Classes & Feature Amount \\
         \midrule
-        Cora & 2708            & 5429            & 7                 & 1433 \\
-        CiteSeer & 3327        & 4732            & 6                 & 3703 \\
-        Pubmed & 19717         & 44338           & 3                 & 500 \\
+        Cora & 2.708            & 5.429            & 7                 & 1.433 \\
+        CiteSeer & 3.327        & 4.732            & 6                 & 3.703 \\
+        Pubmed & 19.717         & 44.338           & 3                 & 500 \\
         \bottomrule
       \end{tabular}
       \caption{Dataset Information}
@@ -150,7 +150,7 @@
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, two hidden layers follow, each with 16 neurons.
       The number of output neurons is equal to the classes the dataset provides.
-      We train each of them for 200 epochs with a learning rate of $0.01$, dropout of $0.5$ and the Adam optimizer, achieving an average accuracy of $0.81$ for \emph{Cora}, $0.75$ for \emph{CiteSeer} and $0.87$ for \emph{Pubmed}.
+      We train each of them for 200 epochs with a learning rate of $0.01$, dropout of $0.5$ and the Adam optimizer, achieving an average accuracy of $0.809$ for \emph{Cora}, $0.746$ for \emph{CiteSeer} and $0.872$ for \emph{Pubmed}.
 
     \subsection*{Graph Attention Networks}
       In October 2017 Velickovic et al.\cite{gat} presented Graph Attention Networks (GATs), novel neural network architectures that operate directly on graphs.
@@ -162,7 +162,7 @@
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, one hidden layer with 8 neurons follows.
       The number of output neurons is equal to the classes the dataset provides.
-      We train each of them for 200 epochs with a learning rate of $0.005$, dropout of $0.6$ and the Adam optimizer, achieving an average accuracy of $0.78$ for \emph{Cora}, $0.61$ for \emph{CiteSeer} and $0.89$ for \emph{Pubmed}.
+      We train each of them for 200 epochs with a learning rate of $0.005$, dropout of $0.6$ and the Adam optimizer, achieving an average accuracy of $0.778$ for \emph{Cora}, $0.609$ for \emph{CiteSeer} and $0.891$ for \emph{Pubmed}.
 
     \subsection*{Graph Convolutional Networks}
       In February 2017 Kipf et al. \cite{gcn} proposed a scalable approach for semi-supervised learning on graph-structured data that is based on an efficient variant of convolutional neural networks which operate directly on graphs.
@@ -175,7 +175,7 @@
       The input layer contains as much neurons as the given datasets' samples provide features.
       Then, two hidden layers follow, each with 16 neurons.
       The number of output neurons is equal to the classes the dataset provides.
-      We train each of them for 200 epochs with a learning rate of $0.01$, dropout of $0.5$ and the Adam optimizer, achieving an average accuracy of $0.82$ for \emph{Cora}, $0.75$ for \emph{CiteSeer} and $0.86$ for \emph{Pubmed}. 
+      We train each of them for 200 epochs with a learning rate of $0.01$, dropout of $0.5$ and the Adam optimizer, achieving an average accuracy of $0.817$ for \emph{Cora}, $0.748$ for \emph{CiteSeer} and $0.861$ for \emph{Pubmed}. 
 
     The following table provides an overview of our target models and their accuracies regarding their training datasets.
     Each of them has been trained for 200 epochs,with the Adam optimizer, a learning rate of $0.01$ (GraphSAGE and GCN) or $0.005$ (GAT) and a dropout of $0.5$ (GraphSAGE and GCN) or $0.6$ (GAT). 
@@ -187,17 +187,17 @@
         \toprule
         Target Model & Dataset & Accuracy \\
         \midrule
-          \multirow{3}{4em}{GraphSage} & Cora & $0.81$ \\
-          & CiteSeer & $0.75$ \\
-          & Pubmed & $0.87$ \\
+          \multirow{3}{4em}{GraphSage} & Cora & $0.809$ \\
+          & CiteSeer & $0.746$ \\
+          & Pubmed & $0.872$ \\
 
-          \multirow{3}{4em}{GAT} & Cora & $0.78$ \\
-          & CiteSeer & $0.61$ \\
-          & Pubmed & $0.89$ \\
+          \multirow{3}{4em}{GAT} & Cora & $0.778$ \\
+          & CiteSeer & $0.609$ \\
+          & Pubmed & $0.891$ \\
 
-          \multirow{3}{4em}{GCN} & Cora & $0.82$ \\
-          & CiteSeer & $0.75$ \\
-          & Pubmed & $0.86$ \\
+          \multirow{3}{4em}{GCN} & Cora & $0.817$ \\
+          & CiteSeer & $0.748$ \\
+          & Pubmed & $0.861$ \\
           
         \bottomrule
       \end{tabular}
