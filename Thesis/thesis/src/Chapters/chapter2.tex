@@ -18,9 +18,9 @@
   They showed, that given the target model and some demographic information about a patient, it is possible to predict the patient's genetic markers.
   The authors further investigated, that differential privacy mechanisms prevent their model inversion attacks, when the privacy budget is carefully selected.
   % Model Extraction
-  With \emph{Model Extraction Attacks} \cite{atli2020extraction, juuti2019prada, tramer2016stealing}, an adversary aims to steal the model internals and uses this information to gradually train a substitute model that immitates the behaviour of the target.
-  Tramèr et al. \cite{tramer2016stealing} proposed simple model extraction attacks, which were able to steal target models with near-perfect fidality.
-  A similar aproach was proposed by Wang and Gong \cite{8418595}, who were able to successfully steal the hyperparameters of target models.
+  With \emph{Model Extraction Attacks} \cite{atli2020extraction, juuti2019prada, tramer2016stealing}, an adversary aims to steal the model internals and uses this information to gradually train a substitute model that imitates the behaviour of the target.
+  Tramèr et al. \cite{tramer2016stealing} proposed simple model extraction attacks, which were able to steal target models with near-perfect fidelity.
+  A similar approach was proposed by Wang and Gong \cite{8418595}, who were able to successfully steal the hyper parameters of target models.
   To mitigate these attacks, many defenses have been proposed \cite{juuti2019prada, hu2021model, 272262, mori2021bodame}.
   For Example Juuti et al. \cite{juuti2019prada}, showed that they were able to detect all prior model extraction attacks with no false positives by raising an alarm when the distribution of consecutive API queries deviates from benign behavior.
   Hu and Pang \cite{hu2021model} proposed an effective defense against model extraction attacks on Generative Adversarial Networks \cite{goodfellow2014generative}, considering a trade-off between the utility and security of GANs.
@@ -31,14 +31,14 @@
   Although, recent work shows, that Graph Neural Networks are vulnerable to adversarial attacks as well \cite{agbcvmtgs, 10.1145/3366423.3380149, Z_gner_2018, Z_gner_2018, jin2020adversarial}.
   More precisely, an adversary can decrease the targets accuracy by manipulating the graph structure or node features.
   For example, Sun et al. \cite{10.1145/3366423.3380149} proposed node injection poisoning attacks, where adversarial nodes are injected into existing graphs to reduce the performance of classifying existing nodes.
-  Zügner et al. \cite{Z_gner_2018} showed that even with only a few pertubations the accuracy of node classification significantly drops, while focusing on training and testing phase.
+  Zügner et al. \cite{Z_gner_2018} showed that even with only a few perturbations the accuracy of node classification significantly drops, while focusing on training and testing phase.
   Wang et al. \cite{agbcvmtgs} focused on adversarial collective classification.
   They formulate their attack as a graph-based optimization problem, which produces the edges that an attacker needs to manipulate to achieve its attack goal and als propose several techniques to solve the optimization problem.
   Lastly Jin et al. \cite{jin2020adversarial} categorized existing attacks and defenses, and reviewed the corresponding state-of-the-art methods. They also have developed a repository with representative algorithms.
   Our work is different, since we focus on stealing links from Graph Neural Networks.
 
   % First Link Stealing Attacks on Graph Neural Networks
-  In recent work, He et al. proposed the first attacks on Graph Neural Networks to obtain information about the underlaying training graph \cite{DBLP:journals/corr/abs-2005-02131}.
+  In recent work, He et al. proposed the first attacks on Graph Neural Networks to obtain information about the under laying training graph \cite{DBLP:journals/corr/abs-2005-02131}.
   They call their attacks \emph{Link Stealing Attacks}.
   Given black box access to a transductive trained Graph Neural Network, they showed that an adversary is able to predict whether any two nodes of a graph, that was used for training, are linked or not.
   The attacks reveal serious concerns on the intellectual property, confidentiality and privacy of graphs, when they are used for training.
