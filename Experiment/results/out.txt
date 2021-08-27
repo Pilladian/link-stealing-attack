@@ -1,3 +1,0 @@
-Avg. F1-Score all 0.7938
-Minimum F1-Score: 0.6636 - pubmed_cora - gcn
-Improvement: 0.1320 - pubmed_cora - graphsage

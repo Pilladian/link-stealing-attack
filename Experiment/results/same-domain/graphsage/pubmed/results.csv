@@ -1,9 +1,0 @@
-baseline_train_same_domain_post,70.98299999999999,74.569
-surviving_edges_same_domain_post_20p,66.66799999999999,74.507
-surviving_edges_same_domain_post_40p,67.81800000000001,75.463
-surviving_edges_same_domain_post_60p,67.99100000000001,75.525
-surviving_edges_same_domain_post_80p,66.468,74.815
-
-baseline_train_same_domain_dist,71.04799999999999,76.071
-surviving_edges_same_domain_dist_20p,73.19099999999999,77.643
-surviving_edges_same_domain_dist_40p,76.518,79.855

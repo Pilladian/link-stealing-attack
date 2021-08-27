@@ -10,11 +10,11 @@
 	\section{Motivation}
 
 		A graph is a data structure that is used to model large data and the relationships between their entities \cite{DBLP:journals/corr/abs-2005-00687, cook2006mining}.
-		Graphs consist of nodes and edges and are excellent at representing impossibly large data sets.
+		Graphs consist of nodes and edges and are excellent at representing impossibly large datasets.
 		In a social network for example, the nodes are the users that are registered in the network and the edges represent whether the users know each other or not.
 		If they know each other, the two nodes will be linked in the graph and if they don't know each other, the link between them does not exist.
 		A graph itself can be deemed as intellectual property of the data owner, since one may spent lots of time and resources collecting and preparing the data.
-		In most cases the graph is also highly confidential because it contains sensitive information like private social relationships between users in a social network or medical information about specific patients in healthcare-analytic data sets.
+		In most cases the graph is also highly confidential because it contains sensitive information like private social relationships between users in a social network or medical information about specific patients in healthcare-analytic datasets.
 		Since nowadays graphs are a common way to store and visualize data, Machine Learning algorithms have been improved to directly operate on them.
 		These Machine Learning Models are called Graph Neural Networks (GNNs) \cite{atwood2016diffusionconvolutional, defferrard2017convolutional}.
 		They can be used in different tasks to directly operate on graphs.
@@ -28,24 +28,24 @@
 		Therefore, we consider the graph to be fixed.
 		Meaning that neither the edges nor the feature vectors of the nodes change during the lifetime of the graph.
 		Regarding the node classification task that means, that there are some labeled nodes, which are used for training the GNN, and many unlabeled nodes, which need to be classified correctly.
-		Nevertheless this training method is possible, it hardly can be applied to real world problems like training a graph neural network on social network data.
+		Nevertheless this training method is possible, it hardly can be applied to real world problems like training a Graph Neural Network on social network data.
 		That's why graphs in most cases keep evolving.
 		E.g. in social networks, every day new users register to the network while others delete their accounts.
 		To address this problem GNNs can also be trained using the inductive setting \cite{zeng2020graphsaint, 8519335, zhang2020document}.
 		More specifically, instead of providing a fixed graph as input and training the GNN to learn the local graph structure, we now want the model to learn an aggregation and update function.
 		These two functions are used to update a nodes feature vector with the aggregation of its neighborhoods feature vectors.
-		In that way, only a partial graph is used for training the graph neural network instead of considering the full graph structure.
+		In that way, only a partial graph is used for training the Graph Neural Network instead of considering the full graph structure.
 		With the inductive setting, the trained model can better generalize to unseen nodes, by aggregating their neighborhood, updating the nodes feature vector and querying the GNN on the updated result.
 		Now it is possible to update the GNN on new nodes without retraining it completely.
 
-		In our work, we want to show, that inductive trained graph neural networks are very likely to leak sensitive information about their training graph. 
+		In our work, we want to show, that inductive trained Graph Neural Networks are very likely to leak sensitive information about their training graph. 
 		Meaning that queries on a partial graph of the training graph can reveal links, that are deemed confidential and thus lead to a big privacy risk.
 
 	\section{Outline}
 		This thesis starts giving an overview of machine learning and some privacy breaching attacks, like membership inference attacks or model inversion attacks, that have been developed over the past years.
-		Especially considering graphs and graph neural networks we take a first look at link stealing attacks that have been proposed the first time in year 2020.
-		We will then provide some background information about graphs, neural networks, graph neural networks and link stealing attacks.
-		We describe the intuition behind those concepts, where and why we use graph neural networks and what the difference between transductive and inductive training is.
-		After that we propose our attacks against inductive trained graph neural networks, which aim to steal links from the target models training graph, talking about their intuition, their functionality and implementation.
+		Especially considering graphs and Graph Neural Networks we take a first look at link stealing attacks that have been proposed the first time in year 2020.
+		We will then provide some background information about graphs, neural networks, Graph Neural Networks and link stealing attacks.
+		We describe the intuition behind those concepts, where and why we use Graph Neural Networks and what the difference between transductive and inductive training is.
+		After that we propose our attacks against inductive trained Graph Neural Networks, which aim to steal links from the target models training graph, talking about their intuition, their functionality and implementation.
 		At the end, we will evaluate our findings by presenting our experimental results and discuss their impact.
 		We also provide some ideas about possible defenses and future work, that might be interesting.
