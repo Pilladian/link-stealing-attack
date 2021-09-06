@@ -58,9 +58,9 @@ These references have been used for initial research / getting familiar with the
 | Familiarization Phase                | 2             | 01/04
 | Design Experiment                    | 4             | 08/04
 | Writing ( Research, Evaluation, ... )| 12            | 30/04
-| Reviews                              | -             | 22/07
+| Reviews                              | 6             | 22/07
 | Intro Talk Preparation               | 4             | 14/05
-| Final Talk Preparation               | -             | -
-| Printing                             | -             | -
+| Final Talk Preparation               | 1             | 01/09
+| Printing                             | 1             | 30/08
 
-**Submission** : 14. September 2021
+**Submission** : 6. September 2021
